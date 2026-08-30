@@ -50,7 +50,7 @@ export default function VenueAndContact() {
                       <span>Department</span>
                     </div>
                     <p className="text-xs text-slate-700">
-                      Department of ECE (VDT) [VLSI Design & Technology]
+                      Electronics Engineering (VLSI Design and Technology) [EE (VDT)]
                     </p>
                   </div>
 
@@ -87,9 +87,9 @@ export default function VenueAndContact() {
 
                 <div className="p-4 rounded-xl bg-slate-900 text-purple-100 text-xs font-mono space-y-1">
                   <p className="text-purple-300 font-bold uppercase tracking-wider">Arrival Checklist:</p>
-                  <p>• Bring digital pass confirmation (SMS / Email / Pass ID)</p>
+                  <p>• Bring digital pass confirmation (SMS/Email/Pass ID)</p>
                   <p>• No personal laptops needed — CAD workstations pre-mounted</p>
-                  <p>• Morning & Evening High-Tea / Refreshments provided</p>
+                  <p>• Refreshments & Networking Lunch provided on-site</p>
                 </div>
               </div>
 
@@ -98,7 +98,7 @@ export default function VenueAndContact() {
                 <div className="space-y-1 border-b border-purple-800/60 pb-4">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-800/80 text-purple-200 text-[11px] font-semibold">
                     <Sparkles className="w-3 h-3 text-purple-300" />
-                    <span>Academic Coordinators</span>
+                    <span>Academic & Lab Coordinators</span>
                   </div>
                   <h4 className="font-editorial text-xl font-normal text-white pt-2">
                     Department Helpdesk
@@ -135,7 +135,7 @@ export default function VenueAndContact() {
                     </div>
                     <div>
                       <p className="text-[10px] uppercase font-mono text-purple-300">Organizing Body</p>
-                      <p className="font-semibold text-white">Department of ECE (VDT)</p>
+                      <p className="font-semibold text-white">Dept of EE (VDT) & C2S Centre</p>
                     </div>
                   </div>
                 </div>

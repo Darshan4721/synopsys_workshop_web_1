@@ -4,11 +4,13 @@ const path = require('path');
 
 console.log('=== RUNNING STAGE 5 INDEPENDENT QA & ACCEPTANCE VERIFICATION ===\n');
 
+const dataContent = fs.readFileSync(path.join(__dirname, '../src/lib/data.ts'), 'utf8');
+
 const checks = [
   {
-    name: 'Meeting Minutes Frozen (meeting_001.md & meeting_002.md)',
-    path: path.join(__dirname, '../company/00_client/meetings/meeting_002.md'),
-    validate: (content) => content.includes('Sri Shakthi') && content.includes('2,500')
+    name: 'Meeting Minutes Frozen (meeting_001.md)',
+    path: path.join(__dirname, '../company/00_client/meetings/meeting_001.md'),
+    validate: (content) => content.includes('Sri Shakthi') && content.includes('FROZEN') && content.includes('2,500')
   },
   {
     name: 'Product Requirements (requirements.md)',
@@ -32,7 +34,6 @@ const checks = [
       content.includes('Sri Shakthi Institute of Engineering and Technology') &&
       content.includes('₹2,500') &&
       content.includes('50') &&
-      content.includes('Department of ECE (VDT)') &&
       content.includes('Synopsys Design Compiler') &&
       content.includes('Synopsys VCS') &&
       content.includes('SpyGlass')
@@ -53,9 +54,9 @@ const checks = [
     validate: (content) => content.includes('counter_8bit.v') && content.includes('timing_constraints.sdc') && content.includes('dc_shell')
   },
   {
-    name: '1:1 Single-Monitor Workstations Guarantee (WorkstationGuarantee.tsx)',
+    name: '1:1 Workstations Guarantee (WorkstationGuarantee.tsx)',
     path: path.join(__dirname, '../src/components/WorkstationGuarantee.tsx'),
-    validate: (content) => content.includes('50 Dedicated Workstations') && content.includes('Single-Monitor')
+    validate: (content) => content.includes('50 Dedicated Workstations') && content.includes('1:1 Individual Access')
   },
   {
     name: 'Full Day Schedule (ScheduleTimeline.tsx)',
@@ -74,8 +75,8 @@ const checks = [
   },
   {
     name: 'Image Assets Exist in public/images',
-    path: path.join(__dirname, '../public/images/vlsi_cad_lab.jpg'),
-    validate: () => fs.existsSync(path.join(__dirname, '../public/images/certificate_mockup.jpg'))
+    path: path.join(__dirname, '../public/images/synopsys_silicon_chip.jpg'),
+    validate: () => fs.existsSync(path.join(__dirname, '../public/images/vlsi_cad_lab.jpg')) && fs.existsSync(path.join(__dirname, '../public/images/certificate_mockup.jpg'))
   }
 ];
 

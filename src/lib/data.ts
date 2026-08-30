@@ -3,7 +3,7 @@ import { VlsiStage, ScheduleItem } from './types';
 export const WORKSHOP_DETAILS = {
   title: "National-Level Hands-on Workshop on Front-End VLSI Design Flow in Synopsys EDA Suite",
   institution: "Sri Shakthi Institute of Engineering and Technology",
-  department: "Department of ECE (VDT) [VLSI Design and Technology]",
+  department: "Department of Electronics Engineering (VLSI Design and Technology) [EE (VDT)]",
   venue: "VLSI Research Lab, Tech Park, Sri Shakthi Campus",
   time: "8:30 AM – 4:30 PM (Full Day Intensive)",
   dateNotice: "Dates to be Announced Soon • Registrations Open",
@@ -12,12 +12,12 @@ export const WORKSHOP_DETAILS = {
   seatsRemaining: 14,
   mode: "1:1 Dedicated Single-Monitor CAD Workstation (Hands-on, Zero Laptop Required)",
   certificate: "Unified Official Certificate of Participation & Synopsys Front-End VLSI Design Training",
-  organizingBody: "Department of ECE (VDT)",
   patrons: [
     { name: "MeitY", label: "Ministry of Electronics & IT, Govt. of India" },
     { name: "C2S", label: "Chip to Startup Programme" },
     { name: "IIC", label: "Institution's Innovation Council" },
-    { name: "Synopsys", label: "Synopsys University Program & EDA Suite" }
+    { name: "Synopsys", label: "Synopsys University Program & EDA Suite" },
+    { name: "Sri Shakthi", label: "VLSI Research & Innovation Centre" }
   ]
 };
 
@@ -179,9 +179,9 @@ export const SCHEDULE_DATA: ScheduleItem[] = [
     title: "Check-in, 1:1 CAD Workstation Allocation & Server Setup",
     type: "session",
     toolBadge: "Lab CAD Environment",
-    description: "Welcome to the VLSI Research Lab at Tech Park. Registration desk check-in, allocation of individual single-monitor Linux CAD workstations, and Synopsys license server initialization.",
+    description: "Welcome to the VLSI Research Lab at Tech Park. Registration kit handout, seating at individual single-monitor Linux CAD workstations, and Synopsys license server initialization.",
     highlights: [
-      "Individual single-monitor workstation allocation (1:1)",
+      "Individual workstation check-in (1:1 allocation)",
       "Linux terminal environment & shell variable configuration",
       "Synopsys licensing daemon verification"
     ]
@@ -202,9 +202,9 @@ export const SCHEDULE_DATA: ScheduleItem[] = [
   {
     time: "11:00 AM – 11:15 AM",
     duration: "15 mins",
-    title: "Morning Networking Tea & Refreshments",
+    title: "Networking Tea & Refreshments",
     type: "break",
-    description: "High-tea and peer networking break at Sri Shakthi Tech Park lounge.",
+    description: "High-tea and peer networking at Sri Shakthi Tech Park lounge.",
     highlights: ["Tea, coffee, and refreshments provided"]
   },
   {
@@ -223,10 +223,10 @@ export const SCHEDULE_DATA: ScheduleItem[] = [
   {
     time: "01:00 PM – 02:00 PM",
     duration: "60 mins",
-    title: "Lunch Break & Informal Interaction",
+    title: "Executive Networking Lunch",
     type: "break",
-    description: "Mid-day break for lunch and informal technical discussions across campus facilities.",
-    highlights: ["1-hour dedicated break for dining & campus exploration"]
+    description: "Full buffet lunch provided at the campus dining hall for all registered participants.",
+    highlights: ["Complimentary lunch included in registration"]
   },
   {
     time: "02:00 PM – 03:15 PM",
@@ -262,9 +262,9 @@ export const SCHEDULE_DATA: ScheduleItem[] = [
     toolBadge: "Official Certification",
     description: "Concluding remarks, distribution of the official Certificate of Participation & Synopsys Front-End VLSI Design Training, and collection of project takeaways.",
     highlights: [
-      "One Unified Official Certificate issued to all attendees",
+      "Unified Official Certificate issued to all attendees",
       "Take-home code repositories & SDC templates",
-      "Vote of thanks by Department of ECE (VDT)"
+      "Vote of thanks by Department of Electronics Engineering (VDT)"
     ]
   }
 ];
@@ -280,11 +280,11 @@ export const FAQS = [
   },
   {
     question: "Who is eligible to register for this workshop?",
-    answer: "The workshop is open to all engineering students (B.Tech, B.E., M.Tech, M.E. in ECE, EE, VLSI, CSE), PhD research scholars, academic faculty members, and working industry professionals wanting hands-on exposure to the Synopsys front-end design suite."
+    answer: "The workshop is open to all engineering students (B.Tech, B.E., M.Tech, M.E. in EE, ECE, VLSI, CSE), PhD research scholars, academic faculty members, and working industry professionals wanting hands-on exposure to the Synopsys front-end design suite."
   },
   {
     question: "What is included in the ₹2,500 registration fee?",
-    answer: "The fee covers full-day hands-on access to 1:1 dedicated single-monitor CAD workstations, access to premium Synopsys EDA tools (VCS, Verdi, SpyGlass, Design Compiler), complete starter RTL code packs and SDC scripts, the official unified training certificate, and morning/afternoon networking refreshments."
+    answer: "The fee covers full-day hands-on access to 1:1 dedicated CAD workstations, access to premium Synopsys EDA tools (VCS, Verdi, SpyGlass, Design Compiler), complete starter RTL code packs and SDC scripts, the official unified training certificate, morning networking tea, full lunch, and afternoon refreshments."
   },
   {
     question: "When will the exact workshop date be finalized?",

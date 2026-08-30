@@ -20,13 +20,13 @@ export default function Hero({ onOpenRegister }: HeroProps) {
         {/* Institutional & Patronage Eyebrow */}
         <div className="flex flex-wrap items-center justify-center gap-2.5 mb-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-purple-200/80 shadow-sm backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-purple-600 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
             <span className="text-xs font-semibold text-purple-950 uppercase tracking-wider">
               {WORKSHOP_DETAILS.institution}
             </span>
           </div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100/90 text-purple-900 border border-purple-200 text-xs font-semibold">
-            <span>Department of ECE (VDT)</span>
+            <span>Dept. of Electronics Engineering (VLSI Design & Technology)</span>
           </div>
         </div>
 
@@ -41,7 +41,7 @@ export default function Hero({ onOpenRegister }: HeroProps) {
           </h1>
 
           <p className="text-base sm:text-xl text-slate-600 font-normal leading-relaxed max-w-3xl mx-auto">
-            An intensive, full-day national hands-on masterclass from synthesizable Verilog RTL to Synopsys Design Compiler synthesis, VCS simulation, Verdi debug, and SpyGlass CDC analysis on <strong className="text-purple-950 font-semibold">50 dedicated single-monitor CAD workstations</strong>.
+            An intensive, full-day national hands-on masterclass from synthesizable Verilog RTL to Synopsys Design Compiler synthesis, VCS simulation, Verdi debug, and SpyGlass CDC analysis on <strong className="text-purple-950 font-semibold">50 dedicated 1:1 CAD workstations</strong>.
           </p>
 
           {/* Quick Metrics Ribbon (Double-Bezel Architecture) */}
@@ -55,19 +55,19 @@ export default function Hero({ onOpenRegister }: HeroProps) {
                       Workstations
                     </span>
                   </div>
-                  <p className="text-2xl font-bold text-slate-900 tracking-tight">50 Systems</p>
-                  <p className="text-[11px] text-purple-800 font-medium">Single-Monitor (1:1)</p>
+                  <p className="text-2xl font-bold text-slate-900 tracking-tight">50 Dedicated</p>
+                  <p className="text-[11px] text-purple-800 font-medium">1:1 Individual System</p>
                 </div>
 
                 <div className="text-center pt-2 md:pt-0 md:pl-6">
                   <div className="flex items-center justify-center gap-1.5 text-purple-700 mb-1">
                     <Zap className="w-4 h-4" />
                     <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                      Registration Fee
+                      Fee (Fixed)
                     </span>
                   </div>
                   <p className="text-2xl font-bold text-purple-950 tracking-tight">{WORKSHOP_DETAILS.fee}</p>
-                  <p className="text-[11px] text-purple-800 font-medium">Fixed per Participant</p>
+                  <p className="text-[11px] text-emerald-600 font-semibold">All-Inclusive Lab Pass</p>
                 </div>
 
                 <div className="text-center pt-2 md:pt-0 md:pl-6">
@@ -77,8 +77,8 @@ export default function Hero({ onOpenRegister }: HeroProps) {
                       Certification
                     </span>
                   </div>
-                  <p className="text-2xl font-bold text-slate-900 tracking-tight">1 Unified</p>
-                  <p className="text-[11px] text-purple-800 font-medium">Official Certificate</p>
+                  <p className="text-2xl font-bold text-slate-900 tracking-tight">1 Official</p>
+                  <p className="text-[11px] text-purple-800 font-medium">Participation & Training</p>
                 </div>
 
                 <div className="text-center pt-2 md:pt-0 md:pl-6">
@@ -127,21 +127,21 @@ export default function Hero({ onOpenRegister }: HeroProps) {
           </div>
         </div>
 
-        {/* Visual Hero Feature Showcase: The Fantastic Silicon IC Microchip Die */}
+        {/* Visual Hero Feature Showcase: Silicon Wafer & Toolchain Bento */}
         <div className="mt-14 max-w-5xl mx-auto">
           <div className="double-bezel-card overflow-hidden">
             <div className="double-bezel-inner p-3 sm:p-4 bg-slate-950">
               <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden group">
                 <Image
                   src="/images/synopsys_silicon_chip.jpg"
-                  alt="Synopsys Semiconductor Silicon Die with Luminous Purple Circuit Traces"
+                  alt="Synopsys Semiconductor Die with Glowing Purple Circuit Traces"
                   fill
                   priority
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
                 
-                {/* Floating Micro-Highlights over IC Image */}
+                {/* Floating Micro-Highlights over Image */}
                 <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-wrap items-end justify-between gap-4">
                   <div className="space-y-1">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-900/80 backdrop-blur-md border border-purple-400/30 text-white text-[11px] font-semibold">

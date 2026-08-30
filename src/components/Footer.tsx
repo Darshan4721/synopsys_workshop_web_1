@@ -29,7 +29,7 @@ export default function Footer({ onOpenRegister }: FooterProps) {
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              Department of ECE (VDT) [VLSI Design and Technology]. Dedicated to cultivating world-class semiconductor EDA engineering talent under national C2S and MeitY initiatives.
+              Department of Electronics Engineering (VLSI Design and Technology) [EE (VDT)]. Dedicated to cultivating world-class semiconductor EDA engineering talent under national C2S and MeitY initiatives.
             </p>
 
             <div className="pt-2">
