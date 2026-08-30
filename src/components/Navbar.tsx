@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Sparkles, ChevronRight, Menu, X, ShieldCheck, UserCheck } from 'lucide-react';
+import { Sparkles, ChevronRight, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   onOpenRegister: () => void;
@@ -55,8 +54,8 @@ export default function Navbar({ onOpenRegister }: NavbarProps) {
           </div>
         </a>
 
-        {/* Navigation Links (Desktop) */}
-        <div className="hidden lg:flex items-center gap-7 text-xs sm:text-sm font-medium text-slate-600">
+        {/* Navigation Links (Desktop) - 100% Attendee Focused */}
+        <div className="hidden lg:flex items-center gap-8 text-xs sm:text-sm font-medium text-slate-600">
           <a href="#curriculum" className="hover:text-purple-700 transition-colors">
             EDA Flow
           </a>
@@ -75,13 +74,6 @@ export default function Navbar({ onOpenRegister }: NavbarProps) {
           <a href="#faq" className="hover:text-purple-700 transition-colors">
             FAQ
           </a>
-          <Link
-            href="/admin"
-            className="text-purple-800 hover:text-purple-950 font-semibold inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-50 hover:bg-purple-100/80 border border-purple-200/70 transition-all text-xs"
-          >
-            <UserCheck className="w-3.5 h-3.5" />
-            <span>Admin Desk</span>
-          </Link>
         </div>
 
         {/* Action Button & Mobile Trigger */}
@@ -108,7 +100,7 @@ export default function Navbar({ onOpenRegister }: NavbarProps) {
         </div>
       </nav>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu - 100% Attendee Focused */}
       {mobileMenuOpen && (
         <div className="lg:hidden mt-2 max-w-7xl mx-auto pointer-events-auto bg-white/95 backdrop-blur-2xl border border-purple-200/80 rounded-3xl p-6 shadow-2xl">
           <div className="flex flex-col gap-4 text-sm font-medium text-slate-800">
@@ -150,18 +142,10 @@ export default function Navbar({ onOpenRegister }: NavbarProps) {
             <a
               href="#faq"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-purple-100 hover:text-purple-700"
+              className="py-2 hover:text-purple-700"
             >
               Frequently Asked Questions
             </a>
-            <Link
-              href="/admin"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 text-purple-900 font-semibold flex items-center gap-2"
-            >
-              <UserCheck className="w-4 h-4 text-purple-700" />
-              <span>Coordinator Admin Portal</span>
-            </Link>
             <button
               onClick={() => {
                 setMobileMenuOpen(false);

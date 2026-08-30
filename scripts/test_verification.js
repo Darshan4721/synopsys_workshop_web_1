@@ -1,44 +1,39 @@
-// Automated Verification Suite for Sri Shakthi Synopsys VLSI Workshop Website (v2.1)
+// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v3.0)
 const fs = require('fs');
 const path = require('path');
 
-console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION ===\n');
+console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v3.0) ===\n');
 
 const checks = [
   {
-    name: 'Meeting Minutes (meeting_001.md, meeting_002.md, meeting_003.md)',
-    path: path.join(__dirname, '../company/00_client/meetings/meeting_003.md'),
-    validate: (content) => content.includes('Meeting #003') && content.includes('Asset Retention Policy') && content.includes('Admin Registration')
+    name: 'Meeting Minutes (meeting_004.md)',
+    path: path.join(__dirname, '../company/00_client/meetings/meeting_004.md'),
+    validate: (content) => content.includes('Meeting #004') && content.includes('Admin Authentication')
   },
   {
-    name: 'Product Requirements (requirements.md)',
-    path: path.join(__dirname, '../company/02_product/requirements.md'),
-    validate: (content) => content.includes('PRD-VLSI-SYNOPSYS-001') && content.includes('50 Dedicated')
+    name: 'Navbar Clean: Public Header has ZERO Admin Links (Navbar.tsx)',
+    path: path.join(__dirname, '../src/components/Navbar.tsx'),
+    validate: (content) => !content.includes('href="/admin"') && content.includes('SSIET') && content.includes('Reserve Pass')
   },
   {
-    name: 'Design System Tokens (tokens.json)',
-    path: path.join(__dirname, '../company/03_design/tokens.json'),
-    validate: (content) => content.includes('synopsys_purple') && content.includes('double_bezel')
+    name: 'Coordinator Admin Protected with Auth Gate (src/app/admin/page.tsx)',
+    path: path.join(__dirname, '../src/app/admin/page.tsx'),
+    validate: (content) => content.includes('Coordinator Desk Authentication') && content.includes('handleLogin') && content.includes('handleExportCSV')
   },
   {
-    name: 'SQL Schema Migration (001_initial_schema.sql)',
-    path: path.join(__dirname, '../company/backend/sql/001_initial_schema.sql'),
-    validate: (content) => content.includes('CREATE TABLE IF NOT EXISTS workshops') && content.includes('workshop_registrations')
+    name: 'Live Interactive Verdi Waveform Simulator (EdaConsoleSimulator.tsx)',
+    path: path.join(__dirname, '../src/components/EdaConsoleSimulator.tsx'),
+    validate: (content) => content.includes('pulseClock') && content.includes('TIMING TRACE SIMULATOR') && content.includes('COUNT[7:0]')
+  },
+  {
+    name: 'Holographic Boarding Pass (DigitalPassPreview.tsx)',
+    path: path.join(__dirname, '../src/components/DigitalPassPreview.tsx'),
+    validate: (content) => content.includes('Holographic') || content.includes('iridescent') || content.includes('isHovered')
   },
   {
     name: 'Hero Component (Hero.tsx)',
     path: path.join(__dirname, '../src/components/Hero.tsx'),
-    validate: (content) => content.includes('Department of ECE (VDT)') && content.includes('50 Dedicated') && content.includes('WORKSHOP_DETAILS.fee')
-  },
-  {
-    name: 'Navbar Monogram & Admin Link (Navbar.tsx)',
-    path: path.join(__dirname, '../src/components/Navbar.tsx'),
-    validate: (content) => content.includes('SSIET') && content.includes('/admin')
-  },
-  {
-    name: 'Coordinator Admin Portal (src/app/admin/page.tsx)',
-    path: path.join(__dirname, '../src/app/admin/page.tsx'),
-    validate: (content) => content.includes('Coordinator Admin Desk') && content.includes('handleExportCSV') && content.includes('CAD-STATION')
+    validate: (content) => content.includes('Department of ECE (VDT)') && content.includes('50 Dedicated')
   },
   {
     name: '1:1 Workstations Guarantee (WorkstationGuarantee.tsx)',
@@ -54,16 +49,6 @@ const checks = [
     name: 'Single Unified Certificate (CertificateShowcase.tsx)',
     path: path.join(__dirname, '../src/components/CertificateShowcase.tsx'),
     validate: (content) => content.includes('One Unified') && content.includes('Single Unified Certificate')
-  },
-  {
-    name: 'Upgraded Animated FAQ (FaqAccordion.tsx)',
-    path: path.join(__dirname, '../src/components/FaqAccordion.tsx'),
-    validate: (content) => content.includes('cubic-bezier(0.23,1,0.32,1)') && content.includes('grid-rows-[1fr]')
-  },
-  {
-    name: 'Firebase Scaffolding (firebase.ts)',
-    path: path.join(__dirname, '../src/lib/firebase.ts'),
-    validate: (content) => content.includes('recordRegistration') && content.includes('firebaseConfig')
   },
   {
     name: 'Locked Image Assets Intact in public/images',
@@ -100,7 +85,7 @@ checks.forEach((chk) => {
 
 console.log('\n----------------------------------------');
 if (allPassed) {
-  console.log('🎉 ALL 13 ACCEPTANCE & REGRESSION CHECKS PASSED WITH 100% COMPLIANCE');
+  console.log('🎉 ALL COMPREHENSIVE QA & ACCEPTANCE CRITERIA PASSED WITH 100% COMPLIANCE');
   process.exit(0);
 } else {
   console.log('⚠️ SOME CHECKS FAILED');

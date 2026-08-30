@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { GeneratedPass } from '@/lib/types';
 import { Cpu, QrCode, Sparkles, CheckCircle2, Download, Printer, ShieldCheck } from 'lucide-react';
 
@@ -10,6 +10,8 @@ interface DigitalPassPreviewProps {
 }
 
 export default function DigitalPassPreview({ pass, onClose }: DigitalPassPreviewProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
   const handlePrint = () => {
     window.print();
   };
@@ -30,32 +32,45 @@ export default function DigitalPassPreview({ pass, onClose }: DigitalPassPreview
         </p>
       </div>
 
-      {/* Luxury Boarding Pass Ticket */}
-      <div className="relative rounded-3xl bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white p-6 sm:p-8 shadow-2xl border border-purple-800/50 overflow-hidden">
+      {/* Luxury Holographic Boarding Pass Ticket */}
+      <div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="relative rounded-3xl bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white p-6 sm:p-8 shadow-2xl border border-purple-700/50 overflow-hidden group transition-all duration-300"
+      >
+        {/* Holographic Iridescent Sheen Overlay (Wow Factor) */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-r from-transparent via-purple-400/20 to-amber-300/20 pointer-events-none transition-transform duration-1000 ${
+            isHovered ? 'translate-x-full' : '-translate-x-full'
+          }`}
+        />
+        
         {/* Decorative Circuit watermark */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Top Header */}
-        <div className="flex items-center justify-between border-b border-purple-800/40 pb-4">
+        <div className="flex items-center justify-between border-b border-purple-800/40 pb-4 relative z-10">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-purple-900 border border-purple-500/30 flex items-center justify-center">
-              <Cpu className="w-5 h-5 text-purple-300" />
+            <div className="w-10 h-10 rounded-xl bg-purple-900 border border-purple-500/40 flex flex-col items-center justify-center shadow-md">
+              <span className="text-[10px] font-bold font-mono text-purple-200">SSIET</span>
+              <span className="text-[7px] font-mono text-purple-400">VDT</span>
             </div>
             <div>
               <p className="text-[10px] uppercase font-mono tracking-widest text-purple-300">
                 Sri Shakthi Institute of Engg & Tech
               </p>
-              <p className="text-xs font-bold text-white">Dept of EE (VDT) • Synopsys Masterclass</p>
+              <p className="text-xs font-bold text-white">Department of ECE (VDT) • Synopsys Masterclass</p>
             </div>
           </div>
 
-          <span className="text-[10px] font-mono uppercase px-2.5 py-1 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/40">
-            CONFIRMED
+          <span className="text-[10px] font-mono uppercase px-2.5 py-1 rounded-full bg-emerald-950/90 text-emerald-300 border border-emerald-500/40 font-bold flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+            <span>CONFIRMED</span>
           </span>
         </div>
 
         {/* Middle Body */}
-        <div className="py-6 grid grid-cols-2 sm:grid-cols-3 gap-4 border-b border-purple-800/40">
+        <div className="py-6 grid grid-cols-2 sm:grid-cols-3 gap-4 border-b border-purple-800/40 relative z-10">
           <div>
             <p className="text-[10px] font-mono uppercase text-purple-300/80">Attendee Name</p>
             <p className="text-sm sm:text-base font-bold text-white truncate">{pass.fullName}</p>
@@ -87,7 +102,7 @@ export default function DigitalPassPreview({ pass, onClose }: DigitalPassPreview
         </div>
 
         {/* Bottom Footer with Pass ID and QR Simulation */}
-        <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10">
           <div className="space-y-1">
             <p className="text-[10px] font-mono uppercase text-purple-300/80">Pass Identifier</p>
             <p className="text-xs sm:text-sm font-mono font-bold text-purple-200">{pass.passId}</p>
@@ -95,10 +110,10 @@ export default function DigitalPassPreview({ pass, onClose }: DigitalPassPreview
           </div>
 
           {/* QR Code Graphic */}
-          <div className="p-2.5 rounded-xl bg-white text-slate-950 flex items-center gap-2">
-            <QrCode className="w-10 h-10" />
+          <div className="p-2.5 rounded-xl bg-white text-slate-950 flex items-center gap-2 shadow-lg">
+            <QrCode className="w-10 h-10 text-purple-950" />
             <div className="text-left">
-              <p className="text-[9px] font-mono uppercase font-bold leading-tight">OFFICIAL PASS</p>
+              <p className="text-[9px] font-mono uppercase font-bold leading-tight text-purple-950">OFFICIAL PASS</p>
               <p className="text-[8px] font-mono text-slate-500">C2S • SYN • SSIET</p>
             </div>
           </div>

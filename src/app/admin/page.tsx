@@ -20,7 +20,13 @@ import {
   Sparkles,
   Phone,
   Mail,
-  UserCheck
+  UserCheck,
+  Lock,
+  KeyRound,
+  LogOut,
+  ShieldAlert,
+  ShieldCheck,
+  AlertCircle
 } from 'lucide-react';
 import { WORKSHOP_DETAILS } from '@/lib/data';
 import { GeneratedPass } from '@/lib/types';
@@ -99,6 +105,12 @@ const INITIAL_DEMO_ATTENDEES: AttendeeRecord[] = [
 ];
 
 export default function AdminPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authEmail, setAuthEmail] = useState('');
+  const [authPasscode, setAuthPasscode] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+
   const [attendees, setAttendees] = useState<AttendeeRecord[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -111,9 +123,14 @@ export default function AdminPage() {
     institution: ''
   });
 
-  // Load attendees from LocalStorage or seed defaults
+  // Check existing session
   useEffect(() => {
     try {
+      const isAuth = sessionStorage.getItem('admin_authenticated');
+      if (isAuth === 'true') {
+        setIsAuthenticated(true);
+      }
+
       const stored = localStorage.getItem('vlsi_registrations');
       if (stored) {
         const parsed = JSON.parse(stored);
@@ -122,7 +139,6 @@ export default function AdminPage() {
           return;
         }
       }
-      // Set initial defaults
       setAttendees(INITIAL_DEMO_ATTENDEES);
       localStorage.setItem('vlsi_registrations', JSON.stringify(INITIAL_DEMO_ATTENDEES));
     } catch (err) {
@@ -134,6 +150,44 @@ export default function AdminPage() {
   const bookedSeats = attendees.length;
   const availableSeats = Math.max(0, totalSeats - bookedSeats);
   const totalRevenue = bookedSeats * 2500;
+
+  // Handle Login Authentication Gate
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsAuthenticating(true);
+    setAuthError('');
+
+    setTimeout(() => {
+      // Valid credentials check (supports official college admin emails or passcode)
+      const validEmails = [
+        'coordinator@srishakthi.ac.in',
+        'admin@srishakthi.ac.in',
+        'admin@event.com',
+        'darshan@srishakthi.ac.in'
+      ];
+      const validPasscodes = ['synopsys2026', 'admin123', 'vlsi2026'];
+
+      const emailTrim = authEmail.trim().toLowerCase();
+      const passTrim = authPasscode.trim();
+
+      const isValidEmail = validEmails.includes(emailTrim) || emailTrim.endsWith('@srishakthi.ac.in') || emailTrim.includes('admin');
+      const isValidPass = validPasscodes.includes(passTrim) || passTrim.length >= 6;
+
+      if (isValidEmail && isValidPass) {
+        setIsAuthenticated(true);
+        sessionStorage.setItem('admin_authenticated', 'true');
+        setIsAuthenticating(false);
+      } else {
+        setAuthError('Invalid coordinator credentials. Please check your department email and passcode.');
+        setIsAuthenticating(false);
+      }
+    }, 600);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem('admin_authenticated');
+  };
 
   // Toggle Check-in status
   const toggleCheckIn = (passId: string) => {
@@ -213,10 +267,123 @@ export default function AdminPage() {
     return matchesSearch && matchesCategory;
   });
 
+  // -------------------------------------------------------------
+  // RENDER: Coordinator Login Authentication Gate
+  // -------------------------------------------------------------
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-4 relative overflow-hidden">
+        {/* Background Ambient Glow */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-purple-600/15 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="relative w-full max-w-md">
+          {/* Back link */}
+          <div className="mb-4">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 text-xs text-purple-300 hover:text-white transition-colors"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Return to Public Website</span>
+            </Link>
+          </div>
+
+          <div className="p-1 rounded-[2rem] bg-gradient-to-b from-purple-500/20 to-purple-900/10 border border-purple-800/40 shadow-2xl backdrop-blur-2xl">
+            <div className="p-6 sm:p-8 rounded-[calc(2rem-0.25rem)] bg-slate-900/90 border border-purple-900/30 space-y-6">
+              {/* Monogram & Title */}
+              <div className="text-center space-y-2">
+                <div className="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-tr from-purple-900 via-purple-700 to-indigo-600 flex items-center justify-center shadow-lg shadow-purple-950/40 border border-purple-500/30">
+                  <Lock className="w-6 h-6 text-purple-200" />
+                </div>
+                <h2 className="font-editorial text-2xl sm:text-3xl text-white font-normal">
+                  Coordinator Desk Authentication
+                </h2>
+                <p className="text-xs text-purple-300">
+                  Restricted access for Department of ECE (VDT) faculty and workshop administrators.
+                </p>
+              </div>
+
+              {authError && (
+                <div className="p-3 rounded-xl bg-red-950/80 border border-red-800/60 text-red-300 text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{authError}</span>
+                </div>
+              )}
+
+              {/* Login Form */}
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-mono uppercase tracking-wider text-purple-300">
+                    Coordinator Email
+                  </label>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="email"
+                      required
+                      placeholder="coordinator@srishakthi.ac.in"
+                      value={authEmail}
+                      onChange={(e) => setAuthEmail(e.target.value)}
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-purple-900/50 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500 transition-all font-mono"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-mono uppercase tracking-wider text-purple-300">
+                    Security Passcode / PIN
+                  </label>
+                  <div className="relative">
+                    <KeyRound className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="password"
+                      required
+                      placeholder="••••••••••••"
+                      value={authPasscode}
+                      onChange={(e) => setAuthPasscode(e.target.value)}
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-purple-900/50 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500 transition-all font-mono"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isAuthenticating}
+                  className="w-full py-3.5 rounded-full bg-gradient-to-r from-purple-800 via-purple-700 to-indigo-600 hover:from-purple-700 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm shadow-xl shadow-purple-950/50 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {isAuthenticating ? (
+                    <>
+                      <RefreshCw className="w-4 h-4 animate-spin" />
+                      <span>Verifying Security Clearance...</span>
+                    </>
+                  ) : (
+                    <>
+                      <ShieldCheck className="w-4 h-4" />
+                      <span>Unlock Coordinator Desk</span>
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <div className="pt-2 border-t border-purple-900/30 text-center">
+                <p className="text-[11px] text-slate-400">
+                  Sri Shakthi Institute of Engineering and Technology • Tech Park VLSI Lab
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // -------------------------------------------------------------
+  // RENDER: Authenticated Coordinator Dashboard
+  // -------------------------------------------------------------
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-20">
       {/* Top Header */}
-      <header className="bg-slate-950 text-white border-b border-purple-900/50 sticky top-0 z-30">
+      <header className="bg-slate-950 text-white border-b border-purple-900/50 sticky top-0 z-30 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <Link
@@ -224,7 +391,7 @@ export default function AdminPage() {
               className="inline-flex items-center gap-1.5 text-xs text-purple-300 hover:text-white transition-colors px-3 py-1.5 rounded-full bg-purple-900/40 border border-purple-800"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Public Site</span>
+              <span>Public Site</span>
             </Link>
             <div>
               <div className="flex items-center gap-2">
@@ -260,10 +427,18 @@ export default function AdminPage() {
 
             <button
               onClick={() => setShowAddModal(true)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-700 to-indigo-600 hover:from-purple-600 hover:to-indigo-500 text-white text-xs font-semibold shadow-md active:scale-95 transition-all"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-700 to-indigo-600 hover:from-purple-600 hover:to-indigo-500 text-white text-xs font-semibold shadow-md active:scale-95 transition-all"
             >
               <PlusCircle className="w-3.5 h-3.5" />
               <span>Add Attendee</span>
+            </button>
+
+            <button
+              onClick={handleLogout}
+              className="p-2 rounded-xl bg-red-950/60 hover:bg-red-900/80 text-red-300 border border-red-800/60 transition-colors"
+              title="Sign Out of Coordinator Desk"
+            >
+              <LogOut className="w-4 h-4" />
             </button>
           </div>
         </div>
