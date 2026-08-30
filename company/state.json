@@ -2,30 +2,30 @@
   "project_name": "Sri Shakthi Synopsys Front-End VLSI Workshop",
   "client": "Sri Shakthi Institute of Engineering and Technology - Department of ECE (VDT)",
   "status": "ALL_MILESTONES_COMPLETED",
-  "current_stage": "Sprint_4_Admin_Redo_And_Scroll_Animations_Delivered",
+  "current_stage": "Sprint_5_Floorplan_Map_And_Scroll_Progress_Delivered",
   "branches_synced": [
     "main",
     "dev_1"
   ],
   "remote_repository": "https://github.com/Darshan4721/synopsys_workshop_web_1.git",
   "features_delivered": [
-    "Complete Redo of Coordinator Admin Management Portal (/admin)",
+    "Interactive 50-Workstation CAD Lab Seating Grid & Floorplan Map on Admin (/admin)",
+    "Station Inspector Drawer with 1-click 8:30 AM arrival check-in toggle",
+    "Global Glowing Scroll Progress Laser Header (ScrollProgress.tsx)",
+    "Hardware-Accelerated Scroll Reveal Animation Engine (IntersectionObserver)",
     "Coordinator Authentication Gate with secure credentials & session clearance",
-    "Apple-grade Hardware-Accelerated Scroll Reveal Animation Engine (IntersectionObserver)",
     "Public Landing & Registration Portal (/) with 100% Attendee-focused Header",
-    "Live Interactive Verdi® Digital Waveform Simulator (Pulse Clock, Toggle Reset, Enable, Hex Bus Trace)",
+    "Live Interactive Verdi® Digital Waveform Simulator",
     "Interactive 5-Stage VLSI EDA Flow Visualizer",
     "50 Single-Monitor Workstations Lab Guarantee",
     "Single Unified Official Certificate Showcase",
     "Holographic Security Sheen on Digital Boarding Pass Ticket",
-    "Printable 8:30 AM Check-in Attendance Sheet & CSV Export",
-    "Firebase Integration Scaffolding",
-    "Minimalist Typographic Monogram Brand Header (SSIET • VDT)"
+    "Printable 8:30 AM Check-in Attendance Sheet & CSV Export"
   ],
   "verification": {
-    "qa_acceptance_tests": "10/10 PASSED (v4.0)",
+    "qa_acceptance_tests": "10/10 PASSED (v5.0)",
     "npm_build_exit_code": 0,
     "defects_count": 0
   },
-  "last_updated": "2026-08-31T00:19:00+05:30"
+  "last_updated": "2026-08-31T00:24:20+05:30"
 }

@@ -66,18 +66,18 @@ html {
    ========================================================================= */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(24px);
   filter: blur(4px);
-  transition: opacity 0.75s cubic-bezier(0.23, 1, 0.32, 1),
-              transform 0.75s cubic-bezier(0.23, 1, 0.32, 1),
-              filter 0.75s cubic-bezier(0.23, 1, 0.32, 1);
-  will-change: opacity, transform, filter;
+  transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+              filter 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-visible {
   opacity: 1 !important;
-  transform: translateY(0) !important;
-  filter: blur(0) !important;
+  transform: none !important;
+  filter: none !important;
 }
 
 /* Stagger Delays */
