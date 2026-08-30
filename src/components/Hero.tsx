@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Sparkles, ShieldCheck, Monitor, Award, ArrowRight, Layers, Users, Zap, Cpu, Activity, Clock, CheckCircle2 } from 'lucide-react';
+import { Sparkles, ShieldCheck, Monitor, Award, ArrowRight, Layers, Users, Zap, Cpu } from 'lucide-react';
 import { WORKSHOP_DETAILS } from '@/lib/data';
 
 interface HeroProps {
@@ -127,101 +127,38 @@ export default function Hero({ onOpenRegister }: HeroProps) {
           </div>
         </div>
 
-        {/* Bespoke Interactive Semiconductor Architecture HUD (Replacing AI-slop visual) */}
+        {/* Visual Hero Feature Showcase: The Fantastic Silicon IC Microchip Die */}
         <div className="mt-14 max-w-5xl mx-auto">
           <div className="double-bezel-card overflow-hidden">
-            <div className="double-bezel-inner p-6 sm:p-8 bg-slate-950 text-white shadow-2xl">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-purple-900/50 pb-5">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-purple-900/80 border border-purple-500/40 flex items-center justify-center">
-                    <Cpu className="w-5 h-5 text-purple-300" />
-                  </div>
-                  <div>
-                    <h3 className="font-editorial text-xl sm:text-2xl font-normal text-white">
-                      Synopsys Front-End ASIC / FPGA Pipeline Architecture
+            <div className="double-bezel-inner p-3 sm:p-4 bg-slate-950">
+              <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/synopsys_silicon_chip.jpg"
+                  alt="Synopsys Semiconductor Silicon Die with Luminous Purple Circuit Traces"
+                  fill
+                  priority
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                
+                {/* Floating Micro-Highlights over IC Image */}
+                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-wrap items-end justify-between gap-4">
+                  <div className="space-y-1">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-900/80 backdrop-blur-md border border-purple-400/30 text-white text-[11px] font-semibold">
+                      <Cpu className="w-3.5 h-3.5 text-purple-300" />
+                      <span>Synopsys Front-End EDA CAD Pipeline</span>
+                    </div>
+                    <h3 className="text-white font-editorial text-xl sm:text-2xl font-normal tracking-wide">
+                      Verilog RTL ➔ VCS Simulation ➔ SpyGlass CDC ➔ Design Compiler Synthesis
                     </h3>
-                    <p className="text-xs text-purple-300 font-mono">
-                      Sri Shakthi Tech Park • VLSI Research CAD Server Grid
-                    </p>
                   </div>
-                </div>
 
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-300 text-xs font-mono">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                    <span>50 LICENSE SLOTS ACTIVE</span>
-                  </span>
-                </div>
-              </div>
-
-              {/* Hardware Microarchitecture Flow Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-6">
-                <div className="p-4 rounded-xl bg-slate-900/90 border border-purple-900/40 space-y-2">
-                  <div className="flex items-center justify-between text-[11px] font-mono text-purple-400">
-                    <span>STAGE 01</span>
-                    <span>RTL</span>
+                  <div className="hidden sm:flex items-center gap-3">
+                    <div className="px-4 py-2 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-right">
+                      <p className="text-[10px] text-purple-300 uppercase tracking-widest font-mono">Location</p>
+                      <p className="text-xs font-semibold text-white">VLSI Research Lab • Tech Park</p>
+                    </div>
                   </div>
-                  <h4 className="font-bold text-white text-sm">Synthesizable Verilog</h4>
-                  <p className="text-xs text-slate-400">
-                    FSM state encoding, synchronous resets & datapath structures.
-                  </p>
-                  <div className="pt-2 text-[10px] font-mono text-purple-300 bg-purple-950/60 p-2 rounded">
-                    Tool: Verilog-2001 / SystemVerilog
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-slate-900/90 border border-purple-900/40 space-y-2">
-                  <div className="flex items-center justify-between text-[11px] font-mono text-purple-400">
-                    <span>STAGE 02</span>
-                    <span>DEBUG</span>
-                  </div>
-                  <h4 className="font-bold text-white text-sm">VCS® & Verdi® Debug</h4>
-                  <p className="text-xs text-slate-400">
-                    Native high-speed simulation & FSDB temporal waveform tracing.
-                  </p>
-                  <div className="pt-2 text-[10px] font-mono text-purple-300 bg-purple-950/60 p-2 rounded">
-                    Tool: Synopsys VCS & Verdi GUI
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-slate-900/90 border border-purple-900/40 space-y-2">
-                  <div className="flex items-center justify-between text-[11px] font-mono text-purple-400">
-                    <span>STAGE 03</span>
-                    <span>STATIC QA</span>
-                  </div>
-                  <h4 className="font-bold text-white text-sm">SpyGlass® CDC & Lint</h4>
-                  <p className="text-xs text-slate-400">
-                    Metastability detection, 2-DFF synchronizers & linting rules.
-                  </p>
-                  <div className="pt-2 text-[10px] font-mono text-purple-300 bg-purple-950/60 p-2 rounded">
-                    Tool: Synopsys SpyGlass
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-slate-900/90 border border-purple-900/40 space-y-2">
-                  <div className="flex items-center justify-between text-[11px] font-mono text-purple-400">
-                    <span>STAGE 04</span>
-                    <span>SYNTHESIS</span>
-                  </div>
-                  <h4 className="font-bold text-white text-sm">Design Compiler (DC)</h4>
-                  <p className="text-xs text-slate-400">
-                    SDC constraints, standard cell mapping & gate-level netlists.
-                  </p>
-                  <div className="pt-2 text-[10px] font-mono text-purple-300 bg-purple-950/60 p-2 rounded">
-                    Tool: dc_shell-t / SDC 2.1
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Realtime Status Metrics */}
-              <div className="mt-6 pt-4 border-t border-purple-900/40 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-slate-400">
-                <div className="flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-purple-400" />
-                  <span>Cadence Target: 200 MHz Setup/Hold Sign-off</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-emerald-400">Slack: +0.42ns (MET)</span>
-                  <span className="text-purple-300">1:1 Workstation Workload Ready</span>
                 </div>
               </div>
             </div>
