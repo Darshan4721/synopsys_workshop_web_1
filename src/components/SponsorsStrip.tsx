@@ -7,7 +7,7 @@ export default function SponsorsStrip() {
   return (
     <section className="py-12 bg-white border-y border-purple-100 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-2 mb-8">
+        <div className="text-center space-y-2 mb-8 reveal-on-scroll">
           <p className="text-[11px] uppercase tracking-[0.25em] font-semibold text-purple-900">
             National Patronage, Governance & Academic Alliances
           </p>
@@ -19,7 +19,7 @@ export default function SponsorsStrip() {
         {/* Sponsor Badges Grid */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {/* MeitY */}
-          <div className="p-4 rounded-2xl bg-purple-50/60 border border-purple-200/60 flex flex-col items-center text-center justify-center space-y-2 hover:bg-purple-50 transition-colors">
+          <div className="p-4 rounded-2xl bg-purple-50/60 border border-purple-200/60 flex flex-col items-center text-center justify-center space-y-2 hover:bg-purple-50 transition-colors reveal-on-scroll delay-75">
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-purple-800 border border-purple-100">
               <Landmark className="w-5 h-5" />
             </div>
@@ -30,7 +30,7 @@ export default function SponsorsStrip() {
           </div>
 
           {/* Chip to Startup */}
-          <div className="p-4 rounded-2xl bg-purple-50/60 border border-purple-200/60 flex flex-col items-center text-center justify-center space-y-2 hover:bg-purple-50 transition-colors">
+          <div className="p-4 rounded-2xl bg-purple-50/60 border border-purple-200/60 flex flex-col items-center text-center justify-center space-y-2 hover:bg-purple-50 transition-colors reveal-on-scroll delay-150">
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-purple-800 border border-purple-100">
               <Cpu className="w-5 h-5" />
             </div>
@@ -41,7 +41,7 @@ export default function SponsorsStrip() {
           </div>
 
           {/* IIC */}
-          <div className="p-4 rounded-2xl bg-purple-50/60 border border-purple-200/60 flex flex-col items-center text-center justify-center space-y-2 hover:bg-purple-50 transition-colors">
+          <div className="p-4 rounded-2xl bg-purple-50/60 border border-purple-200/60 flex flex-col items-center text-center justify-center space-y-2 hover:bg-purple-50 transition-colors reveal-on-scroll delay-225">
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-purple-800 border border-purple-100">
               <Sparkles className="w-5 h-5" />
             </div>
@@ -52,7 +52,7 @@ export default function SponsorsStrip() {
           </div>
 
           {/* Synopsys Tools */}
-          <div className="p-4 rounded-2xl bg-purple-950 text-white border border-purple-900 flex flex-col items-center text-center justify-center space-y-2 shadow-md shadow-purple-950/10">
+          <div className="p-4 rounded-2xl bg-purple-950 text-white border border-purple-900 flex flex-col items-center text-center justify-center space-y-2 shadow-md shadow-purple-950/10 reveal-on-scroll delay-300">
             <div className="w-10 h-10 rounded-full bg-purple-800/80 flex items-center justify-center shadow-sm text-purple-200 border border-purple-600/50">
               <Award className="w-5 h-5" />
             </div>
@@ -63,7 +63,7 @@ export default function SponsorsStrip() {
           </div>
 
           {/* Sri Shakthi ECE (VDT) */}
-          <div className="p-4 rounded-2xl bg-purple-50/60 border border-purple-200/60 flex flex-col items-center text-center justify-center space-y-2 hover:bg-purple-50 transition-colors col-span-2 md:col-span-1">
+          <div className="p-4 rounded-2xl bg-purple-50/60 border border-purple-200/60 flex flex-col items-center text-center justify-center space-y-2 hover:bg-purple-50 transition-colors col-span-2 md:col-span-1 reveal-on-scroll delay-400">
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-purple-800 border border-purple-100">
               <Building2 className="w-5 h-5" />
             </div>

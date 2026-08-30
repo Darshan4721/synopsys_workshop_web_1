@@ -13,7 +13,7 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
     <section id="workstations" className="py-24 bg-purple-mesh relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100/90 text-purple-900 border border-purple-200 text-xs font-semibold uppercase tracking-wider">
             <Monitor className="w-3.5 h-3.5 text-purple-700" />
             <span>Infrastructure & Laboratory Guarantee</span>
@@ -32,7 +32,7 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
         {/* Feature Bento Grid (Double-Bezel Architecture) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Left Column: Real Lab Photo & Overlay */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 reveal-on-scroll delay-150">
             <div className="double-bezel-card overflow-hidden">
               <div className="double-bezel-inner p-3 bg-slate-950">
                 <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden group">
@@ -62,7 +62,7 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
           </div>
 
           {/* Right Column: Key Infrastructure Pillars */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-5 space-y-4 reveal-on-scroll delay-225">
             {/* Pillar 1 */}
             <div className="p-5 rounded-2xl bg-white/90 border border-purple-100 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-start gap-4">

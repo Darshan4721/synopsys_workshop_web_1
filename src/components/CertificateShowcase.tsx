@@ -9,7 +9,7 @@ export default function CertificateShowcase() {
     <section id="certificate" className="py-24 bg-purple-mesh relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100/90 text-purple-900 border border-purple-200 text-xs font-semibold uppercase tracking-wider">
             <Award className="w-3.5 h-3.5 text-purple-700" />
             <span>Unified Official Credential</span>
@@ -28,7 +28,7 @@ export default function CertificateShowcase() {
         {/* Certificate Presentation Bento */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto">
           {/* Visual Certificate Mockup */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 reveal-on-scroll delay-150">
             <div className="double-bezel-card">
               <div className="double-bezel-inner p-3 bg-slate-950">
                 <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden group">
@@ -58,7 +58,7 @@ export default function CertificateShowcase() {
           </div>
 
           {/* Certificate Features & Inclusions */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-5 space-y-4 reveal-on-scroll delay-225">
             <div className="p-6 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-purple-800 font-bold">

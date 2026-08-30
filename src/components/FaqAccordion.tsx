@@ -15,7 +15,7 @@ export default function FaqAccordion() {
     <section id="faq" className="py-24 bg-purple-mesh relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center space-y-4 mb-16">
+        <div className="text-center space-y-4 mb-16 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100/90 text-purple-900 border border-purple-200 text-xs font-semibold uppercase tracking-wider">
             <HelpCircle className="w-3.5 h-3.5 text-purple-700" />
             <span>Essential Answers</span>
@@ -38,7 +38,7 @@ export default function FaqAccordion() {
             return (
               <div
                 key={idx}
-                className={`rounded-2xl transition-all duration-300 ${
+                className={`rounded-2xl transition-all duration-300 reveal-on-scroll delay-${(idx % 4) * 75 + 75} ${
                   isOpen
                     ? 'bg-white border border-purple-300 shadow-[0_10px_30px_-10px_rgba(126,34,206,0.15)] ring-1 ring-purple-400/20'
                     : 'bg-white/80 hover:bg-white border border-purple-100/80 shadow-sm'

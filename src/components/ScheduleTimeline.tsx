@@ -9,7 +9,7 @@ export default function ScheduleTimeline() {
     <section id="schedule" className="py-24 bg-white relative">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center space-y-4 mb-16">
+        <div className="text-center space-y-4 mb-16 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100/90 text-purple-900 border border-purple-200 text-xs font-semibold uppercase tracking-wider">
             <Clock className="w-3.5 h-3.5" />
             <span>Full-Day Hands-on Schedule</span>
@@ -34,7 +34,7 @@ export default function ScheduleTimeline() {
             return (
               <div
                 key={idx}
-                className={`relative flex flex-col md:flex-row items-stretch gap-6 p-5 sm:p-6 rounded-2xl transition-all ${
+                className={`relative flex flex-col md:flex-row items-stretch gap-6 p-5 sm:p-6 rounded-2xl transition-all reveal-on-scroll delay-${(idx % 4) * 75 + 75} ${
                   isBreak
                     ? 'bg-amber-50/60 border border-amber-200/70'
                     : isKeynote

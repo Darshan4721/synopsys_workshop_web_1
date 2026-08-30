@@ -61,6 +61,32 @@ html {
   background: radial-gradient(circle at 50% 0%, rgba(243, 232, 255, 0.8) 0%, rgba(255, 255, 255, 1) 70%);
 }
 
+/* =========================================================================
+   APPLE-GRADE HARDWARE-ACCELERATED SCROLL ANIMATION ENGINE (EMIL KOWALSKI)
+   ========================================================================= */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(4px);
+  transition: opacity 0.75s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.75s cubic-bezier(0.23, 1, 0.32, 1),
+              filter 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  filter: blur(0) !important;
+}
+
+/* Stagger Delays */
+.delay-75 { transition-delay: 75ms; }
+.delay-150 { transition-delay: 150ms; }
+.delay-225 { transition-delay: 225ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+
 /* Subtle Shimmer */
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
@@ -84,4 +110,14 @@ html {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #a855f7;
+}
+
+/* Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
 }

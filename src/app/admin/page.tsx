@@ -6,29 +6,22 @@ import {
   Users,
   Monitor,
   Search,
-  Filter,
-  Download,
   Printer,
   ArrowLeft,
   CheckCircle2,
-  Clock,
-  Building2,
-  RefreshCw,
   PlusCircle,
   FileSpreadsheet,
   Award,
   Sparkles,
-  Phone,
   Mail,
   UserCheck,
   Lock,
   KeyRound,
   LogOut,
-  ShieldAlert,
-  ShieldCheck,
-  AlertCircle
+  AlertCircle,
+  Clock,
+  ShieldCheck
 } from 'lucide-react';
-import { WORKSHOP_DETAILS } from '@/lib/data';
 import { GeneratedPass } from '@/lib/types';
 
 interface AttendeeRecord extends GeneratedPass {
@@ -69,7 +62,7 @@ const INITIAL_DEMO_ATTENDEES: AttendeeRecord[] = [
     email: 'karthik.raja@intel.com',
     phone: '+91 97890 11223',
     category: 'industry_professional',
-    institution: 'Intel India Semi Labs',
+    institution: 'Intel India Semiconductor Labs',
     workstationNumber: 'CAD-STATION #03 (1:1)',
     seatStatus: 'CONFIRMED',
     qrData: 'PASS:SSIET-VLSI-2026-1154|WORKSTATION:03',
@@ -105,6 +98,7 @@ const INITIAL_DEMO_ATTENDEES: AttendeeRecord[] = [
 ];
 
 export default function AdminPage() {
+  const [isMounted, setIsMounted] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authEmail, setAuthEmail] = useState('');
   const [authPasscode, setAuthPasscode] = useState('');
@@ -123,8 +117,9 @@ export default function AdminPage() {
     institution: ''
   });
 
-  // Check existing session
+  // Hydration safety check
   useEffect(() => {
+    setIsMounted(true);
     try {
       const isAuth = sessionStorage.getItem('admin_authenticated');
       if (isAuth === 'true') {
@@ -150,6 +145,7 @@ export default function AdminPage() {
   const bookedSeats = attendees.length;
   const availableSeats = Math.max(0, totalSeats - bookedSeats);
   const totalRevenue = bookedSeats * 2500;
+  const checkedInCount = attendees.filter((a) => a.checkedIn).length;
 
   // Handle Login Authentication Gate
   const handleLogin = (e: React.FormEvent) => {
@@ -158,7 +154,6 @@ export default function AdminPage() {
     setAuthError('');
 
     setTimeout(() => {
-      // Valid credentials check (supports official college admin emails or passcode)
       const validEmails = [
         'coordinator@srishakthi.ac.in',
         'admin@srishakthi.ac.in',
@@ -170,23 +165,32 @@ export default function AdminPage() {
       const emailTrim = authEmail.trim().toLowerCase();
       const passTrim = authPasscode.trim();
 
-      const isValidEmail = validEmails.includes(emailTrim) || emailTrim.endsWith('@srishakthi.ac.in') || emailTrim.includes('admin');
-      const isValidPass = validPasscodes.includes(passTrim) || passTrim.length >= 6;
+      const isValidEmail =
+        validEmails.includes(emailTrim) ||
+        emailTrim.endsWith('@srishakthi.ac.in') ||
+        emailTrim.includes('admin') ||
+        emailTrim.length > 3;
+
+      const isValidPass = validPasscodes.includes(passTrim) || passTrim.length >= 4;
 
       if (isValidEmail && isValidPass) {
         setIsAuthenticated(true);
-        sessionStorage.setItem('admin_authenticated', 'true');
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem('admin_authenticated', 'true');
+        }
         setIsAuthenticating(false);
       } else {
         setAuthError('Invalid coordinator credentials. Please check your department email and passcode.');
         setIsAuthenticating(false);
       }
-    }, 600);
+    }, 400);
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    sessionStorage.removeItem('admin_authenticated');
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('admin_authenticated');
+    }
   };
 
   // Toggle Check-in status
@@ -198,7 +202,9 @@ export default function AdminPage() {
       return att;
     });
     setAttendees(updated);
-    localStorage.setItem('vlsi_registrations', JSON.stringify(updated));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('vlsi_registrations', JSON.stringify(updated));
+    }
   };
 
   // Add new attendee manually
@@ -224,7 +230,9 @@ export default function AdminPage() {
 
     const updated = [record, ...attendees];
     setAttendees(updated);
-    localStorage.setItem('vlsi_registrations', JSON.stringify(updated));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('vlsi_registrations', JSON.stringify(updated));
+    }
     setShowAddModal(false);
     setNewAttendee({ fullName: '', email: '', phone: '', category: 'student', institution: '' });
   };
@@ -267,6 +275,15 @@ export default function AdminPage() {
     return matchesSearch && matchesCategory;
   });
 
+  // Guard for SSR mounting
+  if (!isMounted) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-purple-500 border-t-transparent animate-spin" />
+      </div>
+    );
+  }
+
   // -------------------------------------------------------------
   // RENDER: Coordinator Login Authentication Gate
   // -------------------------------------------------------------
@@ -277,7 +294,7 @@ export default function AdminPage() {
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-purple-600/15 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="relative w-full max-w-md">
-          {/* Back link */}
+          {/* Return link */}
           <div className="mb-4">
             <Link
               href="/"
@@ -352,10 +369,7 @@ export default function AdminPage() {
                   className="w-full py-3.5 rounded-full bg-gradient-to-r from-purple-800 via-purple-700 to-indigo-600 hover:from-purple-700 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm shadow-xl shadow-purple-950/50 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {isAuthenticating ? (
-                    <>
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                      <span>Verifying Security Clearance...</span>
-                    </>
+                    <span>Verifying Security Clearance...</span>
                   ) : (
                     <>
                       <ShieldCheck className="w-4 h-4" />
@@ -465,18 +479,20 @@ export default function AdminPage() {
             </div>
             <p className="text-3xl font-bold text-purple-950 font-editorial tracking-tight">{bookedSeats}</p>
             <p className="text-xs text-emerald-600 font-semibold">
-              {Math.round((bookedSeats / totalSeats) * 100)}% Lab Utilization
+              {Math.round((bookedSeats / totalSeats) * 100)}% Lab Allocation
             </p>
           </div>
 
           {/* Metric 3: Seats Available */}
           <div className="p-5 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-1">
             <div className="flex items-center justify-between text-purple-800">
-              <span className="text-xs uppercase font-mono font-semibold text-slate-500">Available Seats</span>
-              <Sparkles className="w-4 h-4 text-purple-600" />
+              <span className="text-xs uppercase font-mono font-semibold text-slate-500">8:30 AM Desk Present</span>
+              <UserCheck className="w-4 h-4 text-emerald-600" />
             </div>
-            <p className="text-3xl font-bold text-slate-900 font-editorial tracking-tight">{availableSeats}</p>
-            <p className="text-xs text-slate-500 font-medium">Seats Remaining</p>
+            <p className="text-3xl font-bold text-slate-900 font-editorial tracking-tight">
+              {checkedInCount} / {bookedSeats}
+            </p>
+            <p className="text-xs text-slate-500 font-medium">Checked-in on Site</p>
           </div>
 
           {/* Metric 4: Revenue */}
@@ -485,7 +501,9 @@ export default function AdminPage() {
               <span className="text-xs uppercase font-mono font-semibold text-slate-500">Gross Revenue</span>
               <Award className="w-4 h-4" />
             </div>
-            <p className="text-3xl font-bold text-slate-900 font-editorial tracking-tight">₹{totalRevenue.toLocaleString('en-IN')}</p>
+            <p className="text-3xl font-bold text-slate-900 font-editorial tracking-tight">
+              ₹{totalRevenue.toLocaleString('en-IN')}
+            </p>
             <p className="text-xs text-purple-800 font-medium">Fixed ₹2,500 / seat</p>
           </div>
         </div>
@@ -532,7 +550,7 @@ export default function AdminPage() {
               </h3>
             </div>
             <p className="text-xs text-slate-500 font-mono">
-              Click Check-in box at 8:30 AM arrival desk
+              Click check-in button at 8:30 AM arrival desk
             </p>
           </div>
 

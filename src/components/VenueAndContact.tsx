@@ -9,7 +9,7 @@ export default function VenueAndContact() {
     <section id="venue" className="py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100/90 text-purple-900 border border-purple-200 text-xs font-semibold uppercase tracking-wider">
             <MapPin className="w-3.5 h-3.5 text-purple-700" />
             <span>Campus Location & Lab Logistics</span>
@@ -26,7 +26,7 @@ export default function VenueAndContact() {
         </div>
 
         {/* Double-Bezel Venue Hub */}
-        <div className="double-bezel-card">
+        <div className="double-bezel-card reveal-on-scroll delay-150">
           <div className="double-bezel-inner p-6 sm:p-8 lg:p-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Left Column: Venue Details */}

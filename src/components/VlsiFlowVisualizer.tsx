@@ -12,7 +12,7 @@ export default function VlsiFlowVisualizer() {
     <section id="curriculum" className="py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100/90 text-purple-900 border border-purple-200 text-xs font-semibold uppercase tracking-wider">
             <Layers className="w-3.5 h-3.5" />
             <span>Interactive Industrial EDA Toolchain</span>
@@ -30,7 +30,7 @@ export default function VlsiFlowVisualizer() {
         </div>
 
         {/* Step Navigation Bar (Double-Bezel Architecture) */}
-        <div className="mb-10">
+        <div className="mb-10 reveal-on-scroll delay-150">
           <div className="double-bezel-card">
             <div className="double-bezel-inner p-2 sm:p-3 bg-purple-50/50">
               <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
@@ -79,13 +79,13 @@ export default function VlsiFlowVisualizer() {
         </div>
 
         {/* Active Stage Interactive Deep Dive */}
-        <div className="double-bezel-card">
+        <div className="double-bezel-card reveal-on-scroll delay-225">
           <div className="double-bezel-inner p-6 sm:p-8 lg:p-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Left Column: Conceptual Overview & Learning Outcomes */}
               <div className="lg:col-span-5 space-y-6">
                 <div className="space-y-2">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-900 text-xs font-bold font-mono">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-100 text-purple-900 text-xs font-bold font-mono">
                     STAGE {activeStage.stepNumber} OF 05 • {activeStage.tool}
                   </div>
                   <h3 className="font-editorial text-2xl sm:text-3xl text-slate-950 font-normal">

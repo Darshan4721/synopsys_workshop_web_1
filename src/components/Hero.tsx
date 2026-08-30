@@ -18,7 +18,7 @@ export default function Hero({ onOpenRegister }: HeroProps) {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Institutional & Patronage Eyebrow */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-6">
+        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-6 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-purple-200/80 shadow-sm backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
             <span className="text-xs font-semibold text-purple-950 uppercase tracking-wider">
@@ -32,7 +32,7 @@ export default function Hero({ onOpenRegister }: HeroProps) {
 
         {/* Masterclass Headline */}
         <div className="text-center max-w-4xl mx-auto space-y-6">
-          <h1 className="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal text-slate-950 tracking-tight leading-[1.08]">
+          <h1 className="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal text-slate-950 tracking-tight leading-[1.08] reveal-on-scroll delay-75">
             Front-End{' '}
             <span className="italic font-serif bg-gradient-to-r from-purple-950 via-purple-700 to-indigo-700 bg-clip-text text-transparent">
               VLSI Design Flow
@@ -40,12 +40,12 @@ export default function Hero({ onOpenRegister }: HeroProps) {
             in Synopsys EDA Suite
           </h1>
 
-          <p className="text-base sm:text-xl text-slate-600 font-normal leading-relaxed max-w-3xl mx-auto">
+          <p className="text-base sm:text-xl text-slate-600 font-normal leading-relaxed max-w-3xl mx-auto reveal-on-scroll delay-150">
             An intensive, full-day national hands-on masterclass from synthesizable Verilog RTL to Synopsys Design Compiler synthesis, VCS simulation, Verdi debug, and SpyGlass CDC analysis on <strong className="text-purple-950 font-semibold">50 dedicated 1:1 single-monitor CAD workstations</strong>.
           </p>
 
           {/* Quick Metrics Ribbon (Double-Bezel Architecture) */}
-          <div className="pt-2 max-w-4xl mx-auto">
+          <div className="pt-2 max-w-4xl mx-auto reveal-on-scroll delay-225">
             <div className="double-bezel-card">
               <div className="double-bezel-inner py-4 px-6 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 divide-y md:divide-y-0 md:divide-x divide-purple-100">
                 <div className="text-center pt-2 md:pt-0">
@@ -96,7 +96,7 @@ export default function Hero({ onOpenRegister }: HeroProps) {
           </div>
 
           {/* Primary CTA & Interactive Triggers */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 reveal-on-scroll delay-300">
             <button
               onClick={onOpenRegister}
               className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white font-semibold text-base shadow-xl shadow-purple-900/25 hover:shadow-purple-900/40 active:scale-[0.98] transition-all duration-200"
@@ -117,7 +117,7 @@ export default function Hero({ onOpenRegister }: HeroProps) {
           </div>
 
           {/* Date Notice Banner */}
-          <div className="pt-2">
+          <div className="pt-2 reveal-on-scroll delay-300">
             <p className="text-xs text-purple-900/80 font-medium inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-100/60 border border-purple-200/50">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-600" />
               <span>{WORKSHOP_DETAILS.dateNotice}</span>
@@ -128,7 +128,7 @@ export default function Hero({ onOpenRegister }: HeroProps) {
         </div>
 
         {/* Visual Hero Feature Showcase: Macro Semiconductor Wafer Die */}
-        <div className="mt-14 max-w-5xl mx-auto">
+        <div className="mt-14 max-w-5xl mx-auto reveal-on-scroll delay-400">
           <div className="double-bezel-card overflow-hidden">
             <div className="double-bezel-inner p-3 sm:p-4 bg-slate-950">
               <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden group">
