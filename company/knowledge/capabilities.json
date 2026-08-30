@@ -1,0 +1,41 @@
+{
+  "scanned_at": "2026-08-30T15:11:30+05:30",
+  "runtime": {
+    "node_version": "v24.12.0",
+    "npm_version": "11.6.2",
+    "framework_target": "Next.js 14+ (App Router, React 18/19, TypeScript, Tailwind CSS)",
+    "styling": "Tailwind CSS v3 + CSS Variables + Glassmorphic filters",
+    "icons": "Lucide React (ultra-light stroke configuration)",
+    "animations": "Framer Motion + Custom CSS Cubic-Bezier Spring Utilities",
+    "state_management": "React hooks + LocalStorage + Context API"
+  },
+  "subcontracted_ecosystem_skills": {
+    "taste_and_aesthetics": [
+      "taste-skill/high-end-visual-design",
+      "taste-skill/minimalist-ui",
+      "emilkowalski-skills/emil-design-eng",
+      "ECC/make-interfaces-feel-better"
+    ],
+    "engineering_and_architecture": [
+      "ECC/frontend-patterns",
+      "ECC/backend-patterns",
+      "superpowers/test-driven-development",
+      "ECC/postgres-patterns"
+    ],
+    "qa_and_security": [
+      "ECC/browser-qa",
+      "ECC/accessibility (WCAG 2.2 AA)",
+      "ECC/security-review (OWASP, RLS policies)",
+      "ECC/verification-loop"
+    ]
+  },
+  "asset_generation": {
+    "mode": "Active Built-in High-Fidelity Image Generation",
+    "available_assets": [
+      "synopsys_silicon_chip.jpg",
+      "vlsi_cad_lab.jpg",
+      "dual_certificate_mockup.jpg"
+    ]
+  },
+  "status": "STAGE_0_COMPLETE"
+}

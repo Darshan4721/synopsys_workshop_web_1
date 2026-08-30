@@ -1,0 +1,21 @@
+{
+  "release_version": "1.0.0",
+  "build_timestamp": "2026-08-30T15:25:00+05:30",
+  "build_status": "EXIT_CODE_0_SUCCESS",
+  "framework": "Next.js 14.2.35 (App Router)",
+  "routes_manifest": [
+    { "path": "/", "type": "Static Prerender", "size_kb": 25.8 },
+    { "path": "/api/register", "type": "Dynamic Edge/Node Function", "size_kb": 0 }
+  ],
+  "seo_metadata": {
+    "title": "Front-End VLSI Design Flow in Synopsys EDA Suite | Sri Shakthi Institute of Engineering and Technology",
+    "description": "National-Level Hands-on Workshop on Front-End VLSI Design Flow in Synopsys EDA Suite at Sri Shakthi Institute of Engineering and Technology, Dept of EE (VDT). 50 Dedicated 1:1 CAD Workstations.",
+    "open_graph_enabled": true
+  },
+  "deployment_readiness": {
+    "production_build_verified": true,
+    "typescript_strict_check": true,
+    "zero_defects_gate": true,
+    "responsive_mobile_ready": true
+  }
+}
