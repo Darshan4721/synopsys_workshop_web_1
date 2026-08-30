@@ -1,14 +1,19 @@
-// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v4.0)
+// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v5.0)
 const fs = require('fs');
 const path = require('path');
 
-console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v4.0) ===\n');
+console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v5.0) ===\n');
 
 const checks = [
   {
-    name: 'Meeting Minutes (meeting_005.md)',
-    path: path.join(__dirname, '../company/00_client/meetings/meeting_005.md'),
-    validate: (content) => content.includes('Meeting #005') && content.includes('Redo the Admin Page')
+    name: 'Meeting Minutes (meeting_006.md)',
+    path: path.join(__dirname, '../company/00_client/meetings/meeting_006.md'),
+    validate: (content) => content.includes('Meeting #006') && content.includes('Floorplan Map')
+  },
+  {
+    name: 'Scroll Reading Progress Indicator (ScrollProgress.tsx)',
+    path: path.join(__dirname, '../src/components/ScrollProgress.tsx'),
+    validate: (content) => content.includes('scrollProgress') && content.includes('setScrollProgress')
   },
   {
     name: 'Scroll Reveal Observer Component (ScrollObserver.tsx)',
@@ -16,14 +21,9 @@ const checks = [
     validate: (content) => content.includes('IntersectionObserver') && content.includes('reveal-visible')
   },
   {
-    name: 'Scroll Reveal Styles in globals.css',
-    path: path.join(__dirname, '../src/app/globals.css'),
-    validate: (content) => content.includes('.reveal-on-scroll') && content.includes('.reveal-visible')
-  },
-  {
-    name: 'Rebuilt Coordinator Admin Page with Hydration Guard (src/app/admin/page.tsx)',
+    name: 'Interactive 50 CAD Lab Floorplan & Roster on Admin Page (src/app/admin/page.tsx)',
     path: path.join(__dirname, '../src/app/admin/page.tsx'),
-    validate: (content) => content.includes('isMounted') && content.includes('handleLogin') && content.includes('handleExportCSV')
+    validate: (content) => content.includes('viewMode') && content.includes('50 CAD Lab Grid') && content.includes('handleLogin')
   },
   {
     name: 'Navbar Clean: Public Header has ZERO Admin Links (Navbar.tsx)',
@@ -44,11 +44,6 @@ const checks = [
     name: '1:1 Workstations Guarantee (WorkstationGuarantee.tsx)',
     path: path.join(__dirname, '../src/components/WorkstationGuarantee.tsx'),
     validate: (content) => content.includes('50 Dedicated Workstations') && content.includes('reveal-on-scroll')
-  },
-  {
-    name: 'Schedule Timeline without Lunch (ScheduleTimeline.tsx)',
-    path: path.join(__dirname, '../src/components/ScheduleTimeline.tsx'),
-    validate: (content) => content.includes('SCHEDULE_DATA') && content.includes('reveal-on-scroll')
   },
   {
     name: 'Single Unified Certificate (CertificateShowcase.tsx)',

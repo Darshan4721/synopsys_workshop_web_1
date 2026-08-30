@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import ScrollObserver from '@/components/ScrollObserver';
+import ScrollProgress from '@/components/ScrollProgress';
 
 export const metadata: Metadata = {
   title: 'Front-End VLSI Design Flow in Synopsys EDA Suite | Sri Shakthi Institute of Engineering and Technology',
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="antialiased selection:bg-purple-100 selection:text-purple-900 bg-white text-slate-900 min-h-screen">
+        <ScrollProgress />
         <ScrollObserver />
         {children}
       </body>
