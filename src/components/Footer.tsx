@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Cpu, Award, ShieldCheck, Heart } from 'lucide-react';
-import { WORKSHOP_DETAILS } from '@/lib/data';
+import { Cpu, ShieldCheck } from 'lucide-react';
 
 interface FooterProps {
   onOpenRegister: () => void;
@@ -29,7 +28,7 @@ export default function Footer({ onOpenRegister }: FooterProps) {
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              Department of Electronics Engineering (VLSI Design and Technology) [EE (VDT)]. Dedicated to cultivating world-class semiconductor EDA engineering talent under national C2S and MeitY initiatives.
+              Department of Electronics Engineering (VLSI Design and Technology) [ECE (VDT)]. Dedicated to cultivating world-class semiconductor EDA engineering talent under national C2S and MeitY initiatives.
             </p>
 
             <div className="pt-2">
@@ -80,7 +79,7 @@ export default function Footer({ onOpenRegister }: FooterProps) {
               Reserve Your CAD System
             </p>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Registrations are strictly capped at 50 participants to preserve 1:1 dedicated workstation access.
+              Registrations are strictly capped at 50 participants to preserve 1:1 dedicated single-monitor workstation access.
             </p>
 
             <button

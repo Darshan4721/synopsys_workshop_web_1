@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Award, Landmark, Sparkles, Building2, Cpu } from 'lucide-react';
-import { WORKSHOP_DETAILS } from '@/lib/data';
 
 export default function SponsorsStrip() {
   return (
@@ -63,14 +62,14 @@ export default function SponsorsStrip() {
             </div>
           </div>
 
-          {/* Sri Shakthi VLSI Center */}
+          {/* Sri Shakthi ECE (VDT) */}
           <div className="p-4 rounded-2xl bg-purple-50/60 border border-purple-200/60 flex flex-col items-center text-center justify-center space-y-2 hover:bg-purple-50 transition-colors col-span-2 md:col-span-1">
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-purple-800 border border-purple-100">
               <Building2 className="w-5 h-5" />
             </div>
             <div>
               <p className="font-bold text-slate-900 text-sm">Sri Shakthi</p>
-              <p className="text-[11px] text-slate-500 leading-tight">Dept. of Electronics Engg (VDT)</p>
+              <p className="text-[11px] text-slate-500 leading-tight">Department of ECE (VDT)</p>
             </div>
           </div>
         </div>

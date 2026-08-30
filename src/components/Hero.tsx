@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Sparkles, ShieldCheck, Monitor, Award, ArrowRight, Layers, Users, Zap, Cpu } from 'lucide-react';
+import { Sparkles, ShieldCheck, Monitor, Award, ArrowRight, Layers, Zap, Cpu } from 'lucide-react';
 import { WORKSHOP_DETAILS } from '@/lib/data';
 
 interface HeroProps {
@@ -26,7 +26,7 @@ export default function Hero({ onOpenRegister }: HeroProps) {
             </span>
           </div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100/90 text-purple-900 border border-purple-200 text-xs font-semibold">
-            <span>Dept. of Electronics Engineering (VLSI Design & Technology)</span>
+            <span>Department of ECE (VDT)</span>
           </div>
         </div>
 
@@ -41,7 +41,7 @@ export default function Hero({ onOpenRegister }: HeroProps) {
           </h1>
 
           <p className="text-base sm:text-xl text-slate-600 font-normal leading-relaxed max-w-3xl mx-auto">
-            An intensive, full-day national hands-on masterclass from synthesizable Verilog RTL to Synopsys Design Compiler synthesis, VCS simulation, Verdi debug, and SpyGlass CDC analysis on <strong className="text-purple-950 font-semibold">50 dedicated 1:1 CAD workstations</strong>.
+            An intensive, full-day national hands-on masterclass from synthesizable Verilog RTL to Synopsys Design Compiler synthesis, VCS simulation, Verdi debug, and SpyGlass CDC analysis on <strong className="text-purple-950 font-semibold">50 dedicated 1:1 single-monitor CAD workstations</strong>.
           </p>
 
           {/* Quick Metrics Ribbon (Double-Bezel Architecture) */}
@@ -56,7 +56,7 @@ export default function Hero({ onOpenRegister }: HeroProps) {
                     </span>
                   </div>
                   <p className="text-2xl font-bold text-slate-900 tracking-tight">50 Dedicated</p>
-                  <p className="text-[11px] text-purple-800 font-medium">1:1 Individual System</p>
+                  <p className="text-[11px] text-purple-800 font-medium">1:1 Single-Monitor System</p>
                 </div>
 
                 <div className="text-center pt-2 md:pt-0 md:pl-6">
@@ -127,14 +127,14 @@ export default function Hero({ onOpenRegister }: HeroProps) {
           </div>
         </div>
 
-        {/* Visual Hero Feature Showcase: Silicon Wafer & Toolchain Bento */}
+        {/* Visual Hero Feature Showcase: Macro Semiconductor Wafer Die */}
         <div className="mt-14 max-w-5xl mx-auto">
           <div className="double-bezel-card overflow-hidden">
             <div className="double-bezel-inner p-3 sm:p-4 bg-slate-950">
               <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden group">
                 <Image
                   src="/images/synopsys_silicon_chip.jpg"
-                  alt="Synopsys Semiconductor Die with Glowing Purple Circuit Traces"
+                  alt="Authentic Semiconductor Integrated Circuit Die with Microscopic Gold Interconnects"
                   fill
                   priority
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"

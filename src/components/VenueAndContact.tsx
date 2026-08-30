@@ -50,7 +50,7 @@ export default function VenueAndContact() {
                       <span>Department</span>
                     </div>
                     <p className="text-xs text-slate-700">
-                      Electronics Engineering (VLSI Design and Technology) [EE (VDT)]
+                      Electronics Engineering (VLSI Design and Technology) [ECE (VDT)]
                     </p>
                   </div>
 
@@ -67,10 +67,10 @@ export default function VenueAndContact() {
                   <div className="p-4 rounded-xl bg-purple-50/70 border border-purple-100 space-y-1.5">
                     <div className="flex items-center gap-2 text-purple-900 font-bold text-xs">
                       <Monitor className="w-4 h-4" />
-                      <span>Capacity</span>
+                      <span>Workstation Setup</span>
                     </div>
                     <p className="text-xs text-slate-700">
-                      50 Dedicated Single-Monitor CAD Workstations
+                      50 Dedicated Single-Monitor Enterprise CAD Stations
                     </p>
                   </div>
 
@@ -87,9 +87,9 @@ export default function VenueAndContact() {
 
                 <div className="p-4 rounded-xl bg-slate-900 text-purple-100 text-xs font-mono space-y-1">
                   <p className="text-purple-300 font-bold uppercase tracking-wider">Arrival Checklist:</p>
-                  <p>• Bring digital pass confirmation (SMS/Email/Pass ID)</p>
-                  <p>• No personal laptops needed — CAD workstations pre-mounted</p>
-                  <p>• Refreshments & Networking Lunch provided on-site</p>
+                  <p>• Bring digital pass confirmation (Pass ID / QR Code)</p>
+                  <p>• Zero laptops required — 50 single-monitor workstations ready</p>
+                  <p>• Morning tea and evening refreshments provided on-site</p>
                 </div>
               </div>
 
@@ -104,7 +104,7 @@ export default function VenueAndContact() {
                     Department Helpdesk
                   </h4>
                   <p className="text-xs text-purple-300">
-                    Contact our workshop coordinators for queries regarding registration, eligibility, or lab access.
+                    Contact the workshop organizing team for any queries regarding registration, eligibility, or lab access.
                   </p>
                 </div>
 
@@ -114,7 +114,7 @@ export default function VenueAndContact() {
                       <Mail className="w-4 h-4" />
                     </div>
                     <div>
-                      <p className="text-[10px] uppercase font-mono text-purple-300">Email Inquiries</p>
+                      <p className="text-[10px] uppercase font-mono text-purple-300">Official Email</p>
                       <p className="font-semibold text-white">vlsi.workshop@srishakthi.ac.in</p>
                     </div>
                   </div>
@@ -124,8 +124,8 @@ export default function VenueAndContact() {
                       <Phone className="w-4 h-4" />
                     </div>
                     <div>
-                      <p className="text-[10px] uppercase font-mono text-purple-300">Helpdesk Hotline</p>
-                      <p className="font-semibold text-white">+91 94432 00000 / +91 (0422) 2369900</p>
+                      <p className="text-[10px] uppercase font-mono text-purple-300">Department Coordinator</p>
+                      <p className="font-semibold text-white">+91 94432 12345 / 0422-2369900</p>
                     </div>
                   </div>
 
@@ -135,7 +135,7 @@ export default function VenueAndContact() {
                     </div>
                     <div>
                       <p className="text-[10px] uppercase font-mono text-purple-300">Organizing Body</p>
-                      <p className="font-semibold text-white">Dept of EE (VDT) & C2S Centre</p>
+                      <p className="font-semibold text-white">Department of ECE (VDT)</p>
                     </div>
                   </div>
                 </div>

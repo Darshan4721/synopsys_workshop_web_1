@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Monitor, Cpu, CheckCircle2, ShieldAlert, Sparkles, Server, Zap, Users } from 'lucide-react';
+import { Monitor, Cpu, CheckCircle2, Server, Users } from 'lucide-react';
 
 interface WorkstationGuaranteeProps {
   onOpenRegister: () => void;
@@ -25,7 +25,7 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
             </span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600 font-normal">
-            No video playbacks, no shared monitors, and zero laptops required. Every participant gets an individual enterprise single-monitor Linux CAD workstation connected directly to the Synopsys EDA license servers.
+            No video playbacks, no shared screens, and zero laptops required. Every participant gets an individual enterprise single-monitor Linux CAD workstation connected directly to the Synopsys EDA license servers.
           </p>
         </div>
 
@@ -38,7 +38,7 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
                 <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden group">
                   <Image
                     src="/images/vlsi_cad_lab.jpg"
-                    alt="VLSI Research Lab at Sri Shakthi Tech Park with 50 Dedicated Workstations"
+                    alt="VLSI Research Lab at Sri Shakthi Tech Park with 50 Dedicated Single-Monitor Workstations"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
@@ -53,7 +53,7 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
 
                     <div className="px-4 py-2 rounded-xl bg-emerald-950/90 backdrop-blur-md border border-emerald-400/30 text-emerald-300 text-xs font-semibold flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                      <span>50 Systems Ready</span>
+                      <span>50 Single-Monitor Stations</span>
                     </div>
                   </div>
                 </div>
@@ -72,7 +72,7 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
                 <div>
                   <h4 className="font-bold text-slate-900 text-base">1:1 Dedicated Single-Monitor Stations</h4>
                   <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
-                    You sit in front of your own high-performance workstation for the entire 8-hour workshop. No rotating seats, no shared keyboards.
+                    You sit in front of your own high-performance single-monitor workstation for the entire 8-hour workshop. No rotating seats, no shared keyboards.
                   </p>
                 </div>
               </div>

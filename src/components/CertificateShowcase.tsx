@@ -2,8 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Award, CheckCircle2, ShieldCheck, Sparkles, FileText } from 'lucide-react';
-import { WORKSHOP_DETAILS } from '@/lib/data';
+import { Award, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
 
 export default function CertificateShowcase() {
   return (
@@ -35,7 +34,7 @@ export default function CertificateShowcase() {
                 <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden group">
                   <Image
                     src="/images/certificate_mockup.jpg"
-                    alt="Unified Official Certificate of Participation and Synopsys VLSI Design Training"
+                    alt="Unified Official Certificate of Participation and Synopsys Front-End VLSI Design Training"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
@@ -45,7 +44,7 @@ export default function CertificateShowcase() {
                   <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 flex items-center justify-between">
                     <div className="px-4 py-2 rounded-xl bg-purple-950/90 backdrop-blur-md border border-purple-400/30 text-white">
                       <p className="text-[10px] text-purple-300 uppercase tracking-widest font-mono">Issued by</p>
-                      <p className="text-xs sm:text-sm font-semibold">Sri Shakthi • Dept of EE (VDT)</p>
+                      <p className="text-xs sm:text-sm font-semibold">Sri Shakthi • Department of ECE (VDT)</p>
                     </div>
 
                     <div className="px-3.5 py-1.5 rounded-full bg-amber-500/90 backdrop-blur-md text-slate-950 text-xs font-bold flex items-center gap-1.5 shadow-md">
@@ -94,7 +93,7 @@ export default function CertificateShowcase() {
 
               <div className="pt-3 border-t border-purple-100">
                 <p className="text-[11px] text-slate-500">
-                  Valuable career credential for VLSI placements, higher studies, and semiconductor research resumes.
+                  Valuable career credential for VLSI placements, core semiconductor jobs, and research resumes.
                 </p>
               </div>
             </div>
