@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Cpu, Sparkles, ChevronRight, Menu, X } from 'lucide-react';
+import Link from 'next/link';
+import { Sparkles, ChevronRight, Menu, X, ShieldCheck, UserCheck } from 'lucide-react';
 
 interface NavbarProps {
   onOpenRegister: () => void;
@@ -28,10 +29,16 @@ export default function Navbar({ onOpenRegister }: NavbarProps) {
             : 'bg-white/70 backdrop-blur-md border-purple-100/60 shadow-sm py-4 px-6 md:px-8'
         } flex items-center justify-between`}
       >
-        {/* Brand & Department */}
+        {/* Brand & Department Monogram */}
         <a href="#" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-900 via-purple-700 to-indigo-600 flex items-center justify-center shadow-md shadow-purple-900/20 group-hover:scale-105 transition-transform duration-200">
-            <Cpu className="w-5 h-5 text-purple-100" />
+          {/* Sleek Minimalist Institutional Monogram */}
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-950 via-purple-900 to-indigo-950 flex flex-col items-center justify-center shadow-md shadow-purple-950/20 border border-purple-800/40 group-hover:scale-105 transition-transform duration-200">
+            <span className="text-[11px] font-bold font-mono text-purple-200 tracking-tighter leading-none">
+              SSIET
+            </span>
+            <span className="text-[8px] font-semibold text-purple-400 font-mono tracking-tight leading-none mt-0.5">
+              VDT
+            </span>
           </div>
           <div>
             <div className="flex items-center gap-2">
@@ -39,7 +46,7 @@ export default function Navbar({ onOpenRegister }: NavbarProps) {
                 Sri Shakthi
               </span>
               <span className="text-[10px] uppercase font-semibold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
-                EE (VDT)
+                ECE (VDT)
               </span>
             </div>
             <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
@@ -49,7 +56,7 @@ export default function Navbar({ onOpenRegister }: NavbarProps) {
         </a>
 
         {/* Navigation Links (Desktop) */}
-        <div className="hidden lg:flex items-center gap-8 text-xs sm:text-sm font-medium text-slate-600">
+        <div className="hidden lg:flex items-center gap-7 text-xs sm:text-sm font-medium text-slate-600">
           <a href="#curriculum" className="hover:text-purple-700 transition-colors">
             EDA Flow
           </a>
@@ -68,6 +75,13 @@ export default function Navbar({ onOpenRegister }: NavbarProps) {
           <a href="#faq" className="hover:text-purple-700 transition-colors">
             FAQ
           </a>
+          <Link
+            href="/admin"
+            className="text-purple-800 hover:text-purple-950 font-semibold inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-50 hover:bg-purple-100/80 border border-purple-200/70 transition-all text-xs"
+          >
+            <UserCheck className="w-3.5 h-3.5" />
+            <span>Admin Desk</span>
+          </Link>
         </div>
 
         {/* Action Button & Mobile Trigger */}
@@ -136,10 +150,18 @@ export default function Navbar({ onOpenRegister }: NavbarProps) {
             <a
               href="#faq"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-purple-700"
+              className="py-2 border-b border-purple-100 hover:text-purple-700"
             >
               Frequently Asked Questions
             </a>
+            <Link
+              href="/admin"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 text-purple-900 font-semibold flex items-center gap-2"
+            >
+              <UserCheck className="w-4 h-4 text-purple-700" />
+              <span>Coordinator Admin Portal</span>
+            </Link>
             <button
               onClick={() => {
                 setMobileMenuOpen(false);

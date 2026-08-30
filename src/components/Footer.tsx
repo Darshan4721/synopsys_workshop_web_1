@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Cpu, ShieldCheck } from 'lucide-react';
+import Link from 'next/link';
+import { Cpu, ShieldCheck, UserCheck } from 'lucide-react';
 
 interface FooterProps {
   onOpenRegister: () => void;
@@ -31,11 +32,18 @@ export default function Footer({ onOpenRegister }: FooterProps) {
               Department of Electronics Engineering (VLSI Design and Technology) [ECE (VDT)]. Dedicated to cultivating world-class semiconductor EDA engineering talent under national C2S and MeitY initiatives.
             </p>
 
-            <div className="pt-2">
+            <div className="pt-2 flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950 border border-purple-800 text-purple-300 text-xs font-mono">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>NAAC 'A' Grade • Autonomous Institution</span>
               </span>
+              <Link
+                href="/admin"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-900/60 hover:bg-purple-900 border border-purple-700 text-purple-200 text-xs font-medium transition-colors"
+              >
+                <UserCheck className="w-3.5 h-3.5 text-purple-300" />
+                <span>Coordinator Admin Desk</span>
+              </Link>
             </div>
           </div>
 
@@ -69,6 +77,11 @@ export default function Footer({ onOpenRegister }: FooterProps) {
                 <a href="#venue" className="hover:text-purple-300 transition-colors">
                   VLSI Lab & Tech Park Venue
                 </a>
+              </li>
+              <li>
+                <Link href="/admin" className="text-purple-300 hover:text-white font-medium transition-colors">
+                  Coordinator Attendee Roster ➔
+                </Link>
               </li>
             </ul>
           </div>

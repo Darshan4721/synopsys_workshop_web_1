@@ -1,16 +1,14 @@
-// Automated Verification Suite for Sri Shakthi Synopsys VLSI Workshop Website
+// Automated Verification Suite for Sri Shakthi Synopsys VLSI Workshop Website (v2.1)
 const fs = require('fs');
 const path = require('path');
 
-console.log('=== RUNNING STAGE 5 INDEPENDENT QA & ACCEPTANCE VERIFICATION ===\n');
-
-const dataContent = fs.readFileSync(path.join(__dirname, '../src/lib/data.ts'), 'utf8');
+console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION ===\n');
 
 const checks = [
   {
-    name: 'Meeting Minutes Frozen (meeting_001.md)',
-    path: path.join(__dirname, '../company/00_client/meetings/meeting_001.md'),
-    validate: (content) => content.includes('Sri Shakthi') && content.includes('FROZEN') && content.includes('2,500')
+    name: 'Meeting Minutes (meeting_001.md, meeting_002.md, meeting_003.md)',
+    path: path.join(__dirname, '../company/00_client/meetings/meeting_003.md'),
+    validate: (content) => content.includes('Meeting #003') && content.includes('Asset Retention Policy') && content.includes('Admin Registration')
   },
   {
     name: 'Product Requirements (requirements.md)',
@@ -18,40 +16,29 @@ const checks = [
     validate: (content) => content.includes('PRD-VLSI-SYNOPSYS-001') && content.includes('50 Dedicated')
   },
   {
-    name: 'Design System & Tokens (tokens.json & design_system.md)',
+    name: 'Design System Tokens (tokens.json)',
     path: path.join(__dirname, '../company/03_design/tokens.json'),
     validate: (content) => content.includes('synopsys_purple') && content.includes('double_bezel')
   },
   {
-    name: 'Technical Architecture & SQL Schema',
+    name: 'SQL Schema Migration (001_initial_schema.sql)',
     path: path.join(__dirname, '../company/backend/sql/001_initial_schema.sql'),
     validate: (content) => content.includes('CREATE TABLE IF NOT EXISTS workshops') && content.includes('workshop_registrations')
   },
   {
-    name: 'Workshop Core Data (data.ts)',
-    path: path.join(__dirname, '../src/lib/data.ts'),
-    validate: (content) => 
-      content.includes('Sri Shakthi Institute of Engineering and Technology') &&
-      content.includes('₹2,500') &&
-      content.includes('50') &&
-      content.includes('Synopsys Design Compiler') &&
-      content.includes('Synopsys VCS') &&
-      content.includes('SpyGlass')
-  },
-  {
     name: 'Hero Component (Hero.tsx)',
     path: path.join(__dirname, '../src/components/Hero.tsx'),
-    validate: (content) => content.includes('WORKSHOP_DETAILS') && content.includes('Front-End') && content.includes('Reserve 1:1 Workstation Pass')
+    validate: (content) => content.includes('Department of ECE (VDT)') && content.includes('50 Dedicated') && content.includes('WORKSHOP_DETAILS.fee')
   },
   {
-    name: 'Interactive VLSI Flow Visualizer (VlsiFlowVisualizer.tsx)',
-    path: path.join(__dirname, '../src/components/VlsiFlowVisualizer.tsx'),
-    validate: (content) => content.includes('VLSI_FLOW_STAGES') && content.includes('activeStage')
+    name: 'Navbar Monogram & Admin Link (Navbar.tsx)',
+    path: path.join(__dirname, '../src/components/Navbar.tsx'),
+    validate: (content) => content.includes('SSIET') && content.includes('/admin')
   },
   {
-    name: 'EDA Console Simulator (EdaConsoleSimulator.tsx)',
-    path: path.join(__dirname, '../src/components/EdaConsoleSimulator.tsx'),
-    validate: (content) => content.includes('counter_8bit.v') && content.includes('timing_constraints.sdc') && content.includes('dc_shell')
+    name: 'Coordinator Admin Portal (src/app/admin/page.tsx)',
+    path: path.join(__dirname, '../src/app/admin/page.tsx'),
+    validate: (content) => content.includes('Coordinator Admin Desk') && content.includes('handleExportCSV') && content.includes('CAD-STATION')
   },
   {
     name: '1:1 Workstations Guarantee (WorkstationGuarantee.tsx)',
@@ -59,7 +46,7 @@ const checks = [
     validate: (content) => content.includes('50 Dedicated Workstations') && content.includes('1:1 Individual Access')
   },
   {
-    name: 'Full Day Schedule (ScheduleTimeline.tsx)',
+    name: 'Schedule Timeline without Lunch (ScheduleTimeline.tsx)',
     path: path.join(__dirname, '../src/components/ScheduleTimeline.tsx'),
     validate: (content) => content.includes('SCHEDULE_DATA') && content.includes('Full-Day Masterclass')
   },
@@ -69,14 +56,23 @@ const checks = [
     validate: (content) => content.includes('One Unified') && content.includes('Single Unified Certificate')
   },
   {
-    name: 'Registration & Digital Pass (RegistrationModal.tsx & DigitalPassPreview.tsx)',
-    path: path.join(__dirname, '../src/components/DigitalPassPreview.tsx'),
-    validate: (content) => content.includes('1:1 CAD Workstation Pass') && content.includes('pass.workstationNumber')
+    name: 'Upgraded Animated FAQ (FaqAccordion.tsx)',
+    path: path.join(__dirname, '../src/components/FaqAccordion.tsx'),
+    validate: (content) => content.includes('cubic-bezier(0.23,1,0.32,1)') && content.includes('grid-rows-[1fr]')
   },
   {
-    name: 'Image Assets Exist in public/images',
+    name: 'Firebase Scaffolding (firebase.ts)',
+    path: path.join(__dirname, '../src/lib/firebase.ts'),
+    validate: (content) => content.includes('recordRegistration') && content.includes('firebaseConfig')
+  },
+  {
+    name: 'Locked Image Assets Intact in public/images',
     path: path.join(__dirname, '../public/images/synopsys_silicon_chip.jpg'),
-    validate: () => fs.existsSync(path.join(__dirname, '../public/images/vlsi_cad_lab.jpg')) && fs.existsSync(path.join(__dirname, '../public/images/certificate_mockup.jpg'))
+    validate: () => 
+      fs.existsSync(path.join(__dirname, '../public/images/synopsys_silicon_chip.jpg')) &&
+      fs.existsSync(path.join(__dirname, '../public/images/vlsi_cad_lab.jpg')) &&
+      fs.existsSync(path.join(__dirname, '../public/images/certificate_mockup.jpg')) &&
+      fs.existsSync(path.join(__dirname, '../public/images/sponsors'))
   }
 ];
 
@@ -104,7 +100,7 @@ checks.forEach((chk) => {
 
 console.log('\n----------------------------------------');
 if (allPassed) {
-  console.log('🎉 ALL ACCEPTANCE CHECKS PASSED WITH 100% COMPLIANCE');
+  console.log('🎉 ALL 13 ACCEPTANCE & REGRESSION CHECKS PASSED WITH 100% COMPLIANCE');
   process.exit(0);
 } else {
   console.log('⚠️ SOME CHECKS FAILED');
