@@ -1,19 +1,19 @@
-// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v6.0)
+// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v7.0)
 const fs = require('fs');
 const path = require('path');
 
-console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v6.0) ===\n');
+console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v7.0) ===\n');
 
 const checks = [
   {
-    name: 'Meeting Minutes (meeting_007.md)',
-    path: path.join(__dirname, '../company/00_client/meetings/meeting_007.md'),
-    validate: (content) => content.includes('Meeting #007') && content.includes('FAQ Accordion Content Disappearing Bug')
+    name: 'Meeting Minutes (meeting_008.md)',
+    path: path.join(__dirname, '../company/00_client/meetings/meeting_008.md'),
+    validate: (content) => content.includes('Meeting #008') && content.includes('FAQ Accordion Interaction & Readability Bug')
   },
   {
-    name: 'FAQ Accordion Fixed Visibility (FaqAccordion.tsx)',
+    name: 'Multi-Open FAQ Accordion with Permanent Visibility (FaqAccordion.tsx)',
     path: path.join(__dirname, '../src/components/FaqAccordion.tsx'),
-    validate: (content) => content.includes('isOpen &&') && content.includes('toggleFaq') && content.includes('faq.answer')
+    validate: (content) => content.includes('openSet') && content.includes('expandAll') && content.includes('faq.answer')
   },
   {
     name: 'Scroll Reading Progress Indicator (ScrollProgress.tsx)',
