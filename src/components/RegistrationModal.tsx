@@ -88,6 +88,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
       const stationStr = `CAD-STATION #${stationIndex < 10 ? '0' + stationIndex : stationIndex} (1:1)`;
       const passId = `SSIET-VLSI-2026-${Math.floor(1000 + Math.random() * 9000)}`;
 
+      const nowIso = new Date().toISOString();
       const pass: GeneratedPass = {
         passId,
         fullName: formData.fullName,
@@ -95,6 +96,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
         phone: formData.phone,
         category: formData.category,
         institution: formData.institution,
+        college: formData.institution,
         department: formData.department,
         academicYear: formData.academicYear,
         rollNumber: formData.rollNumber,
@@ -104,6 +106,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
         paymentUtr: formData.paymentUtr,
         paymentStatus: 'VERIFIED',
         paymentAmount: 2500,
+        paymentTimestamp: nowIso,
         qrData: `PASS:${passId}|WORKSTATION:${stationIndex}|UTR:${formData.paymentUtr}`,
         issuedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
         checkedIn: false

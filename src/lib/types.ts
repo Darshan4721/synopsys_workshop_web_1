@@ -30,6 +30,7 @@ export interface RegistrationFormData {
   phone: string;
   category: 'student' | 'research_scholar' | 'faculty' | 'industry_professional';
   institution: string;
+  college?: string;
   department: string;
   academicYear: string;
   rollNumber: string;
@@ -37,6 +38,7 @@ export interface RegistrationFormData {
   experienceLevel: 'beginner' | 'intermediate' | 'advanced';
   paymentUtr: string;
   paymentMode: string;
+  paymentTimestamp?: string;
 }
 
 export interface GeneratedPass {
@@ -46,6 +48,7 @@ export interface GeneratedPass {
   phone?: string;
   category: string;
   institution: string;
+  college?: string;
   department?: string;
   academicYear?: string;
   rollNumber?: string;
@@ -55,6 +58,7 @@ export interface GeneratedPass {
   paymentUtr?: string;
   paymentStatus?: 'VERIFIED' | 'PENDING' | 'FLAGGED';
   paymentAmount?: number;
+  paymentTimestamp?: string;
   qrData: string;
   issuedAt: string;
   checkedIn?: boolean;

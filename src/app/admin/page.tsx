@@ -159,6 +159,9 @@ export default function AdminPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedYear, setSelectedYear] = useState<string>('all');
   const [selectedPaymentStatus, setSelectedPaymentStatus] = useState<string>('all');
+  const [selectedCheckInStatus, setSelectedCheckInStatus] = useState<string>('all');
+  const [rosterDisplayMode, setRosterDisplayMode] = useState<'cards' | 'table'>('cards');
+  const [customTimerMinutes, setCustomTimerMinutes] = useState('');
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [newAttendee, setNewAttendee] = useState({
@@ -411,9 +414,15 @@ export default function AdminPage() {
       att.workstationNumber.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesCategory = selectedCategory === 'all' || att.category === selectedCategory;
+    const matchesYear =
+      selectedYear === 'all' ||
+      (att.academicYear && att.academicYear.toLowerCase().includes(selectedYear.toLowerCase()));
     const matchesPayment = selectedPaymentStatus === 'all' || att.paymentStatus === selectedPaymentStatus;
+    const matchesCheckIn =
+      selectedCheckInStatus === 'all' ||
+      (selectedCheckInStatus === 'present' ? att.checkedIn : !att.checkedIn);
 
-    return matchesSearch && matchesCategory && matchesPayment;
+    return matchesSearch && matchesCategory && matchesYear && matchesPayment && matchesCheckIn;
   });
 
   // Guard for SSR mounting
@@ -764,153 +773,335 @@ export default function AdminPage() {
         )}
 
         {/* -------------------------------------------------------------
-            VIEW 2: ATTENDEE ROSTER TABLE VIEW
+            VIEW 2: ATTENDEE ROSTER TABLE & CARDS VIEW
             ------------------------------------------------------------- */}
         {viewMode === 'roster' && (
           <div className="space-y-6">
             {/* Controls: Search & Multi-parameter Filters */}
-            <div className="p-4 rounded-2xl bg-white border border-purple-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-              {/* Search Bar */}
-              <div className="relative w-full md:w-80">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  placeholder="Search Name, Pass ID, Roll, UTR, College..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 transition-all"
-                />
+            <div className="p-5 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-4">
+              <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+                {/* Search Bar */}
+                <div className="relative w-full lg:w-96">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    placeholder="Search Name, Pass ID, Roll, UTR, College..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 transition-all font-sans"
+                  />
+                </div>
+
+                {/* Display Mode: Cards vs Table */}
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200">
+                    <button
+                      onClick={() => setRosterDisplayMode('cards')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        rosterDisplayMode === 'cards'
+                          ? 'bg-white text-purple-950 shadow-sm'
+                          : 'text-slate-500 hover:text-slate-800'
+                      }`}
+                    >
+                      Cards View
+                    </button>
+                    <button
+                      onClick={() => setRosterDisplayMode('table')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        rosterDisplayMode === 'table'
+                          ? 'bg-white text-purple-950 shadow-sm'
+                          : 'text-slate-500 hover:text-slate-800'
+                      }`}
+                    >
+                      Table View
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              {/* Category Tabs */}
-              <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
-                {['all', 'student', 'research_scholar', 'faculty', 'industry_professional'].map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all capitalize ${
-                      selectedCategory === cat
-                        ? 'bg-purple-950 text-white shadow-sm'
-                        : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
-                    }`}
+              {/* Multi-Parameter Filters Row */}
+              <div className="pt-3 border-t border-purple-50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                {/* Category Filter */}
+                <div className="space-y-1">
+                  <label className="text-[11px] font-mono font-bold uppercase text-slate-500">
+                    Category Filter
+                  </label>
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
                   >
-                    {cat.replace('_', ' ')}
-                  </button>
-                ))}
+                    <option value="all">All Categories ({attendees.length})</option>
+                    <option value="student">Student (UG / PG)</option>
+                    <option value="research_scholar">Research Scholar</option>
+                    <option value="faculty">Faculty Member</option>
+                    <option value="industry_professional">Industry Professional</option>
+                  </select>
+                </div>
+
+                {/* Academic Year Filter */}
+                <div className="space-y-1">
+                  <label className="text-[11px] font-mono font-bold uppercase text-slate-500">
+                    Academic Year / Role
+                  </label>
+                  <select
+                    value={selectedYear}
+                    onChange={(e) => setSelectedYear(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                  >
+                    <option value="all">All Academic Years</option>
+                    <option value="1st Year">1st Year</option>
+                    <option value="2nd Year">2nd Year</option>
+                    <option value="3rd Year">3rd Year</option>
+                    <option value="Final Year">Final Year</option>
+                    <option value="PG">PG / M.Tech</option>
+                    <option value="Research Scholar">Research Scholar</option>
+                    <option value="Faculty">Faculty</option>
+                    <option value="Industry">Industry</option>
+                  </select>
+                </div>
+
+                {/* Payment Status Filter */}
+                <div className="space-y-1">
+                  <label className="text-[11px] font-mono font-bold uppercase text-slate-500">
+                    Payment Verification
+                  </label>
+                  <select
+                    value={selectedPaymentStatus}
+                    onChange={(e) => setSelectedPaymentStatus(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                  >
+                    <option value="all">All Payment Statuses</option>
+                    <option value="VERIFIED">Verified & Paid (₹2,500)</option>
+                    <option value="PENDING">Pending Verification</option>
+                    <option value="FLAGGED">Flagged / Review</option>
+                  </select>
+                </div>
+
+                {/* Check-in Status Filter */}
+                <div className="space-y-1">
+                  <label className="text-[11px] font-mono font-bold uppercase text-slate-500">
+                    8:30 AM Check-In Status
+                  </label>
+                  <select
+                    value={selectedCheckInStatus}
+                    onChange={(e) => setSelectedCheckInStatus(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                  >
+                    <option value="all">All Attendees</option>
+                    <option value="present">Present / Checked-in ({checkedInCount})</option>
+                    <option value="pending">Pending Arrival ({bookedSeats - checkedInCount})</option>
+                  </select>
+                </div>
               </div>
             </div>
 
-            {/* Table */}
-            <div className="rounded-2xl bg-white border border-purple-100 shadow-sm overflow-hidden">
-              <div className="p-5 border-b border-purple-100 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <UserCheck className="w-4 h-4 text-purple-700" />
-                  <h3 className="font-bold text-slate-900 text-sm sm:text-base">
-                    Participant Roster ({filteredAttendees.length} Records)
-                  </h3>
-                </div>
-                <p className="text-xs text-slate-500 font-mono">
-                  Click check-in button at 8:30 AM arrival desk
-                </p>
+            {/* CARDS DISPLAY MODE */}
+            {rosterDisplayMode === 'cards' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredAttendees.length === 0 ? (
+                  <div className="col-span-full p-12 text-center bg-white rounded-3xl border border-purple-100 text-slate-400 text-sm">
+                    No participants match your current search and filter criteria.
+                  </div>
+                ) : (
+                  filteredAttendees.map((att) => (
+                    <div
+                      key={att.passId}
+                      className="bg-white rounded-3xl border border-purple-100 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4"
+                    >
+                      {/* Top Header: Station & Status */}
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-purple-950 text-white shadow-sm">
+                            {att.workstationNumber}
+                          </span>
+                          <button
+                            onClick={() => toggleCheckIn(att.passId)}
+                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all ${
+                              att.checkedIn
+                                ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                            }`}
+                          >
+                            <CheckCircle2
+                              className={`w-3.5 h-3.5 ${
+                                att.checkedIn ? 'text-emerald-600' : 'text-slate-400'
+                              }`}
+                            />
+                            <span>{att.checkedIn ? 'Present at Lab' : 'Check-In'}</span>
+                          </button>
+                        </div>
+
+                        {/* Name & Role */}
+                        <div className="space-y-0.5">
+                          <h4 className="font-bold text-slate-900 text-base leading-tight">
+                            {att.fullName}
+                          </h4>
+                          <p className="text-xs text-purple-700 font-mono font-medium">
+                            {att.passId}
+                          </p>
+                        </div>
+
+                        {/* Contact details */}
+                        <div className="mt-3 space-y-1.5 text-xs text-slate-600">
+                          <p className="flex items-center gap-1.5 truncate">
+                            <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                            <span className="truncate">{att.email}</span>
+                          </p>
+                          <p className="flex items-center gap-1.5 font-mono text-[11px]">
+                            <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                            <span>{att.phone || '+91 94400 00000'}</span>
+                          </p>
+                          <p className="flex items-center gap-1.5 truncate">
+                            <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                            <span className="truncate">{att.institution}</span>
+                          </p>
+                          <p className="text-[11px] text-slate-500">
+                            {att.department || 'ECE (VDT)'} • {att.academicYear || '3rd Year'}
+                            {att.rollNumber && ` (Roll: ${att.rollNumber})`}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Bottom: Payment UTR & Verification */}
+                      <div className="pt-3 border-t border-purple-50 flex items-center justify-between gap-2">
+                        <div className="text-xs font-mono">
+                          <span className="text-[10px] uppercase text-slate-400 block">Bank / UPI UTR</span>
+                          <span className="font-bold text-slate-800 text-[11px]">
+                            {att.paymentUtr || 'UTR-PENDING'}
+                          </span>
+                        </div>
+
+                        <button
+                          onClick={() => togglePaymentVerify(att.passId)}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                            att.paymentStatus === 'VERIFIED'
+                              ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                              : 'bg-amber-50 text-amber-800 border-amber-300'
+                          }`}
+                        >
+                          {att.paymentStatus || 'VERIFIED'}
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
+            )}
 
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs sm:text-sm">
-                  <thead className="bg-purple-50/60 text-slate-600 font-mono text-[11px] uppercase border-b border-purple-100">
-                    <tr>
-                      <th className="py-3 px-4">Desk Check-in</th>
-                      <th className="py-3 px-4">Pass ID & Workstation</th>
-                      <th className="py-3 px-4">Candidate & Contact</th>
-                      <th className="py-3 px-4">Department & Year</th>
-                      <th className="py-3 px-4">College / Organization</th>
-                      <th className="py-3 px-4">Payment & UTR</th>
-                      <th className="py-3 px-4">Payment Verify</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-purple-50">
-                    {filteredAttendees.length === 0 ? (
+            {/* TABLE DISPLAY MODE */}
+            {rosterDisplayMode === 'table' && (
+              <div className="rounded-2xl bg-white border border-purple-100 shadow-sm overflow-hidden">
+                <div className="p-5 border-b border-purple-100 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <UserCheck className="w-4 h-4 text-purple-700" />
+                    <h3 className="font-bold text-slate-900 text-sm sm:text-base">
+                      Participant Roster ({filteredAttendees.length} Records)
+                    </h3>
+                  </div>
+                  <p className="text-xs text-slate-500 font-mono">
+                    Click check-in button at 8:30 AM arrival desk
+                  </p>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs sm:text-sm">
+                    <thead className="bg-purple-50/60 text-slate-600 font-mono text-[11px] uppercase border-b border-purple-100">
                       <tr>
-                        <td colSpan={7} className="py-8 text-center text-slate-400 text-xs italic">
-                          No matching registered participants found.
-                        </td>
+                        <th className="py-3 px-4">Desk Check-in</th>
+                        <th className="py-3 px-4">Pass ID & Workstation</th>
+                        <th className="py-3 px-4">Candidate & Contact</th>
+                        <th className="py-3 px-4">Department & Year</th>
+                        <th className="py-3 px-4">College / Organization</th>
+                        <th className="py-3 px-4">Payment & UTR</th>
+                        <th className="py-3 px-4">Payment Verify</th>
                       </tr>
-                    ) : (
-                      filteredAttendees.map((att) => (
-                        <tr key={att.passId} className="hover:bg-purple-50/30 transition-colors">
-                          {/* Check-in Toggle */}
-                          <td className="py-3.5 px-4">
-                            <button
-                              onClick={() => toggleCheckIn(att.passId)}
-                              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
-                                att.checkedIn
-                                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                                  : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
-                              }`}
-                            >
-                              <CheckCircle2
-                                className={`w-3.5 h-3.5 ${
-                                  att.checkedIn ? 'text-emerald-600' : 'text-slate-400'
-                                }`}
-                              />
-                              <span>{att.checkedIn ? 'Present' : 'Check-in'}</span>
-                            </button>
-                          </td>
-
-                          {/* Pass ID & Workstation */}
-                          <td className="py-3.5 px-4 font-mono">
-                            <p className="font-bold text-purple-900">{att.passId}</p>
-                            <span className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-900 border border-amber-200">
-                              {att.workstationNumber}
-                            </span>
-                          </td>
-
-                          {/* Name & Contact */}
-                          <td className="py-3.5 px-4">
-                            <p className="font-bold text-slate-900">{att.fullName}</p>
-                            <p className="text-slate-500 text-xs">{att.email}</p>
-                            <p className="text-slate-400 text-[11px] font-mono">{att.phone || 'N/A'}</p>
-                          </td>
-
-                          {/* Department & Year */}
-                          <td className="py-3.5 px-4">
-                            <p className="text-slate-800 font-medium">{att.department || 'ECE (VDT)'}</p>
-                            <p className="text-slate-500 text-xs">{att.academicYear || '3rd Year B.E.'}</p>
-                            {att.rollNumber && (
-                              <p className="text-[10px] text-purple-700 font-mono">Roll: {att.rollNumber}</p>
-                            )}
-                          </td>
-
-                          {/* Institution */}
-                          <td className="py-3.5 px-4 text-slate-600 max-w-xs truncate">
-                            {att.institution}
-                          </td>
-
-                          {/* Payment & UTR */}
-                          <td className="py-3.5 px-4 font-mono text-xs">
-                            <p className="font-bold text-emerald-700">₹2,500 Paid</p>
-                            <p className="text-slate-500 text-[11px]">UTR: {att.paymentUtr || 'N/A'}</p>
-                          </td>
-
-                          {/* Payment Verify Toggle */}
-                          <td className="py-3.5 px-4">
-                            <button
-                              onClick={() => togglePaymentVerify(att.passId)}
-                              className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
-                                att.paymentStatus === 'VERIFIED'
-                                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
-                                  : 'bg-amber-50 text-amber-800 border-amber-300'
-                              }`}
-                            >
-                              {att.paymentStatus || 'VERIFIED'}
-                            </button>
+                    </thead>
+                    <tbody className="divide-y divide-purple-50">
+                      {filteredAttendees.length === 0 ? (
+                        <tr>
+                          <td colSpan={7} className="py-8 text-center text-slate-400 text-xs italic">
+                            No matching registered participants found.
                           </td>
                         </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
+                      ) : (
+                        filteredAttendees.map((att) => (
+                          <tr key={att.passId} className="hover:bg-purple-50/30 transition-colors">
+                            {/* Check-in Toggle */}
+                            <td className="py-3.5 px-4">
+                              <button
+                                onClick={() => toggleCheckIn(att.passId)}
+                                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+                                  att.checkedIn
+                                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                                    : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
+                                }`}
+                              >
+                                <CheckCircle2
+                                  className={`w-3.5 h-3.5 ${
+                                    att.checkedIn ? 'text-emerald-600' : 'text-slate-400'
+                                  }`}
+                                />
+                                <span>{att.checkedIn ? 'Present' : 'Check-in'}</span>
+                              </button>
+                            </td>
+
+                            {/* Pass ID & Workstation */}
+                            <td className="py-3.5 px-4 font-mono">
+                              <p className="font-bold text-purple-900">{att.passId}</p>
+                              <span className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-900 border border-amber-200">
+                                {att.workstationNumber}
+                              </span>
+                            </td>
+
+                            {/* Name & Contact */}
+                            <td className="py-3.5 px-4">
+                              <p className="font-bold text-slate-900">{att.fullName}</p>
+                              <p className="text-slate-500 text-xs">{att.email}</p>
+                              <p className="text-slate-400 text-[11px] font-mono">{att.phone || 'N/A'}</p>
+                            </td>
+
+                            {/* Department & Year */}
+                            <td className="py-3.5 px-4">
+                              <p className="text-slate-800 font-medium">{att.department || 'ECE (VDT)'}</p>
+                              <p className="text-slate-500 text-xs">{att.academicYear || '3rd Year B.E.'}</p>
+                              {att.rollNumber && (
+                                <p className="text-[10px] text-purple-700 font-mono">Roll: {att.rollNumber}</p>
+                              )}
+                            </td>
+
+                            {/* Institution */}
+                            <td className="py-3.5 px-4 text-slate-600 max-w-xs truncate">
+                              {att.institution}
+                            </td>
+
+                            {/* Payment & UTR */}
+                            <td className="py-3.5 px-4 font-mono text-xs">
+                              <p className="font-bold text-emerald-700">₹2,500 Paid</p>
+                              <p className="text-slate-500 text-[11px]">UTR: {att.paymentUtr || 'N/A'}</p>
+                            </td>
+
+                            {/* Payment Verify Toggle */}
+                            <td className="py-3.5 px-4">
+                              <button
+                                onClick={() => togglePaymentVerify(att.passId)}
+                                className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
+                                  att.paymentStatus === 'VERIFIED'
+                                    ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                                    : 'bg-amber-50 text-amber-800 border-amber-300'
+                                }`}
+                              >
+                                {att.paymentStatus || 'VERIFIED'}
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
 
@@ -918,8 +1109,8 @@ export default function AdminPage() {
             VIEW 3: EVENT STAGE COUNTDOWN TIMER
             ------------------------------------------------------------- */}
         {viewMode === 'timer' && (
-          <div className="rounded-3xl bg-slate-950 text-white border border-purple-900 p-8 sm:p-12 shadow-2xl text-center space-y-6">
-            <div className="space-y-2">
+          <div className="rounded-3xl bg-slate-950 text-white border border-purple-900 p-8 sm:p-12 shadow-2xl space-y-8">
+            <div className="text-center space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-900/60 text-purple-200 border border-purple-700 text-xs font-mono">
                 <Clock className="w-3.5 h-3.5 text-purple-400" />
                 <span>8:30 AM to 4:30 PM Workshop Live Schedule</span>
@@ -932,23 +1123,121 @@ export default function AdminPage() {
               </p>
             </div>
 
-            {/* Giant Timer Display */}
-            <div className="py-8 font-mono text-6xl sm:text-8xl font-bold tracking-tight text-white bg-slate-900/80 rounded-3xl border border-purple-800/60 shadow-inner max-w-2xl mx-auto">
-              {formatTimer(eventTimeRemaining)}
+            {/* Giant Timer Display with Sub-labels */}
+            <div className="max-w-xl mx-auto p-6 rounded-3xl bg-slate-900/90 border border-purple-800/60 shadow-inner flex items-center justify-center gap-4 font-mono text-center">
+              <div>
+                <span className="text-5xl sm:text-7xl font-bold text-white tracking-tight">
+                  {String(Math.floor(eventTimeRemaining / 3600)).padStart(2, '0')}
+                </span>
+                <span className="block text-[10px] text-purple-300 uppercase mt-1">Hours</span>
+              </div>
+              <span className="text-4xl sm:text-6xl text-purple-500 font-light -mt-4">:</span>
+              <div>
+                <span className="text-5xl sm:text-7xl font-bold text-white tracking-tight">
+                  {String(Math.floor((eventTimeRemaining % 3600) / 60)).padStart(2, '0')}
+                </span>
+                <span className="block text-[10px] text-purple-300 uppercase mt-1">Minutes</span>
+              </div>
+              <span className="text-4xl sm:text-6xl text-purple-500 font-light -mt-4">:</span>
+              <div>
+                <span className="text-5xl sm:text-7xl font-bold text-white tracking-tight">
+                  {String(eventTimeRemaining % 60).padStart(2, '0')}
+                </span>
+                <span className="block text-[10px] text-purple-300 uppercase mt-1">Seconds</span>
+              </div>
+            </div>
+
+            {/* Presets Grid */}
+            <div className="max-w-2xl mx-auto space-y-3">
+              <span className="text-xs font-mono font-bold uppercase text-purple-300 block text-center">
+                Quick Duration Presets
+              </span>
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                {[
+                  { label: '10 Mins', secs: 600 },
+                  { label: '15 Mins', secs: 900 },
+                  { label: '30 Mins', secs: 1800 },
+                  { label: '1 Hour', secs: 3600 },
+                  { label: '4 Hours', secs: 14400 },
+                  { label: '8 Hours', secs: 28800 }
+                ].map((preset) => (
+                  <button
+                    key={preset.label}
+                    onClick={() => {
+                      setIsTimerRunning(false);
+                      setEventTimeRemaining(preset.secs);
+                    }}
+                    className={`py-2 px-3 rounded-xl border text-xs font-mono font-semibold transition-all ${
+                      eventTimeRemaining === preset.secs
+                        ? 'bg-purple-600 text-white border-purple-400 shadow-md'
+                        : 'bg-slate-900 hover:bg-slate-800 text-purple-200 border-purple-900/60'
+                    }`}
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Custom Minutes Input & On-the-fly Adjustments */}
+            <div className="max-w-xl mx-auto pt-2 border-t border-purple-900/40 flex flex-wrap items-center justify-center gap-2">
+              <span className="text-xs text-purple-300 font-mono">Adjust Time:</span>
+              <button
+                onClick={() => setEventTimeRemaining((prev) => Math.max(0, prev - 900))}
+                className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-purple-200 border border-purple-800 text-xs font-mono"
+              >
+                -15m
+              </button>
+              <button
+                onClick={() => setEventTimeRemaining((prev) => Math.max(0, prev - 300))}
+                className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-purple-200 border border-purple-800 text-xs font-mono"
+              >
+                -5m
+              </button>
+              <button
+                onClick={() => setEventTimeRemaining((prev) => Math.max(0, prev - 60))}
+                className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-purple-200 border border-purple-800 text-xs font-mono"
+              >
+                -1m
+              </button>
+              <button
+                onClick={() => setEventTimeRemaining((prev) => prev + 60)}
+                className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-purple-200 border border-purple-800 text-xs font-mono"
+              >
+                +1m
+              </button>
+              <button
+                onClick={() => setEventTimeRemaining((prev) => prev + 300)}
+                className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-purple-200 border border-purple-800 text-xs font-mono"
+              >
+                +5m
+              </button>
+              <button
+                onClick={() => setEventTimeRemaining((prev) => prev + 900)}
+                className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-purple-200 border border-purple-800 text-xs font-mono"
+              >
+                +15m
+              </button>
+              <button
+                onClick={() => setEventTimeRemaining((prev) => prev + 3600)}
+                className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-purple-200 border border-purple-800 text-xs font-mono"
+              >
+                +1h
+              </button>
             </div>
 
             {/* Controls */}
-            <div className="flex items-center justify-center gap-4 pt-4">
+            <div className="flex items-center justify-center gap-4 pt-2">
               <button
                 onClick={() => setIsTimerRunning(!isTimerRunning)}
-                className={`inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-semibold transition-all ${
+                className={`inline-flex items-center gap-2 px-7 py-3 rounded-full text-xs sm:text-sm font-semibold transition-all ${
                   isTimerRunning
                     ? 'bg-amber-600 hover:bg-amber-500 text-white'
                     : 'bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-950/40'
                 }`}
               >
                 {isTimerRunning ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                <span>{isTimerRunning ? 'Pause Workshop Timer' : 'Start Workshop Timer'}</span>
+                <span>{isTimerRunning ? 'Pause Stage Timer' : 'Start Stage Timer'}</span>
               </button>
 
               <button
@@ -956,7 +1245,7 @@ export default function AdminPage() {
                   setIsTimerRunning(false);
                   setEventTimeRemaining(8 * 3600);
                 }}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs sm:text-sm font-semibold transition-all border border-slate-700"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs sm:text-sm font-semibold transition-all border border-slate-700"
               >
                 <RotateCcw className="w-4 h-4" />
                 <span>Reset to 8:00:00</span>
