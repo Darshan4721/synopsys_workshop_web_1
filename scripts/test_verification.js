@@ -1,14 +1,24 @@
-// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v10.0)
+// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v11.0)
 const fs = require('fs');
 const path = require('path');
 
-console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v10.0) ===\n');
+console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v11.0) ===\n');
 
 const checks = [
   {
-    name: 'Meeting Minutes (meeting_014.md)',
-    path: path.join(__dirname, '../company/00_client/meetings/meeting_014.md'),
-    validate: (content) => content.includes('Meeting #014') && content.includes('Trinity')
+    name: 'Meeting Minutes (meeting_015.md)',
+    path: path.join(__dirname, '../company/00_client/meetings/meeting_015.md'),
+    validate: (content) => content.includes('Meeting #015') && content.includes('Android Mobile & Windows PC')
+  },
+  {
+    name: 'Android Mobile Numeric Keypads & 1-Tap Copy (RegistrationModal.tsx)',
+    path: path.join(__dirname, '../src/components/RegistrationModal.tsx'),
+    validate: (content) => content.includes('inputMode="numeric"') && content.includes('copyUpiToClipboard')
+  },
+  {
+    name: 'Windows & Android Touch Optimization in CSS (globals.css)',
+    path: path.join(__dirname, '../src/app/globals.css'),
+    validate: (content) => content.includes('-webkit-tap-highlight-color') && content.includes('touch-action') && content.includes('optimizeLegibility')
   },
   {
     name: 'Trinity Unified Master Header (Navbar.tsx)',
@@ -20,11 +30,6 @@ const checks = [
       !content.includes('href="/admin"')
   },
   {
-    name: 'Apple Design Glassmorphic Tokens in CSS (globals.css)',
-    path: path.join(__dirname, '../src/app/globals.css'),
-    validate: (content) => content.includes('apple-glass-card') && content.includes('apple-dark-card') && content.includes('animate-float-slow')
-  },
-  {
     name: 'Hero Component with Apple Spring Floating Badges (Hero.tsx)',
     path: path.join(__dirname, '../src/components/Hero.tsx'),
     validate: (content) => content.includes('animate-float-slow') && content.includes('apple-glass-card') && content.includes('Department of ECE (VDT)')
@@ -33,11 +38,6 @@ const checks = [
     name: 'Comprehensive Types Contract (types.ts)',
     path: path.join(__dirname, '../src/lib/types.ts'),
     validate: (content) => content.includes('paymentUtr') && content.includes('academicYear') && content.includes('department')
-  },
-  {
-    name: '2-Step Registration & UTR Payment Modal (RegistrationModal.tsx)',
-    path: path.join(__dirname, '../src/components/RegistrationModal.tsx'),
-    validate: (content) => content.includes('handleProceedToPayment') && content.includes('paymentUtr') && content.includes('CAD-STATION')
   },
   {
     name: 'Multi-Open FAQ Accordion with Permanent Visibility (FaqAccordion.tsx)',

@@ -21,7 +21,9 @@ import {
   User,
   Hash,
   MapPin,
-  HelpCircle
+  HelpCircle,
+  Copy,
+  Check
 } from 'lucide-react';
 import DigitalPassPreview from './DigitalPassPreview';
 
@@ -33,6 +35,7 @@ interface RegistrationModalProps {
 export default function RegistrationModal({ isOpen, onClose }: RegistrationModalProps) {
   const [step, setStep] = useState<'details' | 'payment' | 'pass'>('details');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [copiedUpi, setCopiedUpi] = useState(false);
 
   const [formData, setFormData] = useState<RegistrationFormData>({
     fullName: '',
@@ -56,6 +59,12 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const copyUpiToClipboard = () => {
+    navigator.clipboard.writeText('srishakthi.vlsi@upi');
+    setCopiedUpi(true);
+    setTimeout(() => setCopiedUpi(false), 2500);
   };
 
   const handleProceedToPayment = (e: React.FormEvent) => {
@@ -125,24 +134,24 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-2xl bg-white rounded-3xl border border-purple-200 shadow-2xl overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-md overflow-y-auto">
+      <div className="relative w-full max-w-2xl bg-white rounded-3xl border border-purple-200 shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col animate-in fade-in zoom-in-95 duration-200">
         {/* Top Header */}
-        <div className="p-6 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white flex items-center justify-between">
+        <div className="p-5 sm:p-6 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-purple-800/80 border border-purple-400/30 flex items-center justify-center shadow-inner">
+            <div className="w-10 h-10 rounded-2xl bg-purple-800/80 border border-purple-400/30 flex items-center justify-center shadow-inner">
               <Sparkles className="w-5 h-5 text-purple-200" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-purple-300">
+                <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-purple-300">
                   Sri Shakthi • ECE (VDT)
                 </span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/40 font-mono">
-                  1:1 Seat Allocation
+                <span className="text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/40 font-mono">
+                  1:1 Allocation
                 </span>
               </div>
-              <h3 className="font-editorial text-xl sm:text-2xl text-white font-normal">
+              <h3 className="font-editorial text-lg sm:text-2xl text-white font-normal">
                 {step === 'pass' ? 'Workstation Pass Confirmed' : 'Workshop Registration'}
               </h3>
             </div>
@@ -150,7 +159,8 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
           <button
             onClick={onClose}
-            className="p-2 rounded-full text-purple-300 hover:text-white hover:bg-white/10 transition-colors"
+            className="p-2.5 rounded-full text-purple-300 hover:text-white hover:bg-white/10 transition-colors"
+            aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
@@ -158,7 +168,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
         {/* Step Indicator (for Steps 1 and 2) */}
         {step !== 'pass' && (
-          <div className="px-6 py-3 bg-purple-50/70 border-b border-purple-100 flex items-center justify-between text-xs font-mono">
+          <div className="px-5 sm:px-6 py-2.5 bg-purple-50/80 border-b border-purple-100 flex items-center justify-between text-xs font-mono shrink-0">
             <div className="flex items-center gap-2">
               <span
                 className={`w-6 h-6 rounded-full flex items-center justify-center font-bold ${
@@ -183,14 +193,14 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 2
               </span>
               <span className={step === 'payment' ? 'font-bold text-purple-950' : 'text-slate-400'}>
-                Payment & Workstation Allocation
+                Payment & CAD Workstation
               </span>
             </div>
           </div>
         )}
 
-        {/* Modal Body Content */}
-        <div className="p-6 sm:p-8">
+        {/* Modal Body Content (Scrollable for Android/Windows) */}
+        <div className="p-5 sm:p-8 overflow-y-auto">
           {/* -------------------------------------------------------------
               STEP 1: CANDIDATE ACADEMIC & CONTACT DETAILS
               ------------------------------------------------------------- */}
@@ -210,7 +220,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     placeholder="e.g. Aravind Swaminathan"
                     value={formData.fullName}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 min-h-[44px]"
                   />
                 </div>
 
@@ -227,11 +237,11 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     placeholder="name@college.ac.in"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 min-h-[44px]"
                   />
                 </div>
 
-                {/* Phone */}
+                {/* Phone (Android Numeric Keypad) */}
                 <div className="space-y-1">
                   <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
                     <Phone className="w-3.5 h-3.5 text-purple-700" />
@@ -239,12 +249,13 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                   </label>
                   <input
                     type="tel"
+                    inputMode="numeric"
                     name="phone"
                     required
                     placeholder="+91 98401 23456"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 font-mono"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 font-mono min-h-[44px]"
                   />
                 </div>
 
@@ -261,7 +272,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     placeholder="e.g. Sri Shakthi Institute of Engineering and Technology"
                     value={formData.institution}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 min-h-[44px]"
                   />
                 </div>
 
@@ -274,7 +285,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     placeholder="e.g. ECE, EEE, VLSI, CSE"
                     value={formData.department}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 min-h-[44px]"
                   />
                 </div>
 
@@ -285,7 +296,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     name="academicYear"
                     value={formData.academicYear}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 min-h-[44px]"
                   >
                     <option value="1st Year B.E. / B.Tech">1st Year B.E. / B.Tech</option>
                     <option value="2nd Year B.E. / B.Tech">2nd Year B.E. / B.Tech</option>
@@ -298,7 +309,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                   </select>
                 </div>
 
-                {/* Roll Number */}
+                {/* Roll Number (Android Numeric Keypad) */}
                 <div className="space-y-1">
                   <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
                     <Hash className="w-3.5 h-3.5 text-purple-700" />
@@ -306,11 +317,12 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                   </label>
                   <input
                     type="text"
+                    inputMode="numeric"
                     name="rollNumber"
                     placeholder="e.g. 714021106012"
                     value={formData.rollNumber}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 font-mono"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 font-mono min-h-[44px]"
                   />
                 </div>
 
@@ -321,7 +333,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 min-h-[44px]"
                   >
                     <option value="student">Student (UG / PG)</option>
                     <option value="research_scholar">Research Scholar</option>
@@ -332,14 +344,14 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
               </div>
 
               {/* Bottom Submit Action */}
-              <div className="pt-4 flex items-center justify-between border-t border-purple-100">
+              <div className="pt-4 flex flex-wrap items-center justify-between gap-3 border-t border-purple-100">
                 <span className="text-xs text-slate-500 font-mono">
                   Fee: <strong className="text-purple-950 font-bold">{WORKSHOP_DETAILS.fee}</strong>
                 </span>
 
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-purple-950 hover:bg-purple-900 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-purple-950/20 active:scale-95 transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-purple-950 to-indigo-900 hover:from-purple-900 hover:to-indigo-800 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-purple-950/20 active:scale-95 transition-all min-h-[44px]"
                 >
                   <span>Proceed to Workstation Allocation</span>
                   <ArrowRight className="w-4 h-4" />
@@ -384,13 +396,32 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 <div className="sm:col-span-8 space-y-2 text-xs font-mono text-slate-300">
                   <p className="text-purple-300 font-bold text-sm">Official Event UPI / Bank Transfer</p>
                   <p>• Account: Sri Shakthi Educational Trust</p>
-                  <p>• UPI ID: <strong className="text-amber-300">srishakthi.vlsi@upi</strong></p>
+                  <div className="flex items-center gap-2">
+                    <p>• UPI ID: <strong className="text-amber-300 font-mono">srishakthi.vlsi@upi</strong></p>
+                    <button
+                      type="button"
+                      onClick={copyUpiToClipboard}
+                      className="px-2 py-1 rounded bg-purple-900/80 hover:bg-purple-800 text-purple-200 text-[10px] font-mono flex items-center gap-1 border border-purple-600 transition-colors"
+                    >
+                      {copiedUpi ? (
+                        <>
+                          <Check className="w-3 h-3 text-emerald-400" />
+                          <span className="text-emerald-300">Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3 h-3" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
                   <p>• Fixed Registration Fee: <strong className="text-emerald-400">₹2,500.00</strong></p>
                   <p className="text-[11px] text-slate-400">Includes 1:1 CAD workstation access, kit & official certificate.</p>
                 </div>
               </div>
 
-              {/* UTR Input */}
+              {/* UTR Input (Android Numeric Keypad) */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
                   <CreditCard className="w-4 h-4 text-purple-700" />
@@ -398,12 +429,13 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 </label>
                 <input
                   type="text"
+                  inputMode="numeric"
                   name="paymentUtr"
                   required
                   placeholder="e.g. 423871982341 or UPI Ref ID"
                   value={formData.paymentUtr}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl border border-purple-300 text-xs sm:text-sm text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600"
+                  className="w-full px-4 py-3 rounded-xl border border-purple-300 text-xs sm:text-sm text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 min-h-[48px]"
                 />
                 <p className="text-[11px] text-slate-500">
                   Enter the 12-digit transaction ID generated from Google Pay, PhonePe, Paytm, or NetBanking.
@@ -411,11 +443,11 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-3 flex items-center justify-between border-t border-purple-100">
+              <div className="pt-3 flex flex-wrap items-center justify-between gap-3 border-t border-purple-100">
                 <button
                   type="button"
                   onClick={() => setStep('details')}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors min-h-[44px]"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Back to Details</span>
@@ -424,7 +456,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gradient-to-r from-purple-800 to-indigo-700 hover:from-purple-700 hover:to-indigo-600 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-purple-950/20 active:scale-95 transition-all disabled:opacity-50"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-800 to-indigo-700 hover:from-purple-700 hover:to-indigo-600 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-purple-950/20 active:scale-95 transition-all disabled:opacity-50 min-h-[48px]"
                 >
                   {isSubmitting ? (
                     <span>Allocating Workstation & Generating Pass...</span>
