@@ -1,0 +1,426 @@
+.vlsi-page-wrapper {
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  --glass-bg: rgba(10, 10, 10, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+.bg-section {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 120px 20px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.1) 30%, rgba(5,5,5,0.1) 70%, rgba(5,5,5,0.95) 100%);
+  z-index: 1;
+}
+
+.content-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vlsi-section {
+  margin-bottom: 120px;
+}
+
+.vlsi-hero {
+  text-align: center;
+  margin-bottom: 100px;
+  position: relative;
+}
+
+.vlsi-hero-title {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-family: var(--font-heading);
+  color: var(--primary-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+}
+
+.vlsi-hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  max-width: 800px;
+  margin: 0 auto 60px;
+  line-height: 1.6;
+}
+
+.vlsi-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.vlsi-stat-card {
+  border-radius: 1rem;
+  padding: 30px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vlsi-stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.vlsi-stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-cyan);
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+}
+
+.vlsi-stat-label {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Section Headers */
+.vlsi-section-header {
+  margin-bottom: 60px;
+  text-align: left;
+}
+
+.vlsi-section-title {
+  font-size: 2.5rem;
+  color: var(--text-color);
+  font-family: var(--font-heading);
+  margin-bottom: 15px;
+  border-left: 4px solid var(--primary-cyan);
+  padding-left: 20px;
+}
+
+.vlsi-section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  padding-left: 24px;
+}
+
+.vlsi-hero-section { background-image: url('/optimized/pic_20.webp'); }
+.vlsi-workshops-section { background-image: url('/optimized/pic_18.webp'); }
+.vlsi-training-section { background-image: url('/optimized/pic_19.webp'); }
+.vlsi-projects-section { background-image: url('/optimized/pic_14.webp'); }
+.vlsi-testimonials-section { background-image: url('/optimized/pic_16.webp'); }
+
+/* Timeline */
+.vlsi-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  position: relative;
+}
+
+.vlsi-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 30px;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--primary-cyan), transparent);
+  opacity: 0.3;
+}
+
+.vlsi-timeline-item {
+  display: flex;
+  gap: 40px;
+  position: relative;
+  border-radius: 1rem;
+  padding: 40px;
+}
+
+.vlsi-timeline-badge {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 229, 255, 0.1);
+  border: 2px solid var(--primary-cyan);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: bold;
+  color: var(--primary-cyan);
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+}
+
+.vlsi-timeline-content {
+  flex-grow: 1;
+}
+
+.vlsi-timeline-title {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.vlsi-timeline-meta {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+  color: var(--primary-cyan);
+  font-family: var(--font-mono);
+  flex-wrap: wrap;
+}
+
+.vlsi-timeline-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.vlsi-timeline-desc {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.vlsi-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.vlsi-tag {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Training Flow */
+.vlsi-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  position: relative;
+}
+
+.vlsi-flow-card {
+  border-radius: 1rem;
+  padding: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.vlsi-flow-duration {
+  font-family: var(--font-mono);
+  color: var(--primary-cyan);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.vlsi-flow-title {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.vlsi-flow-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+/* Projects Grid */
+.vlsi-projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.vlsi-project-card {
+  border-radius: 1rem;
+  padding: 30px;
+  transition: all 0.3s ease;
+}
+
+.vlsi-project-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.vlsi-project-type {
+  font-family: var(--font-mono);
+  color: var(--primary-cyan);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.vlsi-project-title {
+  font-size: 1.2rem;
+  color: white;
+  margin-bottom: 15px;
+}
+
+/* Testimonial Marquee */
+.vlsi-marquee-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.vlsi-marquee-wrapper::before,
+.vlsi-marquee-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.vlsi-marquee-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(5,5,5,0.9), transparent);
+}
+
+.vlsi-marquee-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(5,5,5,0.9), transparent);
+}
+
+.vlsi-marquee-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.vlsi-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 30px;
+  padding-right: 30px;
+}
+
+.vlsi-marquee-track.forward {
+  animation: vlsi-marquee-forward 40s linear infinite;
+}
+
+.vlsi-marquee-track.reverse {
+  animation: vlsi-marquee-reverse 40s linear infinite;
+}
+
+
+.vlsi-testimonial {
+  padding: 30px;
+  border-radius: 1rem;
+  width: 400px;
+  flex-shrink: 0;
+}
+
+.vlsi-testimonial-quote {
+  font-size: 1rem;
+  color: var(--text-color);
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+.vlsi-testimonial-author {
+  font-family: var(--font-mono);
+  color: var(--primary-cyan);
+  font-size: 0.85rem;
+}
+
+@keyframes vlsi-marquee-forward {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes vlsi-marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Industry Connect */
+.vlsi-industry {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.vlsi-industry-pillar {
+  text-align: center;
+  padding: 40px 20px;
+  border-radius: 1rem;
+}
+
+.vlsi-industry-icon {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.vlsi-industry-title {
+  color: var(--primary-cyan);
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.vlsi-industry-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .vlsi-timeline::before {
+    display: none;
+  }
+  .vlsi-timeline-item {
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px 20px;
+  }
+  .vlsi-timeline-badge {
+    align-self: flex-start;
+  }
+  .vlsi-industry {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .vlsi-page-wrapper {
+    padding-top: 100px;
+  }
+  .vlsi-hero-title {
+    font-size: 2.8rem;
+  }
+  .vlsi-section-title {
+    font-size: 1.8rem;
+  }
+  .vlsi-testimonial {
+    width: 300px;
+  }
+}

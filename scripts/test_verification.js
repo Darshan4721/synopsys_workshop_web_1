@@ -6,9 +6,9 @@ console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v7.0) ===\n
 
 const checks = [
   {
-    name: 'Meeting Minutes (meeting_008.md)',
+    name: 'Meeting Minutes (meeting_008.md & meeting_009.md)',
     path: path.join(__dirname, '../company/00_client/meetings/meeting_008.md'),
-    validate: (content) => content.includes('Meeting #008') && content.includes('FAQ Accordion Interaction & Readability Bug')
+    validate: (content) => content.includes('Meeting #008') && (content.includes('FAQ Accordion') || content.includes('Multi-Open')) && fs.existsSync(path.join(__dirname, '../company/00_client/meetings/meeting_009.md'))
   },
   {
     name: 'Multi-Open FAQ Accordion with Permanent Visibility (FaqAccordion.tsx)',

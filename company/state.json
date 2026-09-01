@@ -1,15 +1,16 @@
 {
   "project_name": "Sri Shakthi Synopsys Front-End VLSI Workshop",
   "client": "Sri Shakthi Institute of Engineering and Technology - Department of ECE (VDT)",
-  "status": "ALL_MILESTONES_COMPLETED",
-  "current_stage": "Sprint_6_Faq_Fix_And_Floorplan_Cert_Delivered",
+  "sessionActive": true,
+  "status": "VERIFIED_CERTIFIED",
+  "current_stage": "Sprint_8_Delivery_Manager_Certified",
   "branches_synced": [
     "main",
     "dev_1"
   ],
   "remote_repository": "https://github.com/Darshan4721/synopsys_workshop_web_1.git",
   "features_delivered": [
-    "Permanent Visibility & Fix for FAQ Accordion (No Disappearance on Click)",
+    "Multi-Open Persistent FAQ Accordion with Expand All / Collapse All Controls",
     "Interactive 50-Workstation CAD Lab Seating Grid & Floorplan Map on Admin (/admin)",
     "Station Inspector Drawer with 1-click 8:30 AM arrival check-in toggle",
     "Global Glowing Scroll Progress Laser Header (ScrollProgress.tsx)",
@@ -24,9 +25,9 @@
     "Printable 8:30 AM Check-in Attendance Sheet & CSV Export"
   ],
   "verification": {
-    "qa_acceptance_tests": "11/11 PASSED (v6.0)",
+    "qa_acceptance_tests": "11/11 PASSED (v7.0)",
     "npm_build_exit_code": 0,
     "defects_count": 0
   },
-  "last_updated": "2026-08-31T00:33:20+05:30"
+  "last_updated": "2026-09-01T20:00:38+05:30"
 }
