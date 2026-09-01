@@ -1,14 +1,23 @@
-// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v9.0)
+// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v10.0)
 const fs = require('fs');
 const path = require('path');
 
-console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v9.0) ===\n');
+console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v10.0) ===\n');
 
 const checks = [
   {
-    name: 'Meeting Minutes (meeting_013.md)',
-    path: path.join(__dirname, '../company/00_client/meetings/meeting_013.md'),
-    validate: (content) => content.includes('Meeting #013') && content.includes('Apple Design Language Polish Pass')
+    name: 'Meeting Minutes (meeting_014.md)',
+    path: path.join(__dirname, '../company/00_client/meetings/meeting_014.md'),
+    validate: (content) => content.includes('Meeting #014') && content.includes('Trinity')
+  },
+  {
+    name: 'Trinity Unified Master Header (Navbar.tsx)',
+    path: path.join(__dirname, '../src/components/Navbar.tsx'),
+    validate: (content) => 
+      content.includes('activeSection') &&
+      content.includes('navLinks') &&
+      content.includes('SSIET') &&
+      !content.includes('href="/admin"')
   },
   {
     name: 'Apple Design Glassmorphic Tokens in CSS (globals.css)',
@@ -49,11 +58,6 @@ const checks = [
     name: 'Interactive 50 CAD Lab Floorplan, Roster & Stage Timer on Admin Page (src/app/admin/page.tsx)',
     path: path.join(__dirname, '../src/app/admin/page.tsx'),
     validate: (content) => content.includes('50 CAD Lab Grid') && content.includes('Stage Timer') && content.includes('paymentUtr') && content.includes('handleLogin')
-  },
-  {
-    name: 'Navbar Clean: Public Header has ZERO Admin Links (Navbar.tsx)',
-    path: path.join(__dirname, '../src/components/Navbar.tsx'),
-    validate: (content) => !content.includes('href="/admin"') && content.includes('SSIET')
   },
   {
     name: 'Live Interactive Verdi Waveform Simulator (EdaConsoleSimulator.tsx)',
