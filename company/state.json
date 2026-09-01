@@ -2,8 +2,8 @@
   "project_name": "Sri Shakthi Synopsys Front-End VLSI Workshop",
   "client": "Sri Shakthi Institute of Engineering and Technology - Department of ECE (VDT)",
   "sessionActive": true,
-  "status": "ALL_MILESTONES_COMPLETED",
-  "current_stage": "Sprint_9_Reference_Ingestion_And_Admin_Upgrade_Delivered",
+  "status": "ALL_MILESTONES_COMPLETED_AND_VERIFIED",
+  "current_stage": "Sprint_11_Server_Manifest_Fixed_And_Verified",
   "branches_synced": [
     "main",
     "dev_1"
@@ -31,7 +31,12 @@
   "verification": {
     "qa_acceptance_tests": "12/12 PASSED (v8.0)",
     "npm_build_exit_code": 0,
+    "http_smoke_tests": {
+      "GET /": 200,
+      "GET /admin": 200,
+      "POST /api/register": 200
+    },
     "defects_count": 0
   },
-  "last_updated": "2026-09-01T20:04:20+05:30"
+  "last_updated": "2026-09-01T20:09:30+05:30"
 }
