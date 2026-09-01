@@ -1,8 +1,28 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Sparkles, Monitor, ShieldCheck, CheckCircle2, AlertCircle } from 'lucide-react';
 import { RegistrationFormData, GeneratedPass } from '@/lib/types';
+import { WORKSHOP_DETAILS } from '@/lib/data';
+import {
+  X,
+  Sparkles,
+  ShieldCheck,
+  Monitor,
+  CheckCircle2,
+  Lock,
+  ArrowRight,
+  ArrowLeft,
+  QrCode,
+  CreditCard,
+  Building2,
+  GraduationCap,
+  Phone,
+  Mail,
+  User,
+  Hash,
+  MapPin,
+  HelpCircle
+} from 'lucide-react';
 import DigitalPassPreview from './DigitalPassPreview';
 
 interface RegistrationModalProps {
@@ -11,235 +31,418 @@ interface RegistrationModalProps {
 }
 
 export default function RegistrationModal({ isOpen, onClose }: RegistrationModalProps) {
+  const [step, setStep] = useState<'details' | 'payment' | 'pass'>('details');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formData, setFormData] = useState<RegistrationFormData>({
     fullName: '',
     email: '',
     phone: '',
     category: 'student',
     institution: '',
-    idNumber: '',
-    experienceLevel: 'beginner',
+    department: 'ECE (VLSI Design and Technology)',
+    academicYear: '3rd Year B.E. / B.Tech',
+    rollNumber: '',
+    cityState: 'Coimbatore, Tamil Nadu',
+    experienceLevel: 'intermediate',
+    paymentUtr: '',
+    paymentMode: 'UPI'
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [generatedPass, setGeneratedPass] = useState<GeneratedPass | null>(null);
-  const [errorMsg, setErrorMsg] = useState('');
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleProceedToPayment = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName || !formData.email || !formData.phone || !formData.institution) {
-      setErrorMsg('Please complete all required fields.');
+      alert('Please fill in all mandatory fields.');
+      return;
+    }
+    setStep('payment');
+  };
+
+  const handleFinalSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.paymentUtr || formData.paymentUtr.trim().length < 6) {
+      alert('Please enter a valid 12-digit Bank / UPI Transaction Reference (UTR) Number.');
       return;
     }
 
     setIsSubmitting(true);
-    setErrorMsg('');
 
-    // Simulate backend allocation & registration storage
     setTimeout(() => {
-      const randomStation = Math.floor(Math.random() * 50) + 1;
-      const passNumber = `SSIET-VLSI-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+      // Get next available workstation number
+      let existing: GeneratedPass[] = [];
+      try {
+        const stored = localStorage.getItem('vlsi_registrations');
+        if (stored) existing = JSON.parse(stored);
+      } catch (err) {}
 
-      const newPass: GeneratedPass = {
-        passId: passNumber,
+      const stationIndex = (existing.length % 50) + 1;
+      const stationStr = `CAD-STATION #${stationIndex < 10 ? '0' + stationIndex : stationIndex} (1:1)`;
+      const passId = `SSIET-VLSI-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+
+      const pass: GeneratedPass = {
+        passId,
         fullName: formData.fullName,
         email: formData.email,
+        phone: formData.phone,
         category: formData.category,
         institution: formData.institution,
-        workstationNumber: `CAD-STATION #${randomStation < 10 ? '0' + randomStation : randomStation} (1:1 Dedicated)`,
+        department: formData.department,
+        academicYear: formData.academicYear,
+        rollNumber: formData.rollNumber,
+        cityState: formData.cityState,
+        workstationNumber: stationStr,
         seatStatus: 'CONFIRMED',
-        qrData: `PASS:${passNumber}|WORKSTATION:${randomStation}|NAME:${formData.fullName}`,
-        issuedAt: new Date().toLocaleDateString('en-US', {
-          month: 'short',
-          day: 'numeric',
-          year: 'numeric',
-        }),
+        paymentUtr: formData.paymentUtr,
+        paymentStatus: 'VERIFIED',
+        paymentAmount: 2500,
+        qrData: `PASS:${passId}|WORKSTATION:${stationIndex}|UTR:${formData.paymentUtr}`,
+        issuedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        checkedIn: false
       };
 
-      // Save in localStorage
+      // Save to localStorage
+      const updated = [pass, ...existing];
       try {
-        const stored = JSON.parse(localStorage.getItem('vlsi_registrations') || '[]');
-        stored.push(newPass);
-        localStorage.setItem('vlsi_registrations', JSON.stringify(stored));
-      } catch (err) {
-        console.error('Storage error', err);
-      }
+        localStorage.setItem('vlsi_registrations', JSON.stringify(updated));
+      } catch (err) {}
 
-      setGeneratedPass(newPass);
+      setGeneratedPass(pass);
       setIsSubmitting(false);
+      setStep('pass');
     }, 600);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-      {/* Backdrop */}
-      <div
-        onClick={onClose}
-        className="fixed inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity"
-      />
-
-      {/* Modal Container */}
-      <div className="relative w-full max-w-2xl rounded-3xl bg-white p-6 sm:p-8 shadow-2xl border border-purple-200/80 z-10 my-8">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-purple-50 transition-colors"
-          aria-label="Close dialog"
-        >
-          <X className="w-5 h-5" />
-        </button>
-
-        {generatedPass ? (
-          <DigitalPassPreview pass={generatedPass} onClose={onClose} />
-        ) : (
-          <div className="space-y-6">
-            {/* Header */}
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-900 text-xs font-semibold">
-                <Monitor className="w-3.5 h-3.5" />
-                <span>1:1 Workstation Allocation Desk</span>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md overflow-y-auto">
+      <div className="relative w-full max-w-2xl bg-white rounded-3xl border border-purple-200 shadow-2xl overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
+        {/* Top Header */}
+        <div className="p-6 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-purple-800/80 border border-purple-400/30 flex items-center justify-center shadow-inner">
+              <Sparkles className="w-5 h-5 text-purple-200" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-purple-300">
+                  Sri Shakthi • ECE (VDT)
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/40 font-mono">
+                  1:1 Seat Allocation
+                </span>
               </div>
-              <h2 className="font-editorial text-2xl sm:text-3xl text-slate-900 font-normal">
-                Reserve Your Synopsys CAD Workstation
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600">
-                Fee: <strong>₹2,500 per head</strong> (includes dedicated 1:1 single-monitor CAD system, licenses, refreshments, lunch, and official unified certificate).
-              </p>
+              <h3 className="font-editorial text-xl sm:text-2xl text-white font-normal">
+                {step === 'pass' ? 'Workstation Pass Confirmed' : 'Workshop Registration'}
+              </h3>
+            </div>
+          </div>
+
+          <button
+            onClick={onClose}
+            className="p-2 rounded-full text-purple-300 hover:text-white hover:bg-white/10 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Step Indicator (for Steps 1 and 2) */}
+        {step !== 'pass' && (
+          <div className="px-6 py-3 bg-purple-50/70 border-b border-purple-100 flex items-center justify-between text-xs font-mono">
+            <div className="flex items-center gap-2">
+              <span
+                className={`w-6 h-6 rounded-full flex items-center justify-center font-bold ${
+                  step === 'details' ? 'bg-purple-950 text-white' : 'bg-emerald-600 text-white'
+                }`}
+              >
+                1
+              </span>
+              <span className={step === 'details' ? 'font-bold text-purple-950' : 'text-slate-500'}>
+                Candidate Details
+              </span>
             </div>
 
-            {errorMsg && (
-              <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>{errorMsg}</span>
-              </div>
-            )}
+            <ArrowRight className="w-4 h-4 text-purple-300" />
 
-            {/* Registration Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="flex items-center gap-2">
+              <span
+                className={`w-6 h-6 rounded-full flex items-center justify-center font-bold ${
+                  step === 'payment' ? 'bg-purple-950 text-white' : 'bg-purple-200 text-purple-800'
+                }`}
+              >
+                2
+              </span>
+              <span className={step === 'payment' ? 'font-bold text-purple-950' : 'text-slate-400'}>
+                Payment & Workstation Allocation
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Modal Body Content */}
+        <div className="p-6 sm:p-8">
+          {/* -------------------------------------------------------------
+              STEP 1: CANDIDATE ACADEMIC & CONTACT DETAILS
+              ------------------------------------------------------------- */}
+          {step === 'details' && (
+            <form onSubmit={handleProceedToPayment} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Full Name */}
-                <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-700">Full Name *</label>
+                <div className="space-y-1 sm:col-span-2">
+                  <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                    <User className="w-3.5 h-3.5 text-purple-700" />
+                    <span>Full Name (for Certificate) *</span>
+                  </label>
                   <input
                     type="text"
+                    name="fullName"
                     required
-                    placeholder="e.g. Dr. Priya Sharma / K. Rahul"
+                    placeholder="e.g. Aravind Swaminathan"
                     value={formData.fullName}
-                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 transition-all"
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
                   />
                 </div>
 
-                {/* Email Address */}
+                {/* Email */}
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-700">Email Address *</label>
+                  <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                    <Mail className="w-3.5 h-3.5 text-purple-700" />
+                    <span>Email Address (for Pass) *</span>
+                  </label>
                   <input
                     type="email"
+                    name="email"
                     required
-                    placeholder="name@college.edu / name@domain.com"
+                    placeholder="name@college.ac.in"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 transition-all"
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
                   />
                 </div>
 
-                {/* Phone Number */}
+                {/* Phone */}
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-700">Mobile Phone *</label>
+                  <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 text-purple-700" />
+                    <span>WhatsApp / Mobile Number *</span>
+                  </label>
                   <input
                     type="tel"
+                    name="phone"
                     required
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 98401 23456"
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 transition-all"
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 font-mono"
+                  />
+                </div>
+
+                {/* Institution Name */}
+                <div className="space-y-1 sm:col-span-2">
+                  <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                    <Building2 className="w-3.5 h-3.5 text-purple-700" />
+                    <span>College / University / Company Name *</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="institution"
+                    required
+                    placeholder="e.g. Sri Shakthi Institute of Engineering and Technology"
+                    value={formData.institution}
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                  />
+                </div>
+
+                {/* Department */}
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Department / Branch</label>
+                  <input
+                    type="text"
+                    name="department"
+                    placeholder="e.g. ECE, EEE, VLSI, CSE"
+                    value={formData.department}
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                  />
+                </div>
+
+                {/* Academic Year / Designation */}
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Academic Year / Role</label>
+                  <select
+                    name="academicYear"
+                    value={formData.academicYear}
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
+                  >
+                    <option value="1st Year B.E. / B.Tech">1st Year B.E. / B.Tech</option>
+                    <option value="2nd Year B.E. / B.Tech">2nd Year B.E. / B.Tech</option>
+                    <option value="3rd Year B.E. / B.Tech">3rd Year B.E. / B.Tech</option>
+                    <option value="Final Year B.E. / B.Tech">Final Year B.E. / B.Tech</option>
+                    <option value="PG / M.Tech / M.E. Student">PG / M.Tech / M.E. Student</option>
+                    <option value="Research Scholar / PhD">Research Scholar / PhD</option>
+                    <option value="Faculty / Academician">Faculty / Academician</option>
+                    <option value="Industry Professional">Industry Professional</option>
+                  </select>
+                </div>
+
+                {/* Roll Number */}
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                    <Hash className="w-3.5 h-3.5 text-purple-700" />
+                    <span>Roll / Register Number (Optional)</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="rollNumber"
+                    placeholder="e.g. 714021106012"
+                    value={formData.rollNumber}
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 font-mono"
                   />
                 </div>
 
                 {/* Category */}
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-700">Participant Category *</label>
+                  <label className="text-xs font-semibold text-slate-700">Participation Category</label>
                   <select
+                    name="category"
                     value={formData.category}
-                    onChange={(e) =>
-                      setFormData({ ...formData, category: e.target.value as any })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 transition-all"
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600"
                   >
-                    <option value="student">Student (B.Tech / B.E. / M.Tech)</option>
-                    <option value="research_scholar">PhD / Research Scholar</option>
-                    <option value="faculty">Faculty / Academician</option>
-                    <option value="industry_professional">Industry Professional / Engineer</option>
-                  </select>
-                </div>
-
-                {/* Institution / College */}
-                <div className="space-y-1 sm:col-span-2">
-                  <label className="text-xs font-semibold text-slate-700">
-                    College / University / Company Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Sri Shakthi Institute of Engg & Tech / ABC Semi"
-                    value={formData.institution}
-                    onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 transition-all"
-                  />
-                </div>
-
-                {/* Roll Number / Employee ID */}
-                <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-700">
-                    Roll No / Employee ID (Optional)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. 21EE042 / EMP-991"
-                    value={formData.idNumber}
-                    onChange={(e) => setFormData({ ...formData, idNumber: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 transition-all"
-                  />
-                </div>
-
-                {/* Experience Level */}
-                <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-700">EDA Experience Level</label>
-                  <select
-                    value={formData.experienceLevel}
-                    onChange={(e) =>
-                      setFormData({ ...formData, experienceLevel: e.target.value as any })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600 transition-all"
-                  >
-                    <option value="beginner">Beginner (New to Synopsys Tools)</option>
-                    <option value="intermediate">Intermediate (Know Verilog / Basic EDA)</option>
-                    <option value="advanced">Advanced (Familiar with Synthesis / SDC)</option>
+                    <option value="student">Student (UG / PG)</option>
+                    <option value="research_scholar">Research Scholar</option>
+                    <option value="faculty">Faculty Member</option>
+                    <option value="industry_professional">Industry Professional</option>
                   </select>
                 </div>
               </div>
 
-              {/* Submit CTA */}
-              <div className="pt-4">
+              {/* Bottom Submit Action */}
+              <div className="pt-4 flex items-center justify-between border-t border-purple-100">
+                <span className="text-xs text-slate-500 font-mono">
+                  Fee: <strong className="text-purple-950 font-bold">{WORKSHOP_DETAILS.fee}</strong>
+                </span>
+
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-purple-950 hover:bg-purple-900 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-purple-950/20 active:scale-95 transition-all"
+                >
+                  <span>Proceed to Workstation Allocation</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </form>
+          )}
+
+          {/* -------------------------------------------------------------
+              STEP 2: PAYMENT & 1:1 WORKSTATION ALLOCATION
+              ------------------------------------------------------------- */}
+          {step === 'payment' && (
+            <form onSubmit={handleFinalSubmit} className="space-y-5">
+              {/* Allocation Notice Banner */}
+              <div className="p-4 rounded-2xl bg-purple-50 border border-purple-200 flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <span className="text-[10px] uppercase font-mono tracking-widest text-purple-700 font-bold">
+                    PRE-ALLOCATED CAD WORKSTATION
+                  </span>
+                  <p className="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2">
+                    <Monitor className="w-4 h-4 text-purple-800" />
+                    <span>Dedicated Single-Monitor System #XX</span>
+                  </p>
+                </div>
+
+                <span className="text-sm font-bold text-purple-950 font-mono bg-white px-3 py-1.5 rounded-xl border border-purple-200 shadow-sm">
+                  {WORKSHOP_DETAILS.fee}
+                </span>
+              </div>
+
+              {/* Payment Details Box */}
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center p-4 rounded-2xl bg-slate-950 text-white border border-purple-800">
+                {/* QR Code */}
+                <div className="sm:col-span-4 flex flex-col items-center justify-center p-3 bg-white rounded-xl text-slate-950">
+                  <QrCode className="w-24 h-24 text-purple-950" />
+                  <span className="text-[9px] font-mono font-bold uppercase text-purple-900 mt-1">
+                    UPI SCAN & PAY
+                  </span>
+                </div>
+
+                {/* Bank / UPI Details */}
+                <div className="sm:col-span-8 space-y-2 text-xs font-mono text-slate-300">
+                  <p className="text-purple-300 font-bold text-sm">Official Event UPI / Bank Transfer</p>
+                  <p>• Account: Sri Shakthi Educational Trust</p>
+                  <p>• UPI ID: <strong className="text-amber-300">srishakthi.vlsi@upi</strong></p>
+                  <p>• Fixed Registration Fee: <strong className="text-emerald-400">₹2,500.00</strong></p>
+                  <p className="text-[11px] text-slate-400">Includes 1:1 CAD workstation access, kit & official certificate.</p>
+                </div>
+              </div>
+
+              {/* UTR Input */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
+                  <CreditCard className="w-4 h-4 text-purple-700" />
+                  <span>12-Digit Bank / UPI Transaction Reference (UTR) Number *</span>
+                </label>
+                <input
+                  type="text"
+                  name="paymentUtr"
+                  required
+                  placeholder="e.g. 423871982341 or UPI Ref ID"
+                  value={formData.paymentUtr}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl border border-purple-300 text-xs sm:text-sm text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-600"
+                />
+                <p className="text-[11px] text-slate-500">
+                  Enter the 12-digit transaction ID generated from Google Pay, PhonePe, Paytm, or NetBanking.
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-3 flex items-center justify-between border-t border-purple-100">
+                <button
+                  type="button"
+                  onClick={() => setStep('details')}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Back to Details</span>
+                </button>
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 rounded-full bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white font-semibold text-sm sm:text-base shadow-xl shadow-purple-900/25 hover:shadow-purple-900/40 active:scale-[0.98] transition-all disabled:opacity-50"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gradient-to-r from-purple-800 to-indigo-700 hover:from-purple-700 hover:to-indigo-600 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-purple-950/20 active:scale-95 transition-all disabled:opacity-50"
                 >
-                  {isSubmitting
-                    ? 'Allocating Workstation & Generating Pass...'
-                    : 'Confirm Registration & Generate Pass (₹2,500)'}
+                  {isSubmitting ? (
+                    <span>Allocating Workstation & Generating Pass...</span>
+                  ) : (
+                    <>
+                      <ShieldCheck className="w-4 h-4" />
+                      <span>Confirm & Issue Workstation Pass</span>
+                    </>
+                  )}
                 </button>
               </div>
-
-              <p className="text-[11px] text-center text-slate-500">
-                🔒 Strictly limited to 50 dedicated workstations. Instant digital confirmation provided.
-              </p>
             </form>
-          </div>
-        )}
+          )}
+
+          {/* -------------------------------------------------------------
+              STEP 3: VIP DIGITAL PASS DISPLAY
+              ------------------------------------------------------------- */}
+          {step === 'pass' && generatedPass && (
+            <DigitalPassPreview pass={generatedPass} onClose={onClose} />
+          )}
+        </div>
       </div>
     </div>
   );

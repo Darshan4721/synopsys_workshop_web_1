@@ -30,18 +30,32 @@ export interface RegistrationFormData {
   phone: string;
   category: 'student' | 'research_scholar' | 'faculty' | 'industry_professional';
   institution: string;
-  idNumber: string;
+  department: string;
+  academicYear: string;
+  rollNumber: string;
+  cityState: string;
   experienceLevel: 'beginner' | 'intermediate' | 'advanced';
+  paymentUtr: string;
+  paymentMode: string;
 }
 
 export interface GeneratedPass {
   passId: string;
   fullName: string;
   email: string;
+  phone?: string;
   category: string;
   institution: string;
+  department?: string;
+  academicYear?: string;
+  rollNumber?: string;
+  cityState?: string;
   workstationNumber: string;
   seatStatus: string;
+  paymentUtr?: string;
+  paymentStatus?: 'VERIFIED' | 'PENDING' | 'FLAGGED';
+  paymentAmount?: number;
   qrData: string;
   issuedAt: string;
+  checkedIn?: boolean;
 }

@@ -1,14 +1,24 @@
-// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v7.0)
+// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v8.0)
 const fs = require('fs');
 const path = require('path');
 
-console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v7.0) ===\n');
+console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v8.0) ===\n');
 
 const checks = [
   {
-    name: 'Meeting Minutes (meeting_008.md & meeting_009.md)',
-    path: path.join(__dirname, '../company/00_client/meetings/meeting_008.md'),
-    validate: (content) => content.includes('Meeting #008') && (content.includes('FAQ Accordion') || content.includes('Multi-Open')) && fs.existsSync(path.join(__dirname, '../company/00_client/meetings/meeting_009.md'))
+    name: 'Meeting Minutes (meeting_010.md)',
+    path: path.join(__dirname, '../company/00_client/meetings/meeting_010.md'),
+    validate: (content) => content.includes('Meeting #010') && content.includes('Registration Form Adaptation')
+  },
+  {
+    name: 'Comprehensive Types Contract (types.ts)',
+    path: path.join(__dirname, '../src/lib/types.ts'),
+    validate: (content) => content.includes('paymentUtr') && content.includes('academicYear') && content.includes('department')
+  },
+  {
+    name: '2-Step Registration & UTR Payment Modal (RegistrationModal.tsx)',
+    path: path.join(__dirname, '../src/components/RegistrationModal.tsx'),
+    validate: (content) => content.includes('handleProceedToPayment') && content.includes('paymentUtr') && content.includes('CAD-STATION')
   },
   {
     name: 'Multi-Open FAQ Accordion with Permanent Visibility (FaqAccordion.tsx)',
@@ -26,9 +36,9 @@ const checks = [
     validate: (content) => content.includes('IntersectionObserver') && content.includes('reveal-visible')
   },
   {
-    name: 'Interactive 50 CAD Lab Floorplan & Roster on Admin Page (src/app/admin/page.tsx)',
+    name: 'Interactive 50 CAD Lab Floorplan, Roster & Stage Timer on Admin Page (src/app/admin/page.tsx)',
     path: path.join(__dirname, '../src/app/admin/page.tsx'),
-    validate: (content) => content.includes('viewMode') && content.includes('50 CAD Lab Grid') && content.includes('handleLogin')
+    validate: (content) => content.includes('50 CAD Lab Grid') && content.includes('Stage Timer') && content.includes('paymentUtr') && content.includes('handleLogin')
   },
   {
     name: 'Navbar Clean: Public Header has ZERO Admin Links (Navbar.tsx)',
