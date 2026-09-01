@@ -201,30 +201,31 @@ export default function EdaConsoleSimulator() {
   };
 
   return (
-    <section className="py-20 bg-slate-950 text-white relative overflow-hidden">
-      {/* Background Circuit Traces & Ambient Purple Glow */}
+    <section id="eda-simulator" className="py-24 bg-slate-950 text-white relative overflow-hidden">
+      {/* Apple Pro Ambient Glow */}
       <div className="absolute inset-0 bg-silicon-grid opacity-20 pointer-events-none" />
-      <div className="absolute -top-40 right-10 w-96 h-96 bg-purple-600/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute -top-40 right-10 w-96 h-96 bg-purple-600/15 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-40 left-10 w-96 h-96 bg-indigo-600/15 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Title */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-900/60 border border-purple-500/30 text-purple-300 text-xs font-mono font-semibold">
+        <div className="text-center max-w-3xl mx-auto space-y-4 mb-12 reveal-on-scroll">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full apple-dark-card border border-purple-500/30 text-purple-300 text-xs font-mono font-semibold">
             <Terminal className="w-3.5 h-3.5" />
             <span>Interactive Lab EDA & Waveform Studio</span>
           </div>
           <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-normal text-white tracking-tight">
-            Preview the Real EDA Scripts & Waveforms
+            Preview Real EDA Scripts & Waveforms
           </h2>
           <p className="text-sm sm:text-base text-slate-400 font-normal">
             Interact directly with synthesizable Verilog modules, live Verdi FSDB digital logic waveforms, and Synopsys synthesis constraints.
           </p>
         </div>
 
-        {/* Studio Window Card */}
-        <div className="rounded-3xl bg-slate-900/90 border border-purple-800/40 p-2 sm:p-4 shadow-2xl backdrop-blur-xl">
+        {/* Studio Window Card (Apple Dark Frame) */}
+        <div className="rounded-[2.5rem] apple-dark-card border border-purple-800/40 p-3 sm:p-5 shadow-2xl reveal-on-scroll delay-150">
           {/* Top Bar with File Tabs */}
-          <div className="flex flex-wrap items-center justify-between gap-3 p-2 bg-slate-950 rounded-2xl border border-purple-900/30 mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 bg-slate-900/95 rounded-2xl border border-purple-900/40 mb-4">
             <div className="flex flex-wrap items-center gap-2">
               {EDA_FILES.map((file) => {
                 const Icon = file.icon;
@@ -236,7 +237,7 @@ export default function EdaConsoleSimulator() {
                       setSelectedFile(file);
                       setHasRun(false);
                     }}
-                    className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono transition-all ${
+                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all duration-200 ${
                       isSelected
                         ? 'bg-purple-900 text-white font-semibold shadow-md shadow-purple-950 border border-purple-500/40'
                         : 'bg-slate-900/70 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
@@ -254,7 +255,7 @@ export default function EdaConsoleSimulator() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={autoSimulate}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-700 to-indigo-600 hover:from-purple-600 hover:to-indigo-500 text-white text-xs font-semibold shadow-md active:scale-95 transition-all"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-700 to-indigo-600 hover:from-purple-600 hover:to-indigo-500 text-white text-xs font-semibold shadow-md active:scale-95 transition-all"
                 >
                   <Zap className="w-3.5 h-3.5" />
                   <span>Auto-Simulate 6 Cycles</span>

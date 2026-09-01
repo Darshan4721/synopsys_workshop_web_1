@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,6 +10,7 @@
   --font-mono: 'JetBrains Mono', monospace;
   --synopsys-purple: #7e22ce;
   --synopsys-purple-dark: #3b0764;
+  --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
@@ -34,44 +35,77 @@ html {
   font-family: 'Playfair Display', 'Instrument Serif', 'Cormorant Garamond', serif;
 }
 
-/* Double-Bezel (Doppelrand) Architecture */
-.double-bezel-card {
+/* =========================================================================
+   APPLE PRO GLASSMORPHISM & DOUBLE-BEZEL (DOPPELRAND) ARCHITECTURE
+   ========================================================================= */
+.apple-glass-card {
   position: relative;
-  border-radius: 1.75rem;
-  background: rgba(250, 245, 255, 0.6);
-  border: 1px solid rgba(147, 51, 234, 0.15);
-  box-shadow: 0 10px 30px -10px rgba(76, 29, 149, 0.05);
-  padding: 0.375rem;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(243, 232, 255, 0.9);
+  box-shadow: 0 20px 40px -15px rgba(76, 29, 149, 0.06),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.double-bezel-inner {
-  border-radius: calc(1.75rem - 0.375rem);
-  background: #ffffff;
-  border: 1px solid rgba(243, 232, 255, 0.8);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 1);
+.apple-glass-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 28px 50px -15px rgba(126, 34, 206, 0.12),
+              inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+.apple-dark-card {
+  position: relative;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(147, 51, 234, 0.25);
+  box-shadow: 0 24px 50px -15px rgba(0, 0, 0, 0.5),
+              inset 0 1px 1px rgba(255, 255, 255, 0.12);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-dark-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(168, 85, 247, 0.45);
+  box-shadow: 0 30px 60px -15px rgba(126, 34, 206, 0.35),
+              inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Apple Pill */
+.apple-pill {
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-pill:active {
+  transform: scale(0.96);
 }
 
 /* Semiconductor Circuit Grid Background */
 .bg-silicon-grid {
-  background-image: radial-gradient(rgba(126, 34, 206, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(126, 34, 206, 0.1) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 .bg-purple-mesh {
-  background: radial-gradient(circle at 50% 0%, rgba(243, 232, 255, 0.8) 0%, rgba(255, 255, 255, 1) 70%);
+  background: radial-gradient(circle at 50% 0%, rgba(243, 232, 255, 0.9) 0%, rgba(255, 255, 255, 1) 75%);
 }
 
 /* =========================================================================
-   APPLE-GRADE HARDWARE-ACCELERATED SCROLL ANIMATION ENGINE (EMIL KOWALSKI)
+   HARDWARE-ACCELERATED SCROLL REVEAL ANIMATION ENGINE (EMIL KOWALSKI)
    ========================================================================= */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(28px);
   filter: blur(4px);
-  transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
-              transform 0.7s cubic-bezier(0.23, 1, 0.32, 1),
-              filter 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-  will-change: opacity, transform;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
 }
 
 .reveal-visible {
@@ -87,14 +121,32 @@ html {
 .delay-300 { transition-delay: 300ms; }
 .delay-400 { transition-delay: 400ms; }
 
-/* Subtle Shimmer */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+/* Floating Float Keyframes */
+@keyframes apple-float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
 }
 
-.animate-shimmer {
-  animation: shimmer 2.5s infinite;
+@keyframes apple-float-reverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(8px) rotate(-0.5deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.08); }
+}
+
+.animate-float-slow {
+  animation: apple-float-slow 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: apple-float-reverse 7s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 5s ease-in-out infinite;
 }
 
 /* Custom Scrollbar */
@@ -114,10 +166,14 @@ html {
 
 /* Accessibility: Respect Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .reveal-on-scroll {
+  .reveal-on-scroll,
+  .animate-float-slow,
+  .animate-float-reverse,
+  .animate-pulse-glow {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
     transition: none !important;
+    animation: none !important;
   }
 }

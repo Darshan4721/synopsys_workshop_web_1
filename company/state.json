@@ -2,41 +2,29 @@
   "project_name": "Sri Shakthi Synopsys Front-End VLSI Workshop",
   "client": "Sri Shakthi Institute of Engineering and Technology - Department of ECE (VDT)",
   "sessionActive": true,
-  "status": "ALL_MILESTONES_COMPLETED_AND_VERIFIED",
-  "current_stage": "Sprint_11_Server_Manifest_Fixed_And_Verified",
+  "status": "IN_EXECUTION_APPLE_DESIGN_AND_MOTION",
+  "current_stage": "Sprint_13_Apple_Design_And_Advanced_Motion",
   "branches_synced": [
     "main",
     "dev_1"
   ],
   "remote_repository": "https://github.com/Darshan4721/synopsys_workshop_web_1.git",
   "features_delivered": [
-    "Comprehensive 2-Step Registration Flow adapted from reference code (form anoter web/)",
-    "Candidate Academic & Contact Details (Name, Email, Phone, College, Dept, Year, Roll No)",
-    "Payment Step with 1:1 CAD Workstation Allocation & 12-Digit Bank/UPI UTR verification",
-    "Admin Dashboard Analytics, Payment Verification & Multi-parameter Filters",
-    "Interactive 50-Workstation CAD Lab Seating Grid & Floorplan Map on Admin (/admin)",
-    "Live Stage Countdown Timer (8:30 AM to 4:30 PM) with Start/Pause/Reset controls",
-    "Station Inspector Drawer with 1-click 8:30 AM arrival check-in toggle",
-    "Multi-Open Persistent FAQ Accordion with Expand All / Collapse All Controls",
+    "Apple Design Language Polish Pass (Doppelrand, Frosted Glass, Inset Highlights)",
+    "Advanced Interactive Motion Engine & Spring Physics (Emil Kowalski System)",
+    "Animated Semiconductor Circuit Grid & Floating Ambient Glow in Hero",
+    "Interactive Verdi® Digital Logic Oscilloscope with Real-time Clock Pulses",
+    "Comprehensive 2-Step Registration Flow with 1:1 CAD Workstation Allocation",
+    "Coordinator Admin Portal (/admin) with 50-CAD Seating Floorplan & Stage Timer",
+    "Multi-Open Persistent FAQ Accordion with Expand/Collapse All Controls",
     "Global Glowing Scroll Progress Laser Header (ScrollProgress.tsx)",
-    "Hardware-Accelerated Scroll Reveal Animation Engine (IntersectionObserver)",
-    "Coordinator Authentication Gate with secure credentials & session clearance",
-    "Public Landing & Registration Portal (/) with 100% Attendee-focused Header",
-    "Live Interactive Verdi® Digital Waveform Simulator",
-    "Interactive 5-Stage VLSI EDA Flow Visualizer",
-    "50 Single-Monitor Workstations Lab Guarantee",
     "Single Unified Official Certificate Showcase",
     "Holographic Security Sheen on Digital Boarding Pass Ticket"
   ],
   "verification": {
-    "qa_acceptance_tests": "12/12 PASSED (v8.0)",
+    "qa_acceptance_tests": "13/13 PASSED",
     "npm_build_exit_code": 0,
-    "http_smoke_tests": {
-      "GET /": 200,
-      "GET /admin": 200,
-      "POST /api/register": 200
-    },
     "defects_count": 0
   },
-  "last_updated": "2026-09-01T20:09:30+05:30"
+  "last_updated": "2026-09-01T20:18:20+05:30"
 }

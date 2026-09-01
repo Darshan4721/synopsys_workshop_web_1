@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Monitor, Cpu, CheckCircle2, Server, Users } from 'lucide-react';
+import { Monitor, Cpu, CheckCircle2, Server, Users, ArrowRight } from 'lucide-react';
 
 interface WorkstationGuaranteeProps {
   onOpenRegister: () => void;
@@ -14,7 +14,7 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal-on-scroll">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100/90 text-purple-900 border border-purple-200 text-xs font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full apple-glass-card text-purple-900 border border-purple-200 text-xs font-semibold uppercase tracking-wider">
             <Monitor className="w-3.5 h-3.5 text-purple-700" />
             <span>Infrastructure & Laboratory Guarantee</span>
           </div>
@@ -29,32 +29,30 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
           </p>
         </div>
 
-        {/* Feature Bento Grid (Double-Bezel Architecture) */}
+        {/* Feature Bento Grid (Apple Glass Architecture) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left Column: Real Lab Photo & Overlay */}
+          {/* Left Column: Real Lab Photo in Apple Pro Frame */}
           <div className="lg:col-span-7 reveal-on-scroll delay-150">
-            <div className="double-bezel-card overflow-hidden">
-              <div className="double-bezel-inner p-3 bg-slate-950">
-                <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden group">
-                  <Image
-                    src="/images/vlsi_cad_lab.jpg"
-                    alt="VLSI Research Lab at Sri Shakthi Tech Park with 50 Dedicated Single-Monitor Workstations"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+            <div className="rounded-[2.5rem] p-2 bg-gradient-to-b from-purple-300/40 via-purple-100/20 to-purple-400/30 border border-purple-200/80 shadow-2xl shadow-purple-950/10">
+              <div className="relative aspect-[16/10] w-full rounded-[2.25rem] overflow-hidden group bg-slate-950">
+                <Image
+                  src="/images/vlsi_cad_lab.jpg"
+                  alt="VLSI Research Lab at Sri Shakthi Tech Park with 50 Dedicated Single-Monitor Workstations"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out opacity-95"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
 
-                  {/* Micro-badge overlay */}
-                  <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 flex items-center justify-between">
-                    <div className="px-4 py-2 rounded-xl bg-purple-950/90 backdrop-blur-md border border-purple-400/30 text-white">
-                      <p className="text-[10px] text-purple-300 uppercase tracking-widest font-mono">Location</p>
-                      <p className="text-xs sm:text-sm font-semibold">VLSI Research Lab • Tech Park</p>
-                    </div>
+                {/* Micro-badge overlay */}
+                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 flex items-center justify-between">
+                  <div className="px-4 py-2 rounded-2xl apple-dark-card border border-white/15 text-white">
+                    <p className="text-[10px] text-purple-300 uppercase tracking-widest font-mono font-bold">Location</p>
+                    <p className="text-xs sm:text-sm font-semibold">VLSI Research Lab • Tech Park</p>
+                  </div>
 
-                    <div className="px-4 py-2 rounded-xl bg-emerald-950/90 backdrop-blur-md border border-emerald-400/30 text-emerald-300 text-xs font-semibold flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                      <span>50 Single-Monitor Stations</span>
-                    </div>
+                  <div className="px-4 py-2 rounded-2xl apple-dark-card border border-emerald-500/40 text-emerald-300 text-xs font-semibold flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                    <span>50 Single-Monitor Stations</span>
                   </div>
                 </div>
               </div>
@@ -64,10 +62,10 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
           {/* Right Column: Key Infrastructure Pillars */}
           <div className="lg:col-span-5 space-y-4 reveal-on-scroll delay-225">
             {/* Pillar 1 */}
-            <div className="p-5 rounded-2xl bg-white/90 border border-purple-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="p-5 rounded-3xl apple-glass-card border border-purple-200/80 hover:border-purple-300">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center shrink-0 text-purple-800 font-bold">
-                  <Monitor className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-2xl bg-purple-950 text-white flex items-center justify-center shrink-0 font-bold shadow-md">
+                  <Monitor className="w-5 h-5 text-purple-300" />
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 text-base">1:1 Dedicated Single-Monitor Stations</h4>
@@ -79,10 +77,10 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
             </div>
 
             {/* Pillar 2 */}
-            <div className="p-5 rounded-2xl bg-white/90 border border-purple-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="p-5 rounded-3xl apple-glass-card border border-purple-200/80 hover:border-purple-300">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center shrink-0 text-purple-800 font-bold">
-                  <Server className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-2xl bg-purple-950 text-white flex items-center justify-center shrink-0 font-bold shadow-md">
+                  <Server className="w-5 h-5 text-purple-300" />
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 text-base">Pre-Configured Linux EDA Environment</h4>
@@ -94,10 +92,10 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
             </div>
 
             {/* Pillar 3 */}
-            <div className="p-5 rounded-2xl bg-white/90 border border-purple-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="p-5 rounded-3xl apple-glass-card border border-purple-200/80 hover:border-purple-300">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center shrink-0 text-purple-800 font-bold">
-                  <Users className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-2xl bg-purple-950 text-white flex items-center justify-center shrink-0 font-bold shadow-md">
+                  <Users className="w-5 h-5 text-purple-300" />
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 text-base">Direct Instructor-Led Interaction</h4>
@@ -112,9 +110,10 @@ export default function WorkstationGuarantee({ onOpenRegister }: WorkstationGuar
             <div className="pt-2">
               <button
                 onClick={onOpenRegister}
-                className="w-full py-3.5 rounded-full bg-purple-950 hover:bg-purple-900 text-white text-sm font-semibold shadow-lg shadow-purple-950/20 active:scale-[0.98] transition-all text-center"
+                className="w-full py-4 rounded-full bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-900 hover:from-purple-900 hover:to-indigo-800 text-white text-sm font-semibold shadow-xl shadow-purple-950/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
               >
-                Claim 1 of 50 Workstations (₹2,500)
+                <span>Claim 1 of 50 Workstations (₹2,500)</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>

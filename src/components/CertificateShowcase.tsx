@@ -10,7 +10,7 @@ export default function CertificateShowcase() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal-on-scroll">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100/90 text-purple-900 border border-purple-200 text-xs font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full apple-glass-card text-purple-900 border border-purple-200 text-xs font-semibold uppercase tracking-wider">
             <Award className="w-3.5 h-3.5 text-purple-700" />
             <span>Unified Official Credential</span>
           </div>
@@ -29,28 +29,26 @@ export default function CertificateShowcase() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto">
           {/* Visual Certificate Mockup */}
           <div className="lg:col-span-7 reveal-on-scroll delay-150">
-            <div className="double-bezel-card">
-              <div className="double-bezel-inner p-3 bg-slate-950">
-                <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden group">
-                  <Image
-                    src="/images/certificate_mockup.jpg"
-                    alt="Unified Official Certificate of Participation and Synopsys Front-End VLSI Design Training"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+            <div className="rounded-[2.5rem] p-2 bg-gradient-to-b from-purple-300/40 via-purple-100/20 to-purple-400/30 border border-purple-200/80 shadow-2xl shadow-purple-950/10">
+              <div className="relative aspect-[16/10] w-full rounded-[2.25rem] overflow-hidden group bg-slate-950">
+                <Image
+                  src="/images/certificate_mockup.jpg"
+                  alt="Unified Official Certificate of Participation and Synopsys Front-End VLSI Design Training"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out opacity-95"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
 
-                  {/* Stamp Overlay */}
-                  <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 flex items-center justify-between">
-                    <div className="px-4 py-2 rounded-xl bg-purple-950/90 backdrop-blur-md border border-purple-400/30 text-white">
-                      <p className="text-[10px] text-purple-300 uppercase tracking-widest font-mono">Issued by</p>
-                      <p className="text-xs sm:text-sm font-semibold">Sri Shakthi • Department of ECE (VDT)</p>
-                    </div>
+                {/* Stamp Overlay */}
+                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 flex items-center justify-between">
+                  <div className="px-4 py-2 rounded-2xl apple-dark-card border border-white/15 text-white">
+                    <p className="text-[10px] text-purple-300 uppercase tracking-widest font-mono font-bold">Issued by</p>
+                    <p className="text-xs sm:text-sm font-semibold">Sri Shakthi • Department of ECE (VDT)</p>
+                  </div>
 
-                    <div className="px-3.5 py-1.5 rounded-full bg-amber-500/90 backdrop-blur-md text-slate-950 text-xs font-bold flex items-center gap-1.5 shadow-md">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>Official Endorsement</span>
-                    </div>
+                  <div className="px-3.5 py-1.5 rounded-full bg-amber-500/90 backdrop-blur-md text-slate-950 text-xs font-bold flex items-center gap-1.5 shadow-md">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Official Endorsement</span>
                   </div>
                 </div>
               </div>
@@ -59,10 +57,10 @@ export default function CertificateShowcase() {
 
           {/* Certificate Features & Inclusions */}
           <div className="lg:col-span-5 space-y-4 reveal-on-scroll delay-225">
-            <div className="p-6 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-4">
+            <div className="p-6 sm:p-8 rounded-3xl apple-glass-card border border-purple-200/80 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-purple-800 font-bold">
-                  <ShieldCheck className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-2xl bg-purple-950 text-white flex items-center justify-center font-bold shadow-md">
+                  <ShieldCheck className="w-5 h-5 text-purple-300" />
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900 text-lg">Single Unified Certificate</h3>
@@ -72,21 +70,21 @@ export default function CertificateShowcase() {
 
               <div className="space-y-3 pt-2 text-xs sm:text-sm text-slate-600">
                 <div className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
                   <span>
-                    <strong>Official Endorsement:</strong> Accredited with seals from Sri Shakthi Institute of Engineering and Technology, MeitY Chip to Startup (C2S), and Institution's Innovation Council.
+                    <strong className="text-slate-900">Official Endorsement:</strong> Accredited with seals from Sri Shakthi Institute of Engineering and Technology, MeitY Chip to Startup (C2S), and Institution's Innovation Council.
                   </span>
                 </div>
                 <div className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
                   <span>
-                    <strong>Verifiable Tool Modules:</strong> Explicitly certifies hands-on mastery in Verilog RTL, Synopsys VCS, Verdi, SpyGlass CDC, and Design Compiler.
+                    <strong className="text-slate-900">Verifiable Tool Modules:</strong> Explicitly certifies hands-on mastery in Verilog RTL, Synopsys VCS, Verdi, SpyGlass CDC, and Design Compiler.
                   </span>
                 </div>
                 <div className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
                   <span>
-                    <strong>Physical & Digital Issuance:</strong> Issued immediately at the 4:15 PM valedictory session at the Tech Park venue.
+                    <strong className="text-slate-900">Physical & Digital Issuance:</strong> Issued immediately at the 4:15 PM valedictory session at the Tech Park venue.
                   </span>
                 </div>
               </div>
