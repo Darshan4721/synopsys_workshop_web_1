@@ -1,43 +1,29 @@
-// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v11.0)
+// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v10.0)
 const fs = require('fs');
 const path = require('path');
 
-console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v11.0) ===\n');
+console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v10.0) ===\n');
 
 const checks = [
   {
-    name: 'Meeting Minutes (meeting_015.md)',
-    path: path.join(__dirname, '../company/00_client/meetings/meeting_015.md'),
-    validate: (content) => content.includes('Meeting #015') && content.includes('Android Mobile & Windows PC')
-  },
-  {
-    name: 'Android Mobile Numeric Keypads & 1-Tap Copy (RegistrationModal.tsx)',
-    path: path.join(__dirname, '../src/components/RegistrationModal.tsx'),
-    validate: (content) => content.includes('inputMode="numeric"') && content.includes('copyUpiToClipboard')
-  },
-  {
-    name: 'Windows & Android Touch Optimization in CSS (globals.css)',
+    name: 'Apple Design Glassmorphic Tokens in CSS (globals.css)',
     path: path.join(__dirname, '../src/app/globals.css'),
-    validate: (content) => content.includes('-webkit-tap-highlight-color') && content.includes('touch-action') && content.includes('optimizeLegibility')
+    validate: (content) => content.includes('apple-glass-card') && content.includes('apple-dark-card')
   },
   {
-    name: 'Trinity Unified Master Header (Navbar.tsx)',
-    path: path.join(__dirname, '../src/components/Navbar.tsx'),
-    validate: (content) => 
-      content.includes('activeSection') &&
-      content.includes('navLinks') &&
-      content.includes('SSIET') &&
-      !content.includes('href="/admin"')
-  },
-  {
-    name: 'Hero Component with Apple Spring Floating Badges (Hero.tsx)',
+    name: 'Hero Component Centered with Macro Silicon Die Below (Hero.tsx)',
     path: path.join(__dirname, '../src/components/Hero.tsx'),
-    validate: (content) => content.includes('animate-float-slow') && content.includes('apple-glass-card') && content.includes('Department of ECE (VDT)')
+    validate: (content) => content.includes('Front-End') && content.includes('synopsys_silicon_chip.jpg') && content.includes('Department of ECE (VDT)')
   },
   {
     name: 'Comprehensive Types Contract (types.ts)',
     path: path.join(__dirname, '../src/lib/types.ts'),
     validate: (content) => content.includes('paymentUtr') && content.includes('academicYear') && content.includes('department')
+  },
+  {
+    name: '2-Step Registration & UTR Payment Modal (RegistrationModal.tsx)',
+    path: path.join(__dirname, '../src/components/RegistrationModal.tsx'),
+    validate: (content) => content.includes('handleProceedToPayment') && content.includes('paymentUtr') && content.includes('CAD-STATION')
   },
   {
     name: 'Multi-Open FAQ Accordion with Permanent Visibility (FaqAccordion.tsx)',
@@ -58,6 +44,11 @@ const checks = [
     name: 'Interactive 50 CAD Lab Floorplan, Roster & Stage Timer on Admin Page (src/app/admin/page.tsx)',
     path: path.join(__dirname, '../src/app/admin/page.tsx'),
     validate: (content) => content.includes('50 CAD Lab Grid') && content.includes('Stage Timer') && content.includes('paymentUtr') && content.includes('handleLogin')
+  },
+  {
+    name: 'Navbar Clean: Public Header has ZERO Admin Links (Navbar.tsx)',
+    path: path.join(__dirname, '../src/components/Navbar.tsx'),
+    validate: (content) => !content.includes('href="/admin"') && content.includes('SSIET')
   },
   {
     name: 'Live Interactive Verdi Waveform Simulator (EdaConsoleSimulator.tsx)',

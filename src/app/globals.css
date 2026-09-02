@@ -6,8 +6,8 @@
 
 :root {
   --font-display-serif: 'Instrument Serif', 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
   --synopsys-purple: #7e22ce;
   --synopsys-purple-dark: #3b0764;
   --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -18,12 +18,6 @@ html {
   font-family: var(--font-sans);
   background-color: #ffffff;
   color: #0f172a;
-  /* Windows & Android Font Anti-Aliasing & ClearType Optimization */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
 }
 
 /* Custom Selection */
@@ -42,21 +36,6 @@ html {
 }
 
 /* =========================================================================
-   ANDROID & WINDOWS TOUCH & CLICK OPTIMIZATION
-   ========================================================================= */
-button, a, input, select, textarea {
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-
-/* Ensure minimum touch target on mobile */
-@media (max-width: 640px) {
-  button, .touch-target {
-    min-height: 44px;
-  }
-}
-
-/* =========================================================================
    APPLE PRO GLASSMORPHISM & DOUBLE-BEZEL (DOPPELRAND) ARCHITECTURE
    ========================================================================= */
 .apple-glass-card {
@@ -68,11 +47,10 @@ button, a, input, select, textarea {
   box-shadow: 0 20px 40px -15px rgba(76, 29, 149, 0.06),
               inset 0 1px 1px rgba(255, 255, 255, 0.9);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateZ(0); /* GPU Acceleration */
 }
 
 .apple-glass-card:hover {
-  transform: translateY(-3px) translateZ(0);
+  transform: translateY(-3px);
   box-shadow: 0 28px 50px -15px rgba(126, 34, 206, 0.12),
               inset 0 1px 1px rgba(255, 255, 255, 1);
 }
@@ -86,11 +64,10 @@ button, a, input, select, textarea {
   box-shadow: 0 24px 50px -15px rgba(0, 0, 0, 0.5),
               inset 0 1px 1px rgba(255, 255, 255, 0.12);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateZ(0); /* GPU Acceleration */
 }
 
 .apple-dark-card:hover {
-  transform: translateY(-3px) translateZ(0);
+  transform: translateY(-3px);
   border-color: rgba(168, 85, 247, 0.45);
   box-shadow: 0 30px 60px -15px rgba(126, 34, 206, 0.35),
               inset 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -123,7 +100,7 @@ button, a, input, select, textarea {
    ========================================================================= */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(28px) translateZ(0);
+  transform: translateY(28px);
   filter: blur(4px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
@@ -133,7 +110,7 @@ button, a, input, select, textarea {
 
 .reveal-visible {
   opacity: 1 !important;
-  transform: translateZ(0) !important;
+  transform: none !important;
   filter: none !important;
 }
 
@@ -144,20 +121,20 @@ button, a, input, select, textarea {
 .delay-300 { transition-delay: 300ms; }
 .delay-400 { transition-delay: 400ms; }
 
-/* Floating Keyframes */
+/* Floating Float Keyframes */
 @keyframes apple-float-slow {
-  0%, 100% { transform: translateY(0px) rotate(0deg) translateZ(0); }
-  50% { transform: translateY(-8px) rotate(0.5deg) translateZ(0); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
 }
 
 @keyframes apple-float-reverse {
-  0%, 100% { transform: translateY(0px) rotate(0deg) translateZ(0); }
-  50% { transform: translateY(8px) rotate(-0.5deg) translateZ(0); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(8px) rotate(-0.5deg); }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.3; transform: scale(1) translateZ(0); }
-  50% { opacity: 0.6; transform: scale(1.08) translateZ(0); }
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.08); }
 }
 
 .animate-float-slow {
@@ -172,10 +149,9 @@ button, a, input, select, textarea {
   animation: pulse-glow 5s ease-in-out infinite;
 }
 
-/* Custom Windows / Chrome Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: #faf5ff;
