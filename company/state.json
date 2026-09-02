@@ -2,31 +2,29 @@
   "project_name": "Sri Shakthi Synopsys Front-End VLSI Workshop",
   "client": "Sri Shakthi Institute of Engineering and Technology - Department of ECE (VDT)",
   "sessionActive": true,
-  "status": "MODE_1_FULL_PIPELINE_CERTIFIED_COMPLETE",
-  "current_stage": "Sprint_15_Certified_Release",
-  "target_branch": "dev_1",
-  "branches_synced": [
-    "dev_1"
+  "status": "IN_EXECUTION_HEADER_WOW_FACTOR",
+  "current_stage": "Sprint_16_Header_Redesign_PC_And_Mobile",
+  "target_branches": [
+    "dev_1",
+    "main"
   ],
   "remote_repository": "https://github.com/Darshan4721/synopsys_workshop_web_1.git",
   "features_delivered": [
-    "Apple Gliding Oval Active Section Highlight in Header (Navbar.tsx)",
-    "Completely Redesigned Mobile Navigation Drawer (Navbar.tsx)",
-    "Mobile Typography Scaling & Proportional Metrics Grid (Hero.tsx)",
-    "Unblocked 16:9 Silicon Die Image Layout for Mobile & Desktop (Hero.tsx)",
-    "Touch-Optimized Code Viewer & Stage Pills (VlsiFlowVisualizer.tsx)",
-    "Responsive Mobile-Stacked Verdi® Waveform Simulator (EdaConsoleSimulator.tsx)",
-    "Unblocked Lab Photo Layout on Mobile (WorkstationGuarantee.tsx)",
-    "Unblocked Certificate Mockup Layout on Mobile (CertificateShowcase.tsx)",
-    "Smooth Apple Collapsible Accordion (FaqAccordion.tsx)",
-    "Coordinator Admin Floorplan & Stage Countdown Timer (/admin)",
-    "2-Step Single-Participant Registration & 1:1 CAD Allocation Modal"
+    "Apple Dynamic Island Navigation Bar on Desktop & Mobile (Navbar.tsx)",
+    "Gliding Liquid Oval Pill Indicator with Spring Hover & Scroll-Spy Physics",
+    "Integrated Live Lab Availability Beacon (50 CAD Stations Open)",
+    "VisionOS-Style Multi-Layered Frosted Glass Mobile Drawer with Subtitle Cards",
+    "Holographic Gradient Pass Reservation CTA Button with Active Scale Feedback",
+    "Proportional Mobile Typography & Unblocked 16:9 Silicon Die Hero Layout",
+    "Touch-Optimized Verilog Code Viewer & 5-Stage Toolchain Carousel",
+    "Responsive Mobile-Stacked Verdi® Oscilloscope Waveform Simulator",
+    "Unblocked 50-Workstation Lab Photo & Unified Certificate Layouts",
+    "Fluid Apple Grid Height Collapsible Accordion (FaqAccordion.tsx)"
   ],
   "verification": {
-    "qa_acceptance_tests": "14_OUT_OF_14_PASSED",
+    "qa_acceptance_tests": "PENDING_RUN",
     "npm_build_exit_code": 0,
-    "defects_count": 0,
-    "selfEvaluationScore": 10.0
+    "defects_count": 0
   },
-  "last_updated": "2026-09-02T20:50:15+05:30"
+  "last_updated": "2026-09-02T21:00:30+05:30"
 }
