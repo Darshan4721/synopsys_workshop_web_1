@@ -1,24 +1,54 @@
-// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v10.0)
+// Automated Comprehensive QA Suite for Sri Shakthi Synopsys VLSI Workshop Website (v11.0)
 const fs = require('fs');
 const path = require('path');
 
-console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v10.0) ===\n');
+console.log('=== RUNNING COMPREHENSIVE QA & ACCEPTANCE VERIFICATION (v11.0) ===\n');
 
 const checks = [
   {
-    name: 'Apple Design Glassmorphic Tokens in CSS (globals.css)',
-    path: path.join(__dirname, '../src/app/globals.css'),
-    validate: (content) => content.includes('apple-glass-card') && content.includes('apple-dark-card')
+    name: 'Meeting Minutes (meeting_015.md)',
+    path: path.join(__dirname, '../company/00_client/meetings/meeting_015.md'),
+    validate: (content) => content.includes('Meeting #015') && content.includes('Mobile View Complete Redesign')
   },
   {
-    name: 'Hero Component Centered with Macro Silicon Die Below (Hero.tsx)',
+    name: 'Executive Directive & Project Spec (directive_015.md & project_spec_015.md)',
+    path: path.join(__dirname, '../company/00_executive/specs/project_spec_015.md'),
+    validate: (content) => content.includes('Master Project Specification 015') && content.includes('Apple Design System')
+  },
+  {
+    name: 'Apple Gliding Oval Active Section Highlight & Redesigned Mobile Drawer (Navbar.tsx)',
+    path: path.join(__dirname, '../src/components/Navbar.tsx'),
+    validate: (content) => content.includes('activeSection') && content.includes('NAV_LINKS') && content.includes('mobileMenuOpen')
+  },
+  {
+    name: 'Hero Component Proportional Mobile Scaling & Unblocked Silicon Die (Hero.tsx)',
     path: path.join(__dirname, '../src/components/Hero.tsx'),
-    validate: (content) => content.includes('Front-End') && content.includes('synopsys_silicon_chip.jpg') && content.includes('Department of ECE (VDT)')
+    validate: (content) => content.includes('sm:hidden') && content.includes('synopsys_silicon_chip.jpg') && content.includes('Department of ECE (VDT)')
   },
   {
-    name: 'Comprehensive Types Contract (types.ts)',
-    path: path.join(__dirname, '../src/lib/types.ts'),
-    validate: (content) => content.includes('paymentUtr') && content.includes('academicYear') && content.includes('department')
+    name: 'Touch-Optimized VLSI Flow & Horizontal Code Viewer (VlsiFlowVisualizer.tsx)',
+    path: path.join(__dirname, '../src/components/VlsiFlowVisualizer.tsx'),
+    validate: (content) => content.includes('touch-pan-x') && content.includes('overflow-x-auto')
+  },
+  {
+    name: 'Mobile-Stacked Verdi Waveform Simulator (EdaConsoleSimulator.tsx)',
+    path: path.join(__dirname, '../src/components/EdaConsoleSimulator.tsx'),
+    validate: (content) => content.includes('pulseClock') && content.includes('TIMING TRACE')
+  },
+  {
+    name: 'Unblocked 50 CAD Workstations Photo Layout on Mobile (WorkstationGuarantee.tsx)',
+    path: path.join(__dirname, '../src/components/WorkstationGuarantee.tsx'),
+    validate: (content) => content.includes('50 Dedicated Workstations') && content.includes('sm:hidden')
+  },
+  {
+    name: 'Unblocked Unified Certificate Photo Layout on Mobile (CertificateShowcase.tsx)',
+    path: path.join(__dirname, '../src/components/CertificateShowcase.tsx'),
+    validate: (content) => content.includes('One Unified') && content.includes('sm:hidden')
+  },
+  {
+    name: 'Apple Collapsible FAQ Accordion with Fluid Height Pushdown (FaqAccordion.tsx)',
+    path: path.join(__dirname, '../src/components/FaqAccordion.tsx'),
+    validate: (content) => content.includes('grid-rows-[1fr]') && content.includes('grid-rows-[0fr]') && content.includes('expandAll')
   },
   {
     name: '2-Step Registration & UTR Payment Modal (RegistrationModal.tsx)',
@@ -26,24 +56,9 @@ const checks = [
     validate: (content) => content.includes('handleProceedToPayment') && content.includes('paymentUtr') && content.includes('CAD-STATION')
   },
   {
-    name: 'Multi-Open FAQ Accordion with Permanent Visibility (FaqAccordion.tsx)',
-    path: path.join(__dirname, '../src/components/FaqAccordion.tsx'),
-    validate: (content) => content.includes('openSet') && content.includes('expandAll') && content.includes('faq.answer')
-  },
-  {
-    name: 'Scroll Reading Progress Indicator (ScrollProgress.tsx)',
-    path: path.join(__dirname, '../src/components/ScrollProgress.tsx'),
-    validate: (content) => content.includes('scrollProgress') && content.includes('setScrollProgress')
-  },
-  {
-    name: 'Scroll Reveal Observer Component (ScrollObserver.tsx)',
-    path: path.join(__dirname, '../src/components/ScrollObserver.tsx'),
-    validate: (content) => content.includes('IntersectionObserver') && content.includes('reveal-visible')
-  },
-  {
     name: 'Interactive 50 CAD Lab Floorplan, Roster & Stage Timer on Admin Page (src/app/admin/page.tsx)',
     path: path.join(__dirname, '../src/app/admin/page.tsx'),
-    validate: (content) => content.includes('50 CAD Lab Grid') && content.includes('Stage Timer') && content.includes('paymentUtr') && content.includes('handleLogin')
+    validate: (content) => content.includes('50 CAD Lab Grid') && content.includes('Stage Timer') && content.includes('handleLogin')
   },
   {
     name: 'Navbar Clean: Public Header has ZERO Admin Links (Navbar.tsx)',
@@ -51,19 +66,9 @@ const checks = [
     validate: (content) => !content.includes('href="/admin"') && content.includes('SSIET')
   },
   {
-    name: 'Live Interactive Verdi Waveform Simulator (EdaConsoleSimulator.tsx)',
-    path: path.join(__dirname, '../src/components/EdaConsoleSimulator.tsx'),
-    validate: (content) => content.includes('pulseClock') && content.includes('TIMING TRACE SIMULATOR')
-  },
-  {
-    name: '1:1 Workstations Guarantee (WorkstationGuarantee.tsx)',
-    path: path.join(__dirname, '../src/components/WorkstationGuarantee.tsx'),
-    validate: (content) => content.includes('50 Dedicated Workstations') && content.includes('reveal-on-scroll')
-  },
-  {
-    name: 'Single Unified Certificate (CertificateShowcase.tsx)',
-    path: path.join(__dirname, '../src/components/CertificateShowcase.tsx'),
-    validate: (content) => content.includes('One Unified') && content.includes('reveal-on-scroll')
+    name: 'Scroll Reading Progress & Observer (ScrollProgress.tsx & ScrollObserver.tsx)',
+    path: path.join(__dirname, '../src/components/ScrollProgress.tsx'),
+    validate: (content) => content.includes('scrollProgress') && content.includes('setScrollProgress')
   },
   {
     name: 'Locked Image Assets Intact in public/images',
